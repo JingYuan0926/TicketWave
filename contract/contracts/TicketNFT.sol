@@ -15,7 +15,6 @@ contract TicketNFT is ERC721URIStorage {
     // Store address of owner
     address payable public owner;
 
-
     // Name and symbol for the NFT
     constructor() ERC721("Ticket", "TCKT") {
         owner = payable(msg.sender);

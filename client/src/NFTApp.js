@@ -590,7 +590,7 @@ function App() {
         const ticketNFTContract = new ethers.Contract(ticketNFTAddress, ticketNFTABI, signer);
     
         try {
-            const transaction = await ticketNFTContract.purchaseTicket(userAddress, 'tokenURI', { value: ethers.utils.parseEther("0.1") });
+            const transaction = await ticketNFTContract.purchaseTicket(userAddress, 'ipfs://QmZGCJvLN8gjPrDbsYo5VG8qBmwwj2b9DVSVzbsH5Tbu8j', { value: ethers.utils.parseEther("0.1") });
             await transaction.wait();
             alert('NFT Purchased Successfully!');
         } catch (error) {
