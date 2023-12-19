@@ -6,8 +6,10 @@ async function main() {
     // Getting the contract factory
     const TicketNFT = await hre.ethers.getContractFactory("TicketNFT");
 
+    const maxSupply = 3;
+
     // Deploying the contract
-    const ticketNFT = await TicketNFT.deploy();
+    const ticketNFT = await TicketNFT.deploy(maxSupply);
 
     // Waiting for the deployment to be mined
     await ticketNFT.deployed();
