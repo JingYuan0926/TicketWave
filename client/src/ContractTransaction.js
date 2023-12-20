@@ -1,68 +1,55 @@
+// ContractTransaction.js
 import React, { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
 
-function ContractTransactions({ contractAddress }) {
+const ContractTransaction = ({ contractAddress, ABI }) => {
     const [transactions, setTransactions] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        fetchTransactions();
-    }, [contractAddress]); // Fetch once on component mount
+        const loadTransactions = async () => {
+            // Use a default provider for read-only access
+            const provider = ethers.getDefaultProvider(); // This won't prompt for wallet connection
+            const contract = new ethers.Contract(contractAddress, ABI, provider);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (currentIndex < transactions.length) {
-                setCurrentIndex(currentIndex + 1);
-            } else {
-                // Optionally, you can fetch new transactions here if you expect new ones to come in frequently
-                // fetchTransactions();
+            try {
+                const transactionsCount = await contract.tokenCounter();
+                let transactionsData = [];
+                for (let i = 0; i < transactionsCount; i++) {
+                    const transaction = await contract.transactions(i);
+                    transactionsData.push(transaction);
+                }
+                setTransactions(transactionsData);
+            } catch (error) {
+                console.error("Error fetching transactions:", error);
             }
-        }, 5000);
+        };
 
-        return () => clearInterval(interval);
-    }, [currentIndex, transactions]); // Depend on currentIndex and transactions
-
-    const fetchTransactions = async () => {
-        setIsLoading(true);
-        const url = `https://api-sepolia.etherscan.io/api?module=account&action=txlist&address=${contractAddress}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc`;
-
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.status === '1' && data.message === 'OK') {
-                setTransactions(data.result);
-                setCurrentIndex(1); // Start displaying from the first transaction
-            } else {
-                console.error('Etherscan API error:', data.result);
-            }
-        } catch (error) {
-            console.error('Fetch error:', error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    // Render logic
-    const displayedTransactions = transactions.slice(0, currentIndex);
+        loadTransactions();
+    }, [contractAddress, ABI]);
 
     return (
         <div>
-            <h3>Contract Transactions</h3>
-            {isLoading ? (
-                <p>Loading transactions...</p>
-            ) : displayedTransactions.length > 0 ? (
-                <ul>
-                    {displayedTransactions.map(tx => (
-                        <li key={tx.hash}>
-                            Hash: {tx.hash} | From: {tx.from} | To: {tx.to} | Value: {tx.value}
-                        </li>
+            <h2>Transaction History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Owner</th>
+                        <th>Time</th>
+                        <th>Ticket ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {transactions.map((transaction, index) => (
+                        <tr key={index}>
+                            <td>{transaction.owner}</td>
+                            <td>{new Date(transaction.time * 1000).toLocaleString()}</td>
+                            <td>{transaction.ticketId.toString()}</td>
+                        </tr>
                     ))}
-                </ul>
-            ) : (
-                <p>No transactions found.</p>
-            )}
+                </tbody>
+            </table>
         </div>
     );
-}
+};
 
-export default ContractTransactions;
+export default ContractTransaction;

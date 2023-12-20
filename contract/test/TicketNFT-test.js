@@ -12,7 +12,7 @@ describe("TicketNFT", function () {
     beforeEach(async function () {
         TicketNFT = await ethers.getContractFactory("TicketNFT");
         [owner, addr1, addr2, ...addrs] = await ethers.getSigners();
-        ticketNFT = await TicketNFT.deploy();
+        ticketNFT = await TicketNFT.deploy(3);
     });
 
     describe("Deployment", function () {

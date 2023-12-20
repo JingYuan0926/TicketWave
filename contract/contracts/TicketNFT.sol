@@ -16,6 +16,15 @@ contract TicketNFT is ERC721URIStorage {
     address payable public owner;
     // Maxiumum number of tickets that can be minted
     uint256 public maxSupply;
+    // Hold ticket info
+    struct TicketInfo {
+        address owner;
+        uint256 time;
+        uint256 ticketId;
+    }
+
+    // Create an array to store all ticket transactions
+    TicketInfo[] public transactions;
 
     // Name and symbol for the NFT
     constructor(uint256 _maxSupply) ERC721("FirstTicket", "FTCKT") {
@@ -50,6 +59,13 @@ contract TicketNFT is ERC721URIStorage {
         // Transfer ticket price to the owner of the contract
         owner.transfer(ticketPrice);
 
+        // Record the transaction
+        transactions.push(TicketInfo({
+            owner: recipient,
+            time: block.timestamp,
+            ticketId: newTicketId
+        }));
+
         emit TicketPurchased(newTicketId, msg.sender);
 
         return newTicketId;
@@ -57,6 +73,7 @@ contract TicketNFT is ERC721URIStorage {
 
     // This event is emitted when a ticket is purchased, and includes the ticket ID and purchaser address 
     event TicketPurchased(uint256 indexed ticketId, address indexed purchaser);
+    
     function getTicketInfo(uint256 ticketId) public view returns (string memory) {
     // This will revert if the ticket does not exist
      // Check if ticket exists. It will revert if not.
