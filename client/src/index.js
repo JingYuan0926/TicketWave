@@ -4,7 +4,7 @@ import './index.css';
 import NFTApp from './NFTApp';
 import ContractTransaction from './ContractTransaction';
 
-const contractAddress = '0x408b8c461EAc9733FfC97791226A02C55BAE8Dea'; // Replace with your contract address
+const contractAddress = '0x9Bd9beAA32D6E8195946Bd41044182EcD5715Ed2'; // Replace with your contract address
 const ABI = [
   {
     "inputs": [
@@ -414,16 +414,15 @@ const ABI = [
         "internalType": "string",
         "name": "tokenURI",
         "type": "string"
-      }
-    ],
-    "name": "purchaseTicket",
-    "outputs": [
+      },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "quantity",
         "type": "uint256"
       }
     ],
+    "name": "purchaseTickets",
+    "outputs": [],
     "stateMutability": "payable",
     "type": "function"
   },
@@ -632,6 +631,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <NFTApp contractAddress={contractAddress} ABI={ABI}/>
-    <ContractTransaction contractAddress={contractAddress} ABI={ABI} />
+
   </React.StrictMode>
 );

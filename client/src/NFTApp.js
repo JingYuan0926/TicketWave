@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import { ethers} from "ethers";
 
 function App({contractAddress, ABI}) {
 
@@ -7,7 +7,9 @@ function App({contractAddress, ABI}) {
     const [userAddress, setUserAddress] = useState('');
     const [ticketsSold, setTicketsSold] = useState(0);
     const [maxSupply, setMaxSupply] = useState(0);
-    const [isLoading, setIsLoading] = useState(true); // Add a loading state
+    const [isLoading, setIsLoading] = useState(true);
+    const [ticketQuantity, setTicketQuantity] = useState(1); 
+    const ticketPrice = 0.1;
 
     const fetchContractData = async () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -37,23 +39,34 @@ function App({contractAddress, ABI}) {
             alert('MetaMask is not installed. Please install it to use this app.');
         }
     };
+    
+    const incrementTicketQuantity = () => {
+        setTicketQuantity(qty => qty < 6 ? qty + 1 : qty);
+    };
+
+    const decrementTicketQuantity = () => {
+        setTicketQuantity(qty => qty > 1 ? qty - 1 : qty);
+    };
+
     const purchaseTicket = async () => {
         if (!window.ethereum) {
             return alert('Please install MetaMask.');
         }
-
+    
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const ticketNFTContract = new ethers.Contract(contractAddress, ABI, signer);
-
+    
         try {
-            const transaction = await ticketNFTContract.purchaseTicket(userAddress, "ipfs://bafkreic2b3etcbr6dobejpkythckln7ro4se6pj24xmbiwxqfoh2ftf3pi", { value: ethers.utils.parseEther("0.1") });
+            const totalCost = ethers.utils.parseEther((ticketPrice * ticketQuantity).toString());
+            // Include the quantity in the function call
+            const transaction = await ticketNFTContract.purchaseTickets(userAddress, "ipfs://bafkreic2b3etcbr6dobejpkythckln7ro4se6pj24xmbiwxqfoh2ftf3pi", ticketQuantity, { value: totalCost });
             await transaction.wait();
-            alert('NFT Purchased Successfully!');
+            alert(`${ticketQuantity} NFT(s) Purchased Successfully!`);
             fetchContractData(); // Refresh the tickets sold count after purchase
         } catch (error) {
             console.error(error);
-            alert('There was an error purchasing the ticket.');
+            alert('There was an error purchasing the ticket(s).');
         }
     };
 
@@ -65,7 +78,12 @@ function App({contractAddress, ABI}) {
             {userAddress ? (
                 <>
                     <p>Wallet Address: {userAddress}</p>
-                    <button onClick={purchaseTicket}>Purchase Ticket</button>
+                    <div>
+                        <button onClick={decrementTicketQuantity}>-</button>
+                        <span>{ticketQuantity}</span>
+                        <button onClick={incrementTicketQuantity}>+</button>
+                    </div>
+                    <button onClick={purchaseTicket}>Purchase {ticketQuantity} Ticket(s)</button>
                     <p>Total Ticket Launched: {maxSupply}</p>
                     {ticketsLeft > 0 ? (
                         <p>Tickets Left: {ticketsLeft}</p>
@@ -79,6 +97,5 @@ function App({contractAddress, ABI}) {
         </div>
     );
 }
-
 
 export default App;

@@ -46,31 +46,22 @@ contract TicketNFT is ERC721URIStorage {
     }
 
     // Allow anyone to purchase a ticket as long as they send enough ETH
-    function purchaseTicket(address recipient, string memory tokenURI) external payable returns (uint256) {
-        require(msg.value >= ticketPrice, "Not enough ETH sent; check ticket price!");
-
-        uint256 newTicketId = createTicket(recipient, tokenURI);
-
-        // Refund any excess payment
-        if (msg.value > ticketPrice) {
-            payable(msg.sender).transfer(msg.value - ticketPrice);
+    function purchaseTickets(address recipient, string memory tokenURI, uint256 quantity) external payable {
+        require(quantity > 0 && quantity <= 6, "Purchase 1-6 tickets");
+        require(msg.value >= (ticketPrice * quantity), "Insufficient ETH");
+        require(tokenCounter + quantity <= maxSupply, "Max supply exceeded");
+    for (uint256 i = 0; i < quantity; i++) {
+            uint256 newTicketId = createTicket(recipient, tokenURI);
+            transactions.push(TicketInfo(recipient, block.timestamp, newTicketId));
+            emit TicketPurchased(newTicketId, msg.sender);
         }
 
-        // Transfer ticket price to the owner of the contract
-        owner.transfer(ticketPrice);
-
-        // Record the transaction
-        transactions.push(TicketInfo({
-            owner: recipient,
-            time: block.timestamp,
-            ticketId: newTicketId
-        }));
-
-        emit TicketPurchased(newTicketId, msg.sender);
-
-        return newTicketId;
+        uint256 refund = msg.value - (ticketPrice * quantity);
+        if (refund > 0) {
+            payable(msg.sender).transfer(refund);
+        }
     }
-
+    
     // This event is emitted when a ticket is purchased, and includes the ticket ID and purchaser address 
     event TicketPurchased(uint256 indexed ticketId, address indexed purchaser);
     
