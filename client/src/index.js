@@ -4,7 +4,7 @@ import './index.css';
 import NFTApp from './NFTApp';
 import ContractTransaction from './ContractTransaction';
 
-const contractAddress = '0x4B1eacD1FAD89C0DB36aed5E44136b41De73d333'; // Replace with your contract address
+const contractAddress = '0x408b8c461EAc9733FfC97791226A02C55BAE8Dea'; // Replace with your contract address
 const ABI = [
   {
     "inputs": [
