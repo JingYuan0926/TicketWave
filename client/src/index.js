@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import NFTApp from './NFTApp';
 import ContractTransaction from './ContractTransaction';
+import showNft from './showNft';
 
 const contractAddress = '0x9Bd9beAA32D6E8195946Bd41044182EcD5715Ed2'; // Replace with your contract address
 const ABI = [
@@ -632,5 +633,6 @@ root.render(
   <React.StrictMode>
     <NFTApp contractAddress={contractAddress} ABI={ABI}/>
     <ContractTransaction/>
+    <showNft/>
   </React.StrictMode>
 );
