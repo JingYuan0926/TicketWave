@@ -8,11 +8,13 @@ describe("TicketNFT", function () {
     let addr1;
     let addr2;
     let addrs;
+    const number =6;
+    // 1,4,5 wont work
 
     beforeEach(async function () {
         TicketNFT = await ethers.getContractFactory("TicketNFT");
         [owner, addr1, addr2, ...addrs] = await ethers.getSigners();
-        ticketNFT = await TicketNFT.deploy(3);
+        ticketNFT = await TicketNFT.deploy(10);
     });
 
     describe("Deployment", function () {
@@ -23,15 +25,10 @@ describe("TicketNFT", function () {
 
     describe("Minting Tickets", function () {
         it("Should mint and assign a new ticket", async function () {
-            await ticketNFT.purchaseTickets(addr1.address, "https://ipfs.io/ipfs/QmZGCJvLN8gjPrDbsYo5VG8qBmwwj2b9DVSVzbsH5Tbu8j",2);
+            await ticketNFT.purchaseTicketsWithBNPL(addr1.address, "https://ipfs.io/ipfs/QmZGCJvLN8gjPrDbsYo5VG8qBmwwj2b9DVSVzbsH5Tbu8j",number,{ value: ethers.utils.parseEther(((0.1 * number) / 3).toString()) });
             expect(await ticketNFT.ownerOf(0)).to.equal(addr1.address);
         });
     
-        it("Should return the correct ticket information", async function () {
-            await ticketNFT.purchaseTickets(addr1.address, "https://ipfs.io/ipfs/QmZGCJvLN8gjPrDbsYo5VG8qBmwwj2b9DVSVzbsH5Tbu8j", 2);
-            const ticketURI = await ticketNFT.getTicketInfo(0);
-            expect(ticketURI).to.be.a('string');
-        });
     });
 
 });

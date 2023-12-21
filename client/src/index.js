@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import NFTApp from './NFTApp';
 import ContractTransaction from './ContractTransaction';
-import showNft from './showNft';
+import showNFT from './showNFT';
 
-const contractAddress = '0x9Bd9beAA32D6E8195946Bd41044182EcD5715Ed2'; // Replace with your contract address
-const ABI = [
+const contractAddress = '0xc4A5A733A2A5D5db8b26E226d65E269a6f0c742b'; // Replace with your contract address
+const ABI =  [
   {
     "inputs": [
       {
@@ -213,6 +213,25 @@ const ABI = [
         "type": "uint256"
       },
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "MonthlyPaymentMade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "ticketId",
+        "type": "uint256"
+      },
+      {
         "indexed": true,
         "internalType": "address",
         "name": "purchaser",
@@ -347,6 +366,19 @@ const ABI = [
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "ticketId",
+        "type": "uint256"
+      }
+    ],
+    "name": "makeMonthlyPayment",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "maxSupply",
     "outputs": [
@@ -407,6 +439,40 @@ const ABI = [
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "paymentPlans",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "totalPaid",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "monthlyPayment",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "monthsPaid",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bool",
+        "name": "fullyPaid",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "recipient",
         "type": "address"
@@ -423,6 +489,29 @@ const ABI = [
       }
     ],
     "name": "purchaseTickets",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "tokenURI",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      }
+    ],
+    "name": "purchaseTicketsWithBNPL",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
@@ -576,35 +665,6 @@ const ABI = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "transactions",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "time",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "ticketId",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "from",
         "type": "address"
@@ -632,7 +692,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <NFTApp contractAddress={contractAddress} ABI={ABI}/>
-    <ContractTransaction/>
-    <showNft/>
+
   </React.StrictMode>
 );

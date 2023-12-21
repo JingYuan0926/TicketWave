@@ -17,14 +17,20 @@ contract TicketNFT is ERC721URIStorage {
     // Maxiumum number of tickets that can be minted
     uint256 public maxSupply;
     // Hold ticket info
-    struct TicketInfo {
-        address owner;
-        uint256 time;
-        uint256 ticketId;
+    
+    // For buy now pay later
+     struct PaymentPlan {
+        uint256 totalPaid;
+        uint256 monthlyPayment;
+        uint8 monthsPaid;
+        bool fullyPaid;
     }
 
-    // Create an array to store all ticket transactions
-    TicketInfo[] public transactions;
+    mapping(uint256 => PaymentPlan) public paymentPlans;
+
+    // This event is emitted when a ticket is purchased, and includes the ticket ID and purchaser address 
+    event TicketPurchased(uint256 indexed ticketId, address indexed purchaser);
+    event MonthlyPaymentMade(uint256 indexed ticketId, uint256 amount);
 
     // Name and symbol for the NFT
     constructor(uint256 _maxSupply) ERC721("FirstTicket", "FTCKT") {
@@ -52,7 +58,6 @@ contract TicketNFT is ERC721URIStorage {
         require(tokenCounter + quantity <= maxSupply, "Max supply exceeded");
     for (uint256 i = 0; i < quantity; i++) {
             uint256 newTicketId = createTicket(recipient, tokenURI);
-            transactions.push(TicketInfo(recipient, block.timestamp, newTicketId));
             emit TicketPurchased(newTicketId, msg.sender);
         }
 
@@ -62,9 +67,51 @@ contract TicketNFT is ERC721URIStorage {
         }
     }
     
-    // This event is emitted when a ticket is purchased, and includes the ticket ID and purchaser address 
-    event TicketPurchased(uint256 indexed ticketId, address indexed purchaser);
-    
+    function purchaseTicketsWithBNPL(address recipient, string memory tokenURI, uint256 quantity) external payable {
+        require(quantity > 0 && quantity <= 6, "Purchase 1-6 tickets");
+        require(msg.value >= ((ticketPrice * quantity) / 4), "Insufficient ETH for first installment");
+        require(tokenCounter + quantity <= maxSupply, "Max supply exceeded");
+
+        for (uint256 i = 0; i < quantity; i++) {
+            uint256 newTicketId = createTicket(recipient, tokenURI);
+            paymentPlans[newTicketId] = PaymentPlan({
+                totalPaid: msg.value / quantity,
+                monthlyPayment: (ticketPrice / 4),
+                monthsPaid: 1,
+                fullyPaid: false
+            });
+            emit TicketPurchased(newTicketId, msg.sender);
+        }
+
+        uint256 refund = msg.value - ((ticketPrice * quantity) / 4);
+        if (refund > 0) {
+            payable(msg.sender).transfer(refund);
+        }
+    }
+
+    function makeMonthlyPayment(uint256 ticketId) external payable {
+        PaymentPlan storage plan = paymentPlans[ticketId];
+        require(!plan.fullyPaid, "Ticket already fully paid");
+        require(plan.monthsPaid < 4, "All installments already paid");
+        require(msg.value >= plan.monthlyPayment, "Insufficient payment amount");
+
+        plan.totalPaid += msg.value;
+        plan.monthsPaid++;
+
+        if (plan.totalPaid >= ticketPrice || plan.monthsPaid == 4) {
+            plan.fullyPaid = true;
+        }
+
+        emit MonthlyPaymentMade(ticketId, msg.value);
+
+        // Refund overpayment
+        uint256 overpayment = plan.totalPaid > ticketPrice ? plan.totalPaid - ticketPrice : 0;
+        if (overpayment > 0) {
+            payable(msg.sender).transfer(overpayment);
+            plan.totalPaid = ticketPrice;
+        }
+    }
+
     function getTicketInfo(uint256 ticketId) public view returns (string memory) {
     // This will revert if the ticket does not exist
      // Check if ticket exists. It will revert if not.
