@@ -54,7 +54,7 @@ const ContractTransactions = () => {
 
       <table className="table table-striped" style={tableStyle}>
         <thead>
-          <tr>
+          <tr>  
           <th style={thTdStyle}>No.</th>
             <th style={thTdStyle}>Transaction Hash</th>
             <th style={thTdStyle}>Accounts</th>
