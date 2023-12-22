@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import NFTApp from './NFTApp';
 import ContractTransaction from './ContractTransaction';
-import showNFT from './showNFT';
+
 
 const contractAddress = '0xc4A5A733A2A5D5db8b26E226d65E269a6f0c742b'; // Replace with your contract address
 const ABI =  [
