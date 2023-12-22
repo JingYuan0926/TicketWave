@@ -1,17 +1,25 @@
+// scripts/deploy.js
+
 const hre = require("hardhat");
 
 async function main() {
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+    // Getting the contract factory
+    const TicketNFT = await hre.ethers.getContractFactory("TicketNFT");
 
-  await greeter.deployed();
+    const maxSupply = 10;
 
-  console.log("Greeter deployed to:", greeter.address);
+    // Deploying the contract
+    const ticketNFT = await TicketNFT.deploy(maxSupply);
+
+    // Waiting for the deployment to be mined
+    await ticketNFT.deployed();
+
+    console.log("TicketNFT deployed to:", ticketNFT.address);
 }
 
 main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+    .then(() => process.exit(0))
+    .catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
