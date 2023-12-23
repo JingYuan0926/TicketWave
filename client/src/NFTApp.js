@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from "ethers";
+import { Link } from 'react-router-dom';
 
 function App({ contractAddress, ABI }) {
     const [userAddress, setUserAddress] = useState('');
@@ -11,7 +12,6 @@ function App({ contractAddress, ABI }) {
     const [isBNPL, setIsBNPL] = useState(false);
     const ticketPrice = 0.1; // ETH, adjust as necessary
     const [totalCostReact, setTotalCost] = useState(ticketPrice);
-
     const ticketsLeft = maxSupply - ticketsSold;
 
     useEffect(() => {
@@ -19,6 +19,8 @@ function App({ contractAddress, ABI }) {
             fetchContractData();
         }
     }, [userAddress]);
+
+
 
     const fetchContractData = async () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -30,7 +32,7 @@ function App({ contractAddress, ABI }) {
             setTicketsSold(tokenCounter.toNumber());
             setMaxSupply(maxSupplyFromContract.toNumber());
             setIsLoading(false);
-            
+
             // Fetch user's BNPL ticket IDs and other necessary details here
             // setTicketIds(fetchedTicketIds);
         } catch (error) {
@@ -53,9 +55,9 @@ function App({ contractAddress, ABI }) {
 
     const incrementTicketQuantity = () => {
         setTicketQuantity(qty => qty < 6 ? qty + 1 : qty);
-        setTotalCost(price => price < (ticketPrice *6) ? +(price + ticketPrice).toFixed(2) : price);
+        setTotalCost(price => price < (ticketPrice * 6) ? +(price + ticketPrice).toFixed(2) : price);
     };
-    
+
     const decrementTicketQuantity = () => {
         setTicketQuantity(qty => qty > 1 ? qty - 1 : qty);
         setTotalCost(price => price > ticketPrice ? +(price - ticketPrice).toFixed(2) : price);
@@ -100,6 +102,7 @@ function App({ contractAddress, ABI }) {
         }
     };
 
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     /*
     const makeMonthlyPayment = async (ticketId, amountToPay) => {
         if (!window.ethereum) {
@@ -177,6 +180,9 @@ function App({ contractAddress, ABI }) {
                     ) : (
                         <p>Sold Out</p>
                     )}
+                    <Link to="./showNFT">
+                        <button >Show NFT</button>
+                    </Link>
                 </>
             ) : (
                 <p>Loading, connect wallet first</p>

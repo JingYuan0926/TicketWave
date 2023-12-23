@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
-import moment from 'moment';
 
 const tableStyle = {
   borderCollapse: 'collapse',
@@ -19,7 +18,7 @@ const formatDate = (unixTimestamp) => {
   // Create a Date object from the milliseconds
   const dateObject = new Date(milliseconds);
   // Format the date as desired (adjust format as needed)
-  const formattedDate = dateObject.toLocaleString(); // Example format: "12/31/2022, 10:30:45 AM"
+  const formattedDate = dateObject.toLocaleString(); // September 19, 2019, 10:19:46 AM
   return formattedDate;
 };
 
@@ -35,7 +34,7 @@ const ContractTransactions = () => {
       setError(null);
 
       try {
-        const response = await fetch('/tomo_csv.csv');
+        const response = await fetch('/tomo_csv.csv'); // Fetch the CSV file from our server
         const text = await response.text();
 
         Papa.parse(text, {

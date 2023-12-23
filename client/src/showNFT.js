@@ -1,12 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NFTApp from './NFTApp'; 
-import ShowNFT from './showNFT'; 
+import React, { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
 
-
-const contractAddress = '0xB6DEec55eb4d55830fBB18F9400c67B7F537628b'; // Replace with your contract address
 const ABI =  [
   {
     "inputs": [
@@ -688,16 +682,78 @@ const ABI =  [
   }
 ];
 
+const ShowNFT = ({ userAddress, provider }) => {
+    const [nfts, setNfts] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<NFTApp contractAddress={contractAddress} ABI={ABI} />} />
-      <Route path="/showNFT" element={<ShowNFT />} />
-    </Routes>
-  </BrowserRouter>
-</React.StrictMode>
+    const KNOWN_NFT_CONTRACTS = ['0xB6DEec55eb4d55830fBB18F9400c67B7F537628b']; // Add known NFT contract addresses here
+    const ERC721_ABI = [ABI]; // Add ERC-721 ABI here
 
-);
+    useEffect(() => {
+        if (!userAddress) return;
+        setLoading(true);
+        fetchNFTs(userAddress).then(nfts => {
+            setNfts(nfts);
+            setLoading(false);
+        });
+    }, [userAddress]);
+
+    const fetchMetadata = async (tokenURI) => {
+      try {
+        // Validate if the tokenURI is a proper URL
+        if (!tokenURI.startsWith('http://') && !tokenURI.startsWith('https://') && !tokenURI.startsWith('ipfs://')) {
+            throw new Error('Invalid URL format');
+        }
+  
+        // Convert IPFS URLs to HTTP URLs if necessary
+        const metadataUrl = tokenURI.startsWith('ipfs://')
+            ? `https://ipfs.io/ipfs/${tokenURI.substring(7)}`
+            : tokenURI;
+  
+        const response = await fetch(metadataUrl);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch metadata: ${response.statusText}`);
+        }
+        const metadata = await response.json();
+        return metadata;
+    } catch (error) {
+        console.error('Error fetching NFT metadata:', error);
+        return null; // Return null or an empty object to indicate the failure
+    }
+  };
+
+    const fetchNFTs = async (address) => {
+        let ownedNfts = [];
+        for (const contractAddress of KNOWN_NFT_CONTRACTS) {
+            const nftContract = new ethers.Contract(contractAddress, ERC721_ABI, provider);
+            const balance = await nftContract.balanceOf(address);
+
+            for (let i = 0; i < balance; i++) {
+                const tokenId = await nftContract.tokenOfOwnerByIndex(address, i);
+                const tokenURI = await nftContract.tokenURI(tokenId);
+                const metadata = await fetchMetadata(tokenURI);
+                ownedNfts.push({ tokenId, metadata });
+            }
+        }
+        return ownedNfts;
+    };
+
+    if (loading) return <div>Loading NFTs...</div>;
+    if (!nfts.length) return <div>No NFTs found in the wallet.</div>;
+
+    return (
+        <div>
+            <h2>NFTs in Wallet</h2>
+            {nfts.map((nft, index) => (
+                <div key={index}>
+                    <p>Token ID: {nft.tokenId}</p>
+                    <p>Name: {nft.metadata?.name}</p>
+                    <p>Description: {nft.metadata?.description}</p>
+                    {nft.metadata?.image && <img src={nft.metadata.image} alt={nft.metadata.name} />}
+                </div>
+            ))}
+        </div>
+    );
+};
+
+export default ShowNFT;
