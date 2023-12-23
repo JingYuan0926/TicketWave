@@ -11,7 +11,7 @@ contract TicketNFT is ERC721URIStorage {
     // Track number of tickets minted
     uint256 public tokenCounter;
      // Set ticket price
-    uint256 public ticketPrice = 0.1 ether; 
+    uint256 public ticketPrice = 0.01 ether; 
     // Store address of owner
     address payable public owner;
     // Maxiumum number of tickets that can be minted
