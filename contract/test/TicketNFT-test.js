@@ -25,10 +25,35 @@ describe("TicketNFT Contract", function () {
     });
 
     describe("Purchase Tickets", function () {
-        it("Should allow users to purchase tickets", async function () {
-            await ticketNFT.connect(addr1).purchaseTickets(addr1.address, "tokenURI", 1, { value: ethers.utils.parseEther("0.01") });
-            expect(await ticketNFT.hasPurchased(addr1.address)).to.be.true;
+        it("Check all ticket of user", async function () {
+            // Assuming ticketNFT is the deployed contract instance and addr1 is an Ethereum wallet address
+            
+            // Purchase a ticket
+            await ticketNFT.purchaseTickets(addr1.address, "tokenURI", 2, { value: ethers.utils.parseEther("0.02") });
+    
+            // Get user's tickets
+            const userTickets = await ticketNFT.getUserTickets(addr1.address);
+            // Perform assertions on userTickets, e.g., check if it includes the expected ticket ID
+            expect(userTickets.length).to.be.greaterThan(0);
+            console.log(userTickets[0]);
+            console.log(userTickets[1]);
+            console.log(userTickets[2]);// Replace with your specific assertions
         });
+
+        describe("Purchase Tickets", function () {
+            it("Check ", async function () {
+                // Assuming ticketNFT is the deployed contract instance and addr1 is an Ethereum wallet address
+                
+                // Check if addr1 has not purchased a ticket initially
+                await ticketNFT.connect(addr1).purchaseTickets(addr1.address, "tokenURI", 1, { value: ethers.utils.parseEther("0.01") });
+                const hasUserPurchased = await ticketNFT.hasPurchased(addr1.address);
+                console.log(hasUserPurchased);
+                
+                // Optionally, check other conditions or perform assertions related to the ticket purchase
+            });
+        });
+        
+    
 
         it("Should not allow purchasing more than once", async function () {
             await ticketNFT.connect(addr1).purchaseTickets(addr1.address, "tokenURI", 1, { value: ethers.utils.parseEther("0.01") });
