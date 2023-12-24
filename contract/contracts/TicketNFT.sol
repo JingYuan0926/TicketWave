@@ -38,8 +38,10 @@ contract TicketNFT is ERC721URIStorage {
         maxSupply = _maxSupply;
     }
 
-    function getUserTickets(address user) public view returns (uint256[] memory) {
-    return userTickets[user];
+    function getUserTickets(
+        address user
+    ) public view returns (uint256[] memory) {
+        return userTickets[user];
     }
 
     function areAllTicketsFullyPaid(address user) public view returns (bool) {
@@ -130,31 +132,43 @@ contract TicketNFT is ERC721URIStorage {
         }
     }
 
-    function makeMonthlyPayment(uint256 ticketId) external payable {
-        PaymentPlan storage plan = paymentPlans[ticketId];
-        require(!plan.fullyPaid, "Ticket already fully paid");
-        require(plan.monthsPaid < 4, "All installments already paid");
+    function makeBatchMonthlyPayments(
+        uint256[] calldata ticketIds
+    ) external payable {
+        uint256 totalPaymentRequired = 0;
+
+        // Calculate total payment required and validate each ticket
+        for (uint i = 0; i < ticketIds.length; i++) {
+            PaymentPlan storage plan = paymentPlans[ticketIds[i]];
+            require(!plan.fullyPaid, "Ticket already fully paid");
+            require(plan.monthsPaid < 4, "All installments already paid");
+            totalPaymentRequired += plan.monthlyPayment;
+        }
+
         require(
-            msg.value >= plan.monthlyPayment,
+            msg.value >= totalPaymentRequired,
             "Insufficient payment amount"
         );
 
-        plan.totalPaid += msg.value;
-        plan.monthsPaid++;
+        // Process payments for each ticket
+        for (uint i = 0; i < ticketIds.length; i++) {
+            PaymentPlan storage plan = paymentPlans[ticketIds[i]];
+            plan.totalPaid += plan.monthlyPayment;
+            plan.monthsPaid++;
 
-        if (plan.totalPaid >= ticketPrice || plan.monthsPaid == 4) {
-            plan.fullyPaid = true;
+            if (plan.totalPaid >= ticketPrice || plan.monthsPaid == 4) {
+                plan.fullyPaid = true;
+            }
+
+            emit MonthlyPaymentMade(ticketIds[i], plan.monthlyPayment);
         }
 
-        emit MonthlyPaymentMade(ticketId, msg.value);
-
-        // Refund overpayment
-        uint256 overpayment = plan.totalPaid > ticketPrice
-            ? plan.totalPaid - ticketPrice
+        // Handle refund of any overpayment
+        uint256 overpayment = msg.value > totalPaymentRequired
+            ? msg.value - totalPaymentRequired
             : 0;
         if (overpayment > 0) {
             payable(msg.sender).transfer(overpayment);
-            plan.totalPaid = ticketPrice;
         }
     }
 
