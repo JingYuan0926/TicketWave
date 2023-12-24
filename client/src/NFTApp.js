@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { ethers } from "ethers";
-import { Link } from 'react-router-dom';
+
 
 function App({ contractAddress, ABI }) {
     const [userAddress, setUserAddress] = useState('');
@@ -13,12 +13,8 @@ function App({ contractAddress, ABI }) {
     const ticketPrice = 0.1; // ETH, adjust as necessary
     const [totalCostReact, setTotalCost] = useState(ticketPrice);
     const ticketsLeft = maxSupply - ticketsSold;
-
-    useEffect(() => {
-        if (userAddress) {
-            fetchContractData();
-        }
-    }, [userAddress]);
+    
+   
 
 
 
@@ -45,6 +41,9 @@ function App({ contractAddress, ABI }) {
             try {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 setUserAddress(accounts[0]);
+
+                
+                
             } catch (error) {
                 console.error(error);
             }
@@ -52,6 +51,15 @@ function App({ contractAddress, ABI }) {
             alert('MetaMask is not installed. Please install it to use this app.');
         }
     };
+
+    
+
+    useEffect(() => {
+        if (userAddress) {
+            fetchContractData();
+            
+        }
+    }, [userAddress]);
 
     const incrementTicketQuantity = () => {
         setTicketQuantity(qty => qty < 6 ? qty + 1 : qty);
@@ -103,6 +111,8 @@ function App({ contractAddress, ABI }) {
     };
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    
     /*
     const makeMonthlyPayment = async (ticketId, amountToPay) => {
         if (!window.ethereum) {
@@ -180,9 +190,11 @@ function App({ contractAddress, ABI }) {
                     ) : (
                         <p>Sold Out</p>
                     )}
-                    <Link to="./showNFT">
+                     
+                    
                         <button >Show NFT</button>
-                    </Link>
+                        
+                    
                 </>
             ) : (
                 <p>Loading, connect wallet first</p>

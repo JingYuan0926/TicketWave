@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NFTApp from './NFTApp'; 
-import ShowNFT from './showNFT'; 
+
 
 
 const contractAddress = '0xB6DEec55eb4d55830fBB18F9400c67B7F537628b'; // Replace with your contract address
@@ -692,12 +691,7 @@ const ABI =  [
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<NFTApp contractAddress={contractAddress} ABI={ABI} />} />
-      <Route path="/showNFT" element={<ShowNFT />} />
-    </Routes>
-  </BrowserRouter>
+  <NFTApp contractAddress={contractAddress} ABI={ABI} />
 </React.StrictMode>
 
 );
