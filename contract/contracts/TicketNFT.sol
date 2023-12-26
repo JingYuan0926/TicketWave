@@ -32,7 +32,7 @@ contract TicketNFT is ERC721URIStorage {
     event MonthlyPaymentMade(uint256 indexed ticketId, uint256 amount);
 
     // Name and symbol for the NFT
-    constructor(uint256 _maxSupply, uint256  _ticketPrice) ERC721("FirstTicket", "FTCKT") {
+    constructor(uint256 _maxSupply, uint256 _ticketPrice) ERC721("FirstTicket", "FTCKT") {
         owner = payable(msg.sender);
         tokenCounter = 0;
         maxSupply = _maxSupply;

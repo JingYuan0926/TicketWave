@@ -8,7 +8,7 @@ async function main() {
 
     const maxSupply = 30000;
 
-    const ticketPrice = hre.ethers.utils.parseEther("0.0001");
+    const ticketPrice = hre.ethers.utils.parseEther("0.01");
 
     // Deploying the contract
     const ticketNFT = await TicketNFT.deploy(maxSupply,ticketPrice);
