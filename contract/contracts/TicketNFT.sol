@@ -9,7 +9,7 @@ contract TicketNFT is ERC721URIStorage {
     // Track number of tickets minted
     uint256 public tokenCounter;
     // Set ticket price
-    uint256 public ticketPrice = 0.01 ether;
+    uint256 public ticketPrice; 
     // Store address of owner
     address payable public owner;
     // Maxiumum number of tickets that can be minted
@@ -32,10 +32,11 @@ contract TicketNFT is ERC721URIStorage {
     event MonthlyPaymentMade(uint256 indexed ticketId, uint256 amount);
 
     // Name and symbol for the NFT
-    constructor(uint256 _maxSupply) ERC721("FirstTicket", "FTCKT") {
+    constructor(uint256 _maxSupply, uint256  _ticketPrice) ERC721("FirstTicket", "FTCKT") {
         owner = payable(msg.sender);
         tokenCounter = 0;
         maxSupply = _maxSupply;
+        ticketPrice = _ticketPrice;
     }
 
     function getUserTickets(
