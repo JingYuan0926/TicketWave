@@ -77,8 +77,8 @@ npm start
 
 # Check NFT in Wallet
 
-- View your NFTs on OpenSea (Testnets): [https://testnets.opensea.io/yourwalletaddress](https://testnets.opensea.io/yourwalletaddress)
-- MetaMask NFT autodetect (Mainnet): [MetaMask Support](https://support.metamask.io/hc/en-us/articles/360058238591-NFT-tokens-in-your-MetaMask-wallet)
+- View your NFTs on OpenSea (Testnets) after buying on TicketWave: [https://testnets.opensea.io/yourwalletaddress](https://testnets.opensea.io/yourwalletaddress)
+- Please note that MetaMask NFT autodetect functionality is exclusively available on the Mainnet. Hence, buyers are required to import NFTs manually. However, all purchased NFTs are accessible via the OpenSea link provided above: [MetaMask Support](https://support.metamask.io/hc/en-us/articles/360058238591-NFT-tokens-in-your-MetaMask-wallet)
 
 # Pitch Deck and Demo Video
 
