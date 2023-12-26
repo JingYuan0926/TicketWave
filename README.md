@@ -45,37 +45,4 @@ Execute the following commands:
 cd contract
 npm install --save-dev hardhat
 ```
-For localhost setup:
-```
-npx hardhat node
-npx hardhat run scripts/deploy.js --network localhost
-```
-For deployment of smart contract on test networks:
-
-- TomoChain:
-- ```
-npx hardhat run scripts/deploy.js --network tomochain
-```
-- Etherum Sepolia:
-```
-npx hardhat run scripts/deploy.js --network sepolia
-```
-# How to Run Code for Front End
-
-Navigate to the client directory and install dependencies:
-```
-cd client
-npm install
-npm i -S ethers@5.7.2
-npm start
-```
-# Check NFT in Wallet
-
-- View your NFTs on OpenSea (Testnets): [https://testnets.opensea.io/yourwalletaddress](https://testnets.opensea.io/yourwalletaddress)
-- MetaMask NFT autodetect (Mainnet): [MetaMask Support](https://support.metamask.io/hc/en-us/articles/360058238591-NFT-tokens-in-your-MetaMask-wallet)
-
-# Pitch Deck and Demo Video
-
-- Pitch Deck: [View on Canva](https://www.canva.com/design/DAFxOOCgBK4/bsrtjD-eRy7GxXg5Yli1eA/edit)
-- Demo Video: [Watch on YouTube](https://youtu.be/8hQWND7RDU0)
 
