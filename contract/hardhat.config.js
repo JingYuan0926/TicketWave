@@ -18,7 +18,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
+  solidity: "0.8.20",
   paths: {
     artifacts: './src/artifacts',
   },
@@ -29,6 +29,11 @@ module.exports = {
     sepolia:{
       url:process.env.SEPOLIA_URL,
       accounts:[process.env.PRIVATE_KEY],
+    },
+    tomochain:{
+      url: "https://rpc.testnet.tomochain.com", 
+      chainId: 89, 
+      accounts: [process.env.TOMO_CHAIN_PRIVATE_KEY ], 
     }
   }
 };
