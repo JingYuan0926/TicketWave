@@ -84,4 +84,4 @@ npm start
 
 - Pitch Deck: [View on Canva](https://www.canva.com/design/DAFxOOCgBK4/bsrtjD-eRy7GxXg5Yli1eA/edit)
 - Demo Video: [Watch on YouTube](https://youtu.be/8hQWND7RDU0)
-
+- Live Website: [View on Vercel](https://ticket-wave-sable.vercel.app/)
