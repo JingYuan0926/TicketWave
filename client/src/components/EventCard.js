@@ -47,7 +47,6 @@ export default function EventCard() {
                         >
                             <MenuItem onClick={handleClose}>Concert</MenuItem>
                             <MenuItem onClick={handleClose}>Music</MenuItem>
-                            <MenuItem onClick={handleClose}>Theatre</MenuItem>
                         </Menu>
                         
                         {/* Button 2, 3 is normal button */}
@@ -56,7 +55,7 @@ export default function EventCard() {
                         </Button>
 
                         <Button variant="outlined" sx={{ borderRadius: "20px", width: "120px", height: "40px", fontSize: "13px" }}>
-                            Western Music
+                            Jpop
                         </Button>
                     </Grid>
                 </Grid>
