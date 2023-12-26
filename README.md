@@ -8,7 +8,7 @@ TicketWave integrates with the Viction blockchain, a system aligned with our pla
 
 A comparative analysis highlights the stark differences in transaction speed and cost between Ethereum and Viction. For instance, processing a full payment for six tickets on Ethereum takes about 10 seconds and incurs a gas fee of approximately $10 USD. In contrast, the same transaction on Viction takes only 1 second with a minimal fee of $1 USD. The disparity becomes even more pronounced with our 'Buy Now Pay Later' option: Ethereum transactions take 20 seconds and cost $50 in gas fees, whereas Viction completes them in just 2 seconds for a mere $10. This efficiency scales significantly for larger volumes, such as 10,000 tickets, illustrating Viction's superior speed and lower costs. Such efficiency not only enhances user experience but also makes Viction an ideal blockchain solution for TicketWave's high-volume transactions.
 
-# Novelty - How unique is the application? Does this use case exsist currently?
+# Novelty - How unique is the application? 
 
 While TicketWave incorporates several features common in contemporary blockchain-based ticketing platforms, such as anti-fraud mechanisms, NFT-based ticketing to prevent scalping, and a transparent resale market, our application distinguishes itself in several notable ways:
 
