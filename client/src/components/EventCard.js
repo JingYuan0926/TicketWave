@@ -33,7 +33,7 @@ export default function EventCard() {
                         <Button variant="outlined" 
                         onClick={handleClick}
                         sx={{ borderRadius: "20px", marginRight: "30px", width: "140px", height: "40px", fontSize: "13px" }}>
-                            Button 1
+                            All
                             <IconButton size="small" sx={{ marginLeft: 1 }}>
                                 <ArrowDropDownIcon />
                             </IconButton>
@@ -45,18 +45,18 @@ export default function EventCard() {
                             onClose={handleClose}
                             
                         >
-                            <MenuItem onClick={handleClose}>Option 1</MenuItem>
-                            <MenuItem onClick={handleClose}>Option 2</MenuItem>
-                            <MenuItem onClick={handleClose}>Option 3</MenuItem>
+                            <MenuItem onClick={handleClose}>Concert</MenuItem>
+                            <MenuItem onClick={handleClose}>Music</MenuItem>
+                            <MenuItem onClick={handleClose}>Theatre</MenuItem>
                         </Menu>
                         
                         {/* Button 2, 3 is normal button */}
                         <Button variant="outlined" sx={{ borderRadius: "20px", marginRight: "30px", width: "120px", height: "40px", fontSize: "13px" }}>
-                            Button 2
+                            Kpop
                         </Button>
 
                         <Button variant="outlined" sx={{ borderRadius: "20px", width: "120px", height: "40px", fontSize: "13px" }}>
-                            Button 3
+                            Western Music
                         </Button>
                     </Grid>
                 </Grid>
