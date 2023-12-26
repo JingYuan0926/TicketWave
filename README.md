@@ -44,7 +44,7 @@ Run these code:
 2. npm install --save-dev hardhat
 3. For localhost: npx hardhat node4
 4. a.Deploy smart contract on localhost
-5. 
+
     npx hardhat run scripts/deploy.js --network localhost
    
    b. Deploy smart contract on sepolia
