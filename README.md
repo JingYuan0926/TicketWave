@@ -41,28 +41,34 @@ However, it's noteworthy that certain sections of the website are currently unde
 # How to Run Code for Smart Contract
 
 Execute the following commands:
+```
 cd contract
 npm install --save-dev hardhat
-
+```
 For localhost setup:
+```
 npx hardhat node
 npx hardhat run scripts/deploy.js --network localhost
-
+```
 For deployment of smart contract on test networks:
 
 - TomoChain:
+- ```
 npx hardhat run scripts/deploy.js --network tomochain
+```
 - Etherum Sepolia:
+```
 npx hardhat run scripts/deploy.js --network sepolia
-
+```
 # How to Run Code for Front End
 
 Navigate to the client directory and install dependencies:
+```
 cd client
 npm install
 npm i -S ethers@5.7.2
 npm start
-
+```
 # Check NFT in Wallet
 
 - View your NFTs on OpenSea (Testnets): [https://testnets.opensea.io/yourwalletaddress](https://testnets.opensea.io/yourwalletaddress)
