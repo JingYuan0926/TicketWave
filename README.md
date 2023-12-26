@@ -41,28 +41,27 @@ However, it's noteworthy that certain sections of the website are currently unde
 # How to Run Code for Smart Contract
 
 Execute the following commands:
-1. cd contract
-2. npm install --save-dev hardhat
-3. a. For localhost setup:
-    npx hardhat node
-   
-    npx hardhat run scripts/deploy.js --network localhost
-   
-   b. For deployment on Etherum networks:
-   
-   npx hardhat run scripts/deploy.js --network sepolia
-   
-   c. Deploy smart contract on Viction networks:
-   
-   npx hardhat run scripts/deploy.js --network tomochain
+cd contract
+npm install --save-dev hardhat
+
+For localhost setup:
+npx hardhat node
+npx hardhat run scripts/deploy.js --network localhost
+
+For deployment of smart contract on test networks:
+
+- TomoChain:
+npx hardhat run scripts/deploy.js --network tomochain
+- Etherum Sepolia:
+npx hardhat run scripts/deploy.js --network sepolia
 
 # How to Run Code for Front End
 
 Navigate to the client directory and install dependencies:
-1. cd client
-2. npm install
-3. install npm i -S ethers@5.7.2
-4. npm start
+cd client
+npm install
+npm i -S ethers@5.7.2
+npm start
 
 # Check NFT in Wallet
 
