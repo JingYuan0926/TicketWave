@@ -43,7 +43,7 @@ Run these code:
 1. cd contract
 2. npm install --save-dev hardhat
 3. For localhost: npx hardhat node4
-4. a.Deploy smart contract on localhost
+4. a. Deploy smart contract on localhost
 
     npx hardhat run scripts/deploy.js --network localhost
    
@@ -63,5 +63,11 @@ Run these code:
 
 # Check NFT in wallet
 Use opensea to see the NFT image https://testnets.opensea.io/yourwalletaddress
+
 Autodetect is also only on mainnet https://support.metamask.io/hc/en-us/articles/360058238591-NFT-tokens-in-your-MetaMask-wallet
+
+# Pitch Deck and Demo Video
+https://www.canva.com/design/DAFxOOCgBK4/bsrtjD-eRy7GxXg5Yli1eA/edit
+
+https://youtu.be/8hQWND7RDU0
 
