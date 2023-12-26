@@ -33,41 +33,44 @@ However, it's noteworthy that certain sections of the website are currently unde
 7. Secure Ticketing with Encrypted QR Codes: Experience unparalleled security with each ticket's encrypted QR code, ensuring scam-proof and high-security entry. Even in the unlikely event of interception, our two-layer security and multi-factor authentication mean that only legitimate ticket holders gain access.
 8. Flexible Entry Methods: Choose your preferred entry method: traditional ticket download with ID verification, or a swift digital experience using our web app's QR code display. Whether you opt for physical proof or digital ease, we've got your entry covered.
 
-# Prerequisite for running the code
-1. Download GIT, https://git-scm.com/downloads
-2. Download Visual Studio Code, https://code.visualstudio.com/
-3. Download the source code of TicketWave in cmd, git clone https://github.com/JingYuan0926/TicketWave.git 
+# Prerequisite for Running the Code
+1. Download GIT: [https://git-scm.com/downloads](https://git-scm.com/downloads)
+2. Download Visual Studio Code: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+3. Download the source code of TicketWave in cmd: git clone https://github.com/JingYuan0926/TicketWave.git
 
-# How to run code for smart contract
-Run these code:
+# How to Run Code for Smart Contract
+
+Execute the following commands:
 1. cd contract
 2. npm install --save-dev hardhat
-3. For localhost: npx hardhat node4
-4. a. Deploy smart contract on localhost
-
+3. a. For localhost setup:
+    npx hardhat node
+   
     npx hardhat run scripts/deploy.js --network localhost
    
-   b. Deploy smart contract on sepolia
+   b. For deployment on Etherum networks:
    
    npx hardhat run scripts/deploy.js --network sepolia
    
-   c. Deploy smart contract on tomochain
+   c. Deploy smart contract on Viction networks:
    
    npx hardhat run scripts/deploy.js --network tomochain
 
-# How to run code for front end
+# How to Run Code for Front End
+
+Navigate to the client directory and install dependencies:
 1. cd client
 2. npm install
 3. install npm i -S ethers@5.7.2
 4. npm start
 
-# Check NFT in wallet
-Use opensea to see the NFT image https://testnets.opensea.io/yourwalletaddress
+# Check NFT in Wallet
 
-Autodetect is also only on mainnet https://support.metamask.io/hc/en-us/articles/360058238591-NFT-tokens-in-your-MetaMask-wallet
+- View your NFTs on OpenSea (Testnets): [https://testnets.opensea.io/yourwalletaddress](https://testnets.opensea.io/yourwalletaddress)
+- MetaMask NFT autodetect (Mainnet): [MetaMask Support](https://support.metamask.io/hc/en-us/articles/360058238591-NFT-tokens-in-your-MetaMask-wallet)
 
 # Pitch Deck and Demo Video
-https://www.canva.com/design/DAFxOOCgBK4/bsrtjD-eRy7GxXg5Yli1eA/edit
 
-https://youtu.be/8hQWND7RDU0
+- Pitch Deck: [View on Canva](https://www.canva.com/design/DAFxOOCgBK4/bsrtjD-eRy7GxXg5Yli1eA/edit)
+- Demo Video: [Watch on YouTube](https://youtu.be/8hQWND7RDU0)
 
