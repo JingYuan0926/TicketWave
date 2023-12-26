@@ -59,7 +59,8 @@ For deployment of smart contract on test networks:
 npx hardhat run scripts/deploy.js --network tomochain
 ```
 
-- Etherum Sepolia:
+- Etherum Testnet:
+  
 ```
 npx hardhat run scripts/deploy.js --network sepolia
 ```
