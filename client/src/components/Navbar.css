@@ -1,0 +1,15 @@
+.header {
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: background-color 0.3s ease-in; /* Add transition for a smoother effect */
+    overflow: hidden;
+    background-color: transparent
+}
+
+.header-scrolled {
+    background-color: rgba(0, 0, 0); /* Set the scrolled background color */
+}

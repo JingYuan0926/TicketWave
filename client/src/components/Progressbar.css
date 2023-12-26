@@ -1,0 +1,40 @@
+.segmented-progress-bar {
+    display: flex;
+    height: 15px; /* Adjust the height as needed */
+    background-color: #F8C7D8;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%; /* Increase the width of the progress bar */
+    margin: auto; /* Center the progress bar horizontally */
+  }
+  
+  .segment {
+    flex-grow: 1;
+    margin: 1px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+  }
+  
+  .fill {
+    height: 100%;
+    transition: width 0.5s ease;
+  }
+  
+  .filled {
+    width: 100%;
+  } 
+  
+  .segment {
+    flex-grow: 1;
+    position: relative; /* For positioning the divider */
+  }
+  
+  .divider {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px; /* Divider thickness */
+    background-color: #ffffff; /* Divider color */
+  }

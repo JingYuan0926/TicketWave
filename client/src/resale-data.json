@@ -1,0 +1,67 @@
+[
+
+    {
+      "id": 1,
+      "img": "resale_image/tic1.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.012,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "img": "resale_image/tic2.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.01,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "img": "resale_image/tic3.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.01,
+      "quantity": 2
+    },
+    {
+      "id": 4,
+      "img": "resale_image/tic4.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.01,
+      "quantity": 2
+    },
+    {
+      "id": 5,
+      "img": "resale_image/tic5.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.01,
+      "quantity": 2
+    },
+    {
+      "id": 6,
+      "img": "resale_image/tic6.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.01,
+      "quantity": 2
+    },
+    {
+      "id": 7,
+      "img": "resale_image/tic7.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.01,
+      "quantity": 2
+    },
+    {
+      "id": 8,
+      "img": "resale_image/tic8.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.01,
+      "quantity": 2
+    },
+    {
+      "id": 9,
+      "img": "resale_image/tic9.jpg",
+      "title": "TWICE - Ready To Be",
+      "price": 0.01,
+      "quantity": 2
+    }
+  ]
+  

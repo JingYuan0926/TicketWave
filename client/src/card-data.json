@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1,
+        "title": "TWICE",
+        "des": "Ready To Be",
+        "img": "card_image/twice.png"
+    },
+    {
+        "id": 2,
+        "title": "Ed Sheeran",
+        "des": "The +–=÷× Tour",
+        "img": "card_image/ed_con.jpg"
+        
+    },
+    {
+        "id": 3,
+        "title": "Taylor Swift",
+        "des": "The Eras Tour",
+        "img": "card_image/tay_con.jpg"
+        
+    },
+    {
+        "id": 4,
+        "title": "Bazzi",
+        "des": "The Infinite Dream Tour",
+        "img": "card_image/baz_con.jpg"
+    },
+    {
+        "id": 5,
+        "title": "Lauv",
+        "des": "I Met You When I Was 18",
+        "img": "card_image/lauv_con.jpg"
+    },
+    {
+        "id": 6,
+        "title": "Coldplay",
+        "des": "MUSIC of the SPHERES",
+        "img": "card_image/coldplay.png"
+    }
+]
