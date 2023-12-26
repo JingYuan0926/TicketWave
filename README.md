@@ -34,8 +34,8 @@ However, it's noteworthy that certain sections of the website are currently unde
 8. Flexible Entry Methods: Choose your preferred entry method: traditional ticket download with ID verification, or a swift digital experience using our web app's QR code display. Whether you opt for physical proof or digital ease, we've got your entry covered.
 
 # Prerequisite for running the code
-1. Download GIT, (https://git-scm.com/downloads)
-2. Download Visual Studio Code, (https://code.visualstudio.com/)
+1. Download GIT, https://git-scm.com/downloads
+2. Download Visual Studio Code, https://code.visualstudio.com/
 3. Download the source code of TicketWave in cmd, git clone https://github.com/JingYuan0926/TicketWave.git 
 
 # How to run code for smart contract
@@ -44,10 +44,15 @@ Run these code:
 2. npm install --save-dev hardhat
 3. For localhost: npx hardhat node4
 4. a.Deploy smart contract on localhost
+5. 
     npx hardhat run scripts/deploy.js --network localhost
+   
    b. Deploy smart contract on sepolia
+   
    npx hardhat run scripts/deploy.js --network sepolia
+   
    c. Deploy smart contract on tomochain
+   
    npx hardhat run scripts/deploy.js --network tomochain
 
 # How to run code for front end
@@ -57,6 +62,6 @@ Run these code:
 4. npm start
 
 # Check NFT in wallet
-Use opensea to see the NFT image (https://testnets.opensea.io/yourwalletaddress)
-Autodetect is also only on mainnet (https://support.metamask.io/hc/en-us/articles/360058238591-NFT-tokens-in-your-MetaMask-wallet)
+Use opensea to see the NFT image https://testnets.opensea.io/yourwalletaddress
+Autodetect is also only on mainnet https://support.metamask.io/hc/en-us/articles/360058238591-NFT-tokens-in-your-MetaMask-wallet
 
