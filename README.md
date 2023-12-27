@@ -77,6 +77,7 @@ npm i -S ethers@5.7.2
 npm start
 ```
 
+
 # Check NFT in Wallet
 
 - View your NFTs on OpenSea (Testnets) after buying on TicketWave: [https://testnets.opensea.io/yourwalletaddress](https://testnets.opensea.io/yourwalletaddress)
@@ -84,6 +85,6 @@ npm start
 
 # Pitch Deck and Demo Video
 
-- Pitch Deck: [View on Canva](https://www.canva.com/design/DAF4J1uJMI8/16FpZy36wTDk0MSQdr2nWA/edit)
+- Pitch Deck: [View on Canva](https://www.canva.com/design/DAF4KEuW1dw/IHklI2AvfJA-F3-Ct8xokA/edit?utm_content=DAF4KEuW1dw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - Demo Video: [Watch on YouTube](https://youtu.be/8hQWND7RDU0)
 - Live Website: [View on Vercel](https://ticket-wave-sable.vercel.app/)
