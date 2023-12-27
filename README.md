@@ -53,6 +53,12 @@ npx hardhat run scripts/deploy.js --network localhost
 ```
 
 For deployment of smart contract on test networks:
+- Viction Testnet:
+
+```
+npx hardhat run scripts/deploy.js --network viction
+```
+
 - TomoChain Testnet:
 
 ```
