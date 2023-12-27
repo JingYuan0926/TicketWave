@@ -53,7 +53,7 @@ function CustomTabPanel(props: CustomTabPanelProps) {
   // };
 
   const [ticketQuantity, setTicketQuantity] = React.useState(0); // Single quantity state
-  const ticketPrice = 0.01; // Assuming a single price for simplicity
+  const ticketPrice =  0.01;// Assuming a single price for simplicity
 
   const handleQuantityChange = (quantity: number) => {
     setTicketQuantity(Math.min(Math.max(quantity, 0), 6)); // Ensure the quantity is between 0 and 6
@@ -115,11 +115,7 @@ function CustomTabPanel(props: CustomTabPanelProps) {
 
           const paymentPlan = await contract.paymentPlans(ticketId);
 
-          // Assertions to verify BNPL details
-          console.log(`Total Paid: ${ethers.utils.formatEther(paymentPlan.totalPaid)} ETH`);
-          console.log(`Monthly Payment: ${ethers.utils.formatEther(paymentPlan.monthlyPayment)} ETH`);
-          console.log(`Months Paid: ${paymentPlan.monthsPaid}`);
-          console.log(`Fully Paid: ${paymentPlan.fullyPaid}`);
+          // Assertions to verify BNPL detail
 
           if (page == false) {
             navigate('/progress');
@@ -133,6 +129,7 @@ function CustomTabPanel(props: CustomTabPanelProps) {
       }
       // If user has not purchased, continue with the normal flow
     } catch (error) {
+      alert('Ensure you are connected to Tomochain Testnet and have sufficient funds in your wallet at MetaMask before pressing connet wallet.');
       console.error("Error fetching contract data:", error);
     }
   };
@@ -188,8 +185,17 @@ function CustomTabPanel(props: CustomTabPanelProps) {
         );
 
       }
+      const startTime = Date.now();
+    
 
-      await transaction.wait();
+      await transaction.wait(); // waiting for the transaction to be mined
+
+      const endTime = Date.now();
+     
+
+      const transactionTime = (endTime - startTime) / 1000;
+    
+
       setPage(true);
       isPaying(false);
 
@@ -412,7 +418,7 @@ export default function BasicTabs() {
     Papa.parse(TransactionFile, {
       header: true,
       download: true,
-      complete: (result) => {
+      complete: (result: any) => {
         setTransactions(result.data as Transaction[]);
       },
     });
@@ -456,7 +462,7 @@ export default function BasicTabs() {
             label={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', fontSize: '14px' }}>Resale </div>}
             {...a11yProps(4)}
           />
-          
+
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0} contentType="pricing">

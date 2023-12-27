@@ -1,4 +1,4 @@
-export const contractAddress = '0x6E85749D5A8793EDCE657C9f0906C67d145C82F1'; // Replace with your contract address
+export const contractAddress = '0x6Cbe4516C82ddE0B85D26De4F0E8625cB19bb3dd'; // Replace with your contract address
 
 //0x29233f78D58F7Afb9e463413553268d7d6C9d38F Full
 //0x570306Bda8D0fc0C37A0B6585E75E517e879C445
