@@ -71,6 +71,8 @@ Navigate to the client directory and install dependencies:
 ```
 cd client
 npm install
+npm install react react-dom
+npm install papaparse
 npm i -S ethers@5.7.2
 npm start
 ```
