@@ -37,6 +37,9 @@ However, it's noteworthy that certain sections of the website are currently unde
 1. Download GIT: [https://git-scm.com/downloads](https://git-scm.com/downloads)
 2. Download Visual Studio Code: [https://code.visualstudio.com/](https://code.visualstudio.com/)
 3. Download the source code of TicketWave in cmd: git clone https://github.com/JingYuan0926/TicketWave.git
+4. Download MetaMask  [https://metamask.io/download/](https://metamask.io/download/)
+5. Add Tomochain Testnet into Meta Mask with New RPC URL: https://rpc.testnet.tomochain.com, ChainID: 89, Symbol: VIC, Nickname: Viction Testnet, Block Explorer URL: https://testnet.tomoscan.io
+6. More details about the connection to TomoChain can be found here [https://docs.viction.xyz/general/how-to-connect-to-viction-network/metamask](https://docs.viction.xyz/general/how-to-connect-to-viction-network/metamask)
 
 # How to Run Code for Smart Contract
 
