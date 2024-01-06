@@ -6,7 +6,7 @@ TicketWave is an user centric platform that revolutionizes the concert ticketing
 
 TicketWave integrates with the Viction blockchain, a system aligned with our platform's core values of transparency and efficiency. Known for its low transaction fees, Viction is an optimal choice for platforms that handle a high volume of transactions, like ticketing services. TicketWave takes advantage of Viction's unique features to offer a fraud-resistant and scalper-proof system. Our platform includes innovative functions such as 'Buy Now Pay Later' and secure ticket resale, all powered by smart contracts written in Solidity. These contracts are deployable on Viction and other EVM-compatible blockchains, ensuring wide compatibility and flexibility.
 
-A comparative analysis highlights the stark differences in transaction speed and cost between Ethereum and Viction. For instance, processing a full payment for six tickets on Ethereum takes about 10 seconds and incurs a gas fee of approximately $10 USD. In contrast, the same transaction on Viction takes only 1 second with a minimal fee of $1 USD. The disparity becomes even more pronounced with our 'Buy Now Pay Later' option: Ethereum transactions take 20 seconds and cost $50 in gas fees, whereas Viction completes them in just 2 seconds for a mere $10. This efficiency scales significantly for larger volumes, such as 10,000 tickets, illustrating Viction's superior speed and lower costs. Such efficiency not only enhances user experience but also makes Viction an ideal blockchain solution for TicketWave's high-volume transactions.
+A comparative analysis highlights the stark differences in transaction speed and cost between Ethereum and Viction. For instance, processing a full payment for six tickets on Ethereum takes about 21.39 seconds and incurs a gas fee of approximately $30.13 USD. In contrast, the same transaction on Viction takes only 1.207 second with a minimal fee of $0.000364 USD. The disparity becomes even more pronounced with our 'Buy Now Pay Later' option: Ethereum transactions take 36.708 seconds and cost $46.59 USD in gas fees, whereas Viction completes them in just 4.722 seconds for a mere $0.000400 USD. This efficiency scales significantly for larger volumes, such as 10,000 tickets, illustrating Viction's superior speed and lower costs. Such efficiency not only enhances user experience but also makes Viction an ideal blockchain solution for TicketWave's high-volume transactions.
 
 # Novelty - How unique is the application? 
 
@@ -37,6 +37,9 @@ However, it's noteworthy that certain sections of the website are currently unde
 1. Download GIT: [https://git-scm.com/downloads](https://git-scm.com/downloads)
 2. Download Visual Studio Code: [https://code.visualstudio.com/](https://code.visualstudio.com/)
 3. Download the source code of TicketWave in cmd: git clone https://github.com/JingYuan0926/TicketWave.git
+4. Download MetaMask  [https://metamask.io/download/](https://metamask.io/download/)
+5. Add Tomochain Testnet into Meta Mask with New RPC URL: https://rpc.testnet.tomochain.com, ChainID: 89, Symbol: VIC, Nickname: Viction Testnet, Block Explorer URL: https://testnet.tomoscan.io
+6. More details about the connection to TomoChain can be found here [https://docs.viction.xyz/general/how-to-connect-to-viction-network/metamask](https://docs.viction.xyz/general/how-to-connect-to-viction-network/metamask)
 
 # How to Run Code for Smart Contract
 
@@ -71,9 +74,12 @@ Navigate to the client directory and install dependencies:
 ```
 cd client
 npm install
+npm install react react-dom
+npm install papaparse
 npm i -S ethers@5.7.2
 npm start
 ```
+
 
 # Check NFT in Wallet
 
@@ -82,6 +88,6 @@ npm start
 
 # Pitch Deck and Demo Video
 
-- Pitch Deck: [View on Canva](https://www.canva.com/design/DAFxOOCgBK4/bsrtjD-eRy7GxXg5Yli1eA/edit)
+- Pitch Deck: [View on Canva](https://www.canva.com/design/DAF4KEuW1dw/IHklI2AvfJA-F3-Ct8xokA/edit?utm_content=DAF4KEuW1dw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - Demo Video: [Watch on YouTube](https://youtu.be/8hQWND7RDU0)
 - Live Website: [View on Vercel](https://ticket-wave-sable.vercel.app/)
