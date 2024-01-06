@@ -1,7 +1,7 @@
-export const contractAddress = '0x6Cbe4516C82ddE0B85D26De4F0E8625cB19bb3dd'; // Replace with your contract address
+export const contractAddress = '0x5039e2bF006967F8049933c7DF6c7Ca0b49AeBeB'; // Replace with your contract address
 
 //0x29233f78D58F7Afb9e463413553268d7d6C9d38F Full
-//0x570306Bda8D0fc0C37A0B6585E75E517e879C445
+//0x570306Bda8D0fc0C37A0B6585E75E517e879C445 
 
 export const ABI = [
   {

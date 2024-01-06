@@ -129,7 +129,7 @@ function CustomTabPanel(props: CustomTabPanelProps) {
       }
       // If user has not purchased, continue with the normal flow
     } catch (error) {
-      alert('Ensure you are connected to Tomochain Testnet and have sufficient funds in your wallet at MetaMask before pressing connet wallet.');
+      alert('Ensure you are connected to Viction Testnet and have sufficient funds in your wallet at MetaMask before pressing connet wallet.');
       console.error("Error fetching contract data:", error);
     }
   };
@@ -186,7 +186,7 @@ function CustomTabPanel(props: CustomTabPanelProps) {
 
       }
       const startTime = Date.now();
-    
+   
 
       await transaction.wait(); // waiting for the transaction to be mined
 
@@ -194,7 +194,7 @@ function CustomTabPanel(props: CustomTabPanelProps) {
      
 
       const transactionTime = (endTime - startTime) / 1000;
-    
+      
 
       setPage(true);
       isPaying(false);

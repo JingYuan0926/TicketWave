@@ -30,10 +30,10 @@ module.exports = {
       url:process.env.SEPOLIA_URL,
       accounts:[process.env.PRIVATE_KEY],
     },
-    tomochain:{
-      url: "https://rpc.testnet.tomochain.com", 
+    viction:{
+      url: "https://rpc-testnet.viction.xyz", 
       chainId: 89, 
-      accounts: [process.env.TOMO_CHAIN_PRIVATE_KEY ], 
+      accounts: [process.env.VICTION_TESTNET_PRIVATE_KEY], 
     }
   }
 };
