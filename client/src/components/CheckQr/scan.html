@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner from Clipboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
+</head>
+<body>
+
+    <div id="paste-area" contenteditable="true" style="border: 1px solid #ccc; width: 200px; height: 200px;">
+        Paste QR Code here
+    </div>
+    <p id="qr-read-data">Read Data: </p>
+    <p id="qr-decrypted-data">Decrypted Data: </p>
+
+    <script>
+        function rsaDecrypt(encryptedNumber, d, n) {
+            let result = 1;
+            for (let i = 0; i < d; i++) {
+                result = (result * encryptedNumber) % n;
+            }
+            return result;
+        }
+
+        function convertGibberishToNumbers(gibberish) {
+            return gibberish.split('').map(char => char.charCodeAt(0) - 65);
+        }
+
+        document.getElementById('paste-area').addEventListener('paste', function (event) {
+            event.preventDefault();
+            if (event.clipboardData && event.clipboardData.items) {
+                const items = event.clipboardData.items;
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i].type.indexOf("image") !== -1) {
+                        const blob = items[i].getAsFile();
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const imageDataUrl = e.target.result;
+                            const image = new Image();
+                            image.onload = function () {
+                                const canvas = document.createElement('canvas');
+                                const ctx = canvas.getContext('2d');
+                                canvas.width = image.width;
+                                canvas.height = image.height;
+                                ctx.drawImage(image, 0, 0);
+                                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                                const code = jsQR(imageData.data, imageData.width, imageData.height);
+                                if (code) {
+                                    const scannedData = code.data;
+                                    document.getElementById('qr-read-data').textContent = 'Read Data: ' + scannedData;
+                                    
+                                    const modulus = 91;
+                                    const privateKey = 31;
+
+                                    const reconstructedGibberish = scannedData.split('').map(char => String.fromCharCode(char.charCodeAt(0) + 65333)).join('');
+                                    // Convert gibberish to numbers before decryption
+                                    const encryptedNumbers = convertGibberishToNumbers(reconstructedGibberish);
+                                    // Decrypt the encrypted numbers
+                                    const decryptedNumbers = encryptedNumbers.map(number => rsaDecrypt(number, privateKey, modulus));
+                                    // Convert decrypted numbers back to hexadecimal
+                                    const reconstructedHexString = "0x" + decryptedNumbers.map(num => num.toString(16)).join('');
+                                    document.getElementById('qr-decrypted-data').textContent = 'Decrypted Data: ' + reconstructedHexString;
+                                } else {
+                                    document.getElementById('qr-read-data').textContent = 'Read Data: QR code not found.';
+                                    document.getElementById('qr-decrypted-data').textContent = 'Decrypted Data: ';
+                                }
+                            };
+                            image.src = imageDataUrl;
+                        };
+                        reader.readAsDataURL(blob);
+                        break;
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

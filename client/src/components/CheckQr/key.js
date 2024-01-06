@@ -15,9 +15,11 @@ function rsaDecrypt(encryptedNumber, d, n) {
     return result;
 }
 
-const hexString = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+const hexString = "0x954c4dD95e19dC6e5c145aFB6aB9a37618b517e4";
 const numberArray = Array.from(hexString.slice(2), char => parseInt(char, 16));
 console.log("Original Array", numberArray);
+
+qr.toFile('walletAddress.png', hexString, { errorCorrectionLevel: 'H' });
 
 const modulus = 91;
 const publicKey = 7;
@@ -37,11 +39,12 @@ const englishString = englishArray.join('');
 console.log("English String:", englishString);
 
 // Generate QR code from the English string
-qr.toFile('qrCode.png', englishString, { errorCorrectionLevel: 'H' }, function (err, filename) {
+qr.toFile('encryptedQRCode.png', englishString, { errorCorrectionLevel: 'H' }, function (err, filename) {
     if (err) {
         console.error(err);
         return;
     }
+
 
     // Simulate scanning by using the English string directly
 
