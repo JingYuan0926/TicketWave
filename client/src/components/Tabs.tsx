@@ -351,7 +351,7 @@ function CustomTabPanel(props: CustomTabPanelProps) {
                       <FormControlLabel
                         value="bnpl"
                         control={<Radio />}
-                        label={<Typography style={{ fontSize: '1.3rem' }}>Buy Now, Pay Later</Typography>}
+                        label={<Typography style={{ fontSize: '1.3rem' }}>Buy Now, Pay Later (4 Installment)</Typography>}
                       />
                     </RadioGroup>
                   </FormControl>
