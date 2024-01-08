@@ -170,7 +170,8 @@ function CustomTabPanel(props: CustomTabPanelProps) {
       if (isBNPL) {
         transaction = await contract.purchaseTicketsWithBNPL(
           userAddress,
-          "ipfs://bafkreiawtvg43se3rq4kpioz4hlceeqomnu6ngy5t3c2rztro45s7ceb7e",
+          "ipfs://bafkreihcaq3izfsrhgkvmrmuy6de7c2i3tjazfgq3wmh3uu226tnd2hqmy",
+          //"ipfs://bafkreiawtvg43se3rq4kpioz4hlceeqomnu6ngy5t3c2rztro45s7ceb7e",
           ticketQuantity,
           { value: ethers.utils.parseEther(((ticketPrice * ticketQuantity) / 4).toString()) }
 
@@ -179,7 +180,8 @@ function CustomTabPanel(props: CustomTabPanelProps) {
       } else {
         transaction = await contract.purchaseTickets(
           userAddress,
-          "ipfs://bafkreiawtvg43se3rq4kpioz4hlceeqomnu6ngy5t3c2rztro45s7ceb7e",
+          "ipfs://bafkreihcaq3izfsrhgkvmrmuy6de7c2i3tjazfgq3wmh3uu226tnd2hqmy",
+          //"ipfs://bafkreiawtvg43se3rq4kpioz4hlceeqomnu6ngy5t3c2rztro45s7ceb7e",
           ticketQuantity,
           { value: totalCost }
         );
