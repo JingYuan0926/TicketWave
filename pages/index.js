@@ -1,12 +1,12 @@
-import React from "react";
-import { Button } from "@nextui-org/react";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Button >
-        Test NextUI Button
-      </Button>
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/HomePage');
+  }, [router]);
+
+  return null;
 }
