@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
+import Slider from '../components/Slider';
+import ConcertCard from '../components/ConcertCard';
 
 export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push('/HomePage');
-  }, [router]);
-
-  return null;
+  return (
+    <div>
+      <Slider />
+      <ConcertCard />
+    </div>
+  );
 }
