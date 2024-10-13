@@ -1,7 +1,11 @@
 import React from 'react';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar } from "@nextui-org/react";
+import { ConnectButton } from 'thirdweb/react';
+import { client } from '../utils/client';
 
 const TicketWaveNavbar = () => {
+
+
   return (
     <Navbar
       isBordered
@@ -39,9 +43,7 @@ const TicketWaveNavbar = () => {
 
       <NavbarContent justify="end" className="gap-10 h-full items-center">
         <NavbarItem>
-          <Button color="primary" variant="solid" className="text-lg">
-            Connect Wallet
-          </Button>
+          <ConnectButton client={client} />
         </NavbarItem>
         <NavbarItem>
           <Dropdown placement="bottom-end">
