@@ -1,0 +1,58 @@
+{
+    "concerts": [
+        {
+            "id": 1,
+            "title": "TWICE 5TH WORLD TOUR",
+            "imgCard": "/concertCard/twice.png",
+            "imgCover": "/concertCover/twice.jpg",
+            "date": "6/8/2024",
+            "location": "Tokyo Dome, Tokyo, Japan",
+            "description": "K-pop sensation TWICE brings their electrifying performances to Tokyo as part of their 5th World Tour. Experience hit songs and stunning choreography in this unforgettable show."
+        },
+        {
+            "id": 2,
+            "title": "The Infinite Dream",
+            "imgCard": "/concertCard/baz_con.jpg",
+            "imgCover": "/concertCover/bazzi.jpg",
+            "date": "15/9/2024",
+            "location": "Madison Square Garden, New York City, USA",
+            "description": "Join Bazzi on a musical journey through 'The Infinite Dream'. This concert promises an intimate yet energetic experience, showcasing Bazzi's soulful vocals and heartfelt lyrics."
+        },
+        {
+            "id": 3,
+            "title": "MUSIC of the SPHERES",
+            "imgCard": "/concertCard/coldplay.png",
+            "imgCover": "/concertCover/coldplay.png",
+            "date": "22/10/2024",
+            "location": "Wembley Stadium, London, UK",
+            "description": "Coldplay's 'Music of the Spheres' world tour lands in London. Expect a cosmic experience with the band's signature anthems, stunning visuals, and eco-friendly concert innovations."
+        },
+        {
+            "id": 4,
+            "title": "The +–=÷× Dream",
+            "imgCard": "/concertCard/ed_con.jpg",
+            "imgCover": "/concertCover/ed.jpg",
+            "date": "5/11/2024",
+            "location": "Etihad Stadium, Melbourne, Australia",
+            "description": "Ed Sheeran brings his mathematical tour to Melbourne. This solo performance showcases Ed's legendary loop pedal skills and heartwarming songs from across his career."
+        },
+        {
+            "id": 5,
+            "title": "I Met You When I Was 18",
+            "imgCard": "/concertCard/lauv_con.jpg",
+            "imgCover": "/concertCover/lauv.jpg",
+            "date": "18/12/2024",
+            "location": "The O2 Arena, London, UK",
+            "description": "Lauv takes fans on a nostalgic journey with 'I Met You When I Was 18'. This concert features his chart-topping hits and new material, promising an emotionally charged night."
+        },
+        {
+            "id": 6,
+            "title": "Twice Ready To Be Special",
+            "imgCard": "https://tokytunes.com/wp-content/uploads/2024/06/TWICEs-two-day-concert-at-Nissan-Stadium-will-be-broadcast-live.jpg",
+            "imgCover": "https://tokytunes.com/wp-content/uploads/2024/06/TWICEs-two-day-concert-at-Nissan-Stadium-will-be-broadcast-live.jpg",
+            "date": "20/10/2024",
+            "location": "Nissan Stadium, Yokohama, Japan",
+            "description": "TWICE presents a special two-day concert extravaganza at Nissan Stadium. This unique event showcases new performances and fan-favorite hits in TWICE's biggest show yet."
+        }
+    ]
+}
