@@ -1,11 +1,17 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { Card, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
 import concertData from '../data/data.json';
 
 const UpcomingEvents = ({ concertIds }) => {
+    const router = useRouter();
     const eventData = concertIds && !concertIds.includes(-1)
         ? concertData.concerts.filter(concert => concertIds.includes(concert.id))
         : concertData.concerts;
+
+    const handleEventClick = (eventId) => {
+        router.push(`/details/${eventId}`);
+    };
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -25,7 +31,13 @@ const UpcomingEvents = ({ concertIds }) => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 ml-5">
                 {eventData.map((event) => (
-                    <Card shadow="sm" key={event.id} isPressable onPress={() => console.log("event pressed")}>
+                    <Card 
+                        shadow="sm" 
+                        key={event.id} 
+                        isPressable 
+                        onPress={() => handleEventClick(event.id)}
+                        className="hover:scale-105 transition-transform duration-200"
+                    >
                         <CardBody className="p-0">
                             <Image
                                 shadow="sm"
@@ -38,7 +50,13 @@ const UpcomingEvents = ({ concertIds }) => {
                         </CardBody>
                         <CardFooter className="flex-col items-start">
                             <h4 className="font-bold text-large">{event.title}</h4>
-                            <p className="text-default-500">Date: {event.date}</p>
+                            <p className="text-default-500">{event.date} at {event.time}</p>
+                            <p className="text-default-500 text-small">{event.venue.name}</p>
+                            <div className="mt-2">
+                                <span className="text-default-600 font-semibold">
+                                    From ${Math.min(...Object.values(event.price))}
+                                </span>
+                            </div>
                         </CardFooter>
                     </Card>
                 ))}

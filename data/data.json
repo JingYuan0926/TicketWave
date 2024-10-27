@@ -6,8 +6,22 @@
             "imgCard": "/concertCard/twice.png",
             "imgCover": "/concertCover/twice.jpg",
             "date": "6/8/2024",
+            "time": "18:30",
             "location": "Tokyo Dome, Tokyo, Japan",
-            "description": "K-pop sensation TWICE brings their electrifying performances to Tokyo as part of their 5th World Tour. Experience hit songs and stunning choreography in this unforgettable show."
+            "description": "K-pop sensation TWICE brings their electrifying performances to Tokyo as part of their 5th World Tour. Experience hit songs and stunning choreography in this unforgettable show.",
+            "price": {
+                "vip": 299.99,
+                "standard": 149.99,
+                "economy": 79.99
+            },
+            "contractAddress": "0x1234567890abcdef1234567890abcdef12345678",
+            "venue": {
+                "name": "Tokyo Dome",
+                "address": "1-3-61 Koraku, Bunkyo City, Tokyo",
+                "capacity": 55000
+            },
+            "artists": ["Nayeon", "Jeongyeon", "Momo", "Sana", "Jihyo", "Mina", "Dahyun", "Chaeyoung", "Tzuyu"],
+            "additionalInfo": "Gates open 2 hours before the show. No professional cameras allowed."
         },
         {
             "id": 2,
@@ -15,8 +29,22 @@
             "imgCard": "/concertCard/baz_con.jpg",
             "imgCover": "/concertCover/bazzi.jpg",
             "date": "15/9/2024",
+            "time": "20:00",
             "location": "Madison Square Garden, New York City, USA",
-            "description": "Join Bazzi on a musical journey through 'The Infinite Dream'. This concert promises an intimate yet energetic experience, showcasing Bazzi's soulful vocals and heartfelt lyrics."
+            "description": "Join Bazzi on a musical journey through 'The Infinite Dream'. This concert promises an intimate yet energetic experience, showcasing Bazzi's soulful vocals and heartfelt lyrics.",
+            "price": {
+                "vip": 249.99,
+                "standard": 129.99,
+                "economy": 69.99
+            },
+            "contractAddress": "0x2345678901abcdef2345678901abcdef23456789",
+            "venue": {
+                "name": "Madison Square Garden",
+                "address": "4 Pennsylvania Plaza, New York, NY 10001",
+                "capacity": 20000
+            },
+            "artists": ["Bazzi"],
+            "additionalInfo": "Doors open at 18:30. Meet & Greet packages available for VIP ticket holders."
         },
         {
             "id": 3,
@@ -24,8 +52,22 @@
             "imgCard": "/concertCard/coldplay.png",
             "imgCover": "/concertCover/coldplay.png",
             "date": "22/10/2024",
+            "time": "19:30",
             "location": "Wembley Stadium, London, UK",
-            "description": "Coldplay's 'Music of the Spheres' world tour lands in London. Expect a cosmic experience with the band's signature anthems, stunning visuals, and eco-friendly concert innovations."
+            "description": "Coldplay's 'Music of the Spheres' world tour lands in London. Expect a cosmic experience with the band's signature anthems, stunning visuals, and eco-friendly concert innovations.",
+            "price": {
+                "vip": 350.00,
+                "standard": 180.00,
+                "economy": 90.00
+            },
+            "contractAddress": "0x3456789012abcdef3456789012abcdef34567890",
+            "venue": {
+                "name": "Wembley Stadium",
+                "address": "Wembley, London HA9 0WS, United Kingdom",
+                "capacity": 90000
+            },
+            "artists": ["Chris Martin", "Jonny Buckland", "Guy Berryman", "Will Champion"],
+            "additionalInfo": "This is a sustainable concert. Please bring your own reusable water bottle. Special LED wristbands will be provided."
         },
         {
             "id": 4,
@@ -33,8 +75,22 @@
             "imgCard": "/concertCard/ed_con.jpg",
             "imgCover": "/concertCover/ed.jpg",
             "date": "5/11/2024",
+            "time": "19:00",
             "location": "Etihad Stadium, Melbourne, Australia",
-            "description": "Ed Sheeran brings his mathematical tour to Melbourne. This solo performance showcases Ed's legendary loop pedal skills and heartwarming songs from across his career."
+            "description": "Ed Sheeran brings his mathematical tour to Melbourne. This solo performance showcases Ed's legendary loop pedal skills and heartwarming songs from across his career.",
+            "price": {
+                "vip": 275.00,
+                "standard": 155.00,
+                "economy": 85.00
+            },
+            "contractAddress": "0x4567890123abcdef4567890123abcdef45678901",
+            "venue": {
+                "name": "Etihad Stadium",
+                "address": "740 Bourke St, Docklands VIC 3008, Australia",
+                "capacity": 53359
+            },
+            "artists": ["Ed Sheeran"],
+            "additionalInfo": "No backpacks allowed. Small bags under 30x30cm permitted. Show includes special effects and strobe lighting."
         },
         {
             "id": 5,
@@ -42,8 +98,22 @@
             "imgCard": "/concertCard/lauv_con.jpg",
             "imgCover": "/concertCover/lauv.jpg",
             "date": "18/12/2024",
+            "time": "20:30",
             "location": "The O2 Arena, London, UK",
-            "description": "Lauv takes fans on a nostalgic journey with 'I Met You When I Was 18'. This concert features his chart-topping hits and new material, promising an emotionally charged night."
+            "description": "Lauv takes fans on a nostalgic journey with 'I Met You When I Was 18'. This concert features his chart-topping hits and new material, promising an emotionally charged night.",
+            "price": {
+                "vip": 199.99,
+                "standard": 119.99,
+                "economy": 59.99
+            },
+            "contractAddress": "0x5678901234abcdef5678901234abcdef56789012",
+            "venue": {
+                "name": "The O2 Arena",
+                "address": "Peninsula Square, London SE10 0DX, United Kingdom",
+                "capacity": 20000
+            },
+            "artists": ["Lauv"],
+            "additionalInfo": "Special acoustic session included. Early entry for VIP ticket holders at 18:30."
         },
         {
             "id": 6,
@@ -51,8 +121,22 @@
             "imgCard": "https://tokytunes.com/wp-content/uploads/2024/06/TWICEs-two-day-concert-at-Nissan-Stadium-will-be-broadcast-live.jpg",
             "imgCover": "https://tokytunes.com/wp-content/uploads/2024/06/TWICEs-two-day-concert-at-Nissan-Stadium-will-be-broadcast-live.jpg",
             "date": "20/10/2024",
+            "time": "17:00",
             "location": "Nissan Stadium, Yokohama, Japan",
-            "description": "TWICE presents a special two-day concert extravaganza at Nissan Stadium. This unique event showcases new performances and fan-favorite hits in TWICE's biggest show yet."
+            "description": "TWICE presents a special two-day concert extravaganza at Nissan Stadium. This unique event showcases new performances and fan-favorite hits in TWICE's biggest show yet.",
+            "price": {
+                "vip": 399.99,
+                "standard": 199.99,
+                "economy": 99.99
+            },
+            "contractAddress": "0x6789012345abcdef6789012345abcdef67890123",
+            "venue": {
+                "name": "Nissan Stadium",
+                "address": "3300 Kozukue-cho, Kohoku-ku, Yokohama, Kanagawa Prefecture",
+                "capacity": 72327
+            },
+            "artists": ["Nayeon", "Jeongyeon", "Momo", "Sana", "Jihyo", "Mina", "Dahyun", "Chaeyoung", "Tzuyu"],
+            "additionalInfo": "Two-day event. Tickets valid for both days. Special merchandise available exclusively for ticket holders."
         }
     ]
 }
