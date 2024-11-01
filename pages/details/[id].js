@@ -3,13 +3,20 @@ import { useRouter } from 'next/router';
 import { Card, CardBody, Image, Button, Chip, Divider } from "@nextui-org/react";
 import { IoCalendarOutline, IoLocationOutline, IoTimeOutline, IoPeopleOutline } from "react-icons/io5";
 import concertData from '../../data/data.json';
+import { prepareContractCall } from "thirdweb"
+import { useSendTransaction } from "thirdweb/react";
+import { contract } from "../../utils/client";
+import { useActiveAccount } from "thirdweb/react";
 
 const DetailsPage = () => {
     const router = useRouter();
     const { id } = router.query;
+    const wallet = useActiveAccount();
     const [selectedTicketType, setSelectedTicketType] = useState(null);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     const [concert, setConcert] = useState(null);
+    const { mutate: sendTransaction } = useSendTransaction();
+
 
     useEffect(() => {
         if (id) {
@@ -24,15 +31,22 @@ const DetailsPage = () => {
         </div>
     );
 
-    const handleBuyTickets = () => {
-        if (!selectedTicketType) return;
+    const handleBuyTickets = async () => {
+        if (!selectedTicketType || !id) return; // Add id check
         
-        console.log('Proceeding to checkout with:', {
-            ticketType: selectedTicketType,
-            quantity: selectedQuantity,
-            totalPrice: concert.price[selectedTicketType] * selectedQuantity,
-            contractAddress: concert.contractAddress
-        });
+        try {
+            const transaction = prepareContractCall({
+                contract,
+                method: "function purchaseTickets(uint256 concertId, uint256 quantity) payable",
+                params: [Number(id), 1]
+              });
+    
+              sendTransaction(transaction);
+    
+        } catch (error) {
+            console.error("Transaction preparation failed:", error);
+            // Add error handling here
+        }
     };
 
     return (
@@ -40,11 +54,11 @@ const DetailsPage = () => {
             {/* Hero Section */}
             <div className="relative h-[550px] w-full overflow-hidden">
                 {/* Blurred background cover image */}
-                <div 
+                <div
                     className="absolute inset-0 bg-cover bg-center filter blur-xl scale-110 brightness-50"
                     style={{ backgroundImage: `url(${concert.imgCover})` }}
                 />
-                
+
                 {/* Concert info and image container */}
                 <div className="absolute inset-0 container mx-auto flex items-center px-8 -translate-y-12">
                     {/* Image on the left, positioned slightly higher */}
@@ -99,9 +113,9 @@ const DetailsPage = () => {
                                 <p className="text-default-700 leading-relaxed">
                                     {concert.description}
                                 </p>
-                                
+
                                 <Divider />
-                                
+
                                 <div className="space-y-4">
                                     <h3 className="text-xl font-semibold">Venue Information</h3>
                                     <div className="space-y-2">
@@ -122,9 +136,9 @@ const DetailsPage = () => {
                                     <h3 className="text-xl font-semibold">Featured Artists</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {concert.artists.map((artist) => (
-                                            <Chip 
-                                                key={artist} 
-                                                color="primary" 
+                                            <Chip
+                                                key={artist}
+                                                color="primary"
                                                 variant="flat"
                                                 className="text-sm"
                                             >
@@ -152,17 +166,16 @@ const DetailsPage = () => {
                         <Card className="sticky top-4">
                             <CardBody className="space-y-6">
                                 <h2 className="text-2xl font-bold">Select Tickets</h2>
-                                
+
                                 {/* Ticket Types */}
                                 <div className="space-y-4">
                                     {Object.entries(concert.price).map(([type, price]) => (
                                         <div
                                             key={type}
-                                            className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                                                selectedTicketType === type 
-                                                    ? 'border-primary bg-primary/10' 
-                                                    : 'border-default-200 hover:border-primary'
-                                            }`}
+                                            className={`p-4 border rounded-lg cursor-pointer transition-colors ${selectedTicketType === type
+                                                ? 'border-primary bg-primary/10'
+                                                : 'border-default-200 hover:border-primary'
+                                                }`}
                                             onClick={() => setSelectedTicketType(type)}
                                         >
                                             <div className="flex justify-between items-center">
