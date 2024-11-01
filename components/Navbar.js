@@ -2,7 +2,8 @@ import React from 'react';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar } from "@nextui-org/react";
 import { ConnectButton } from 'thirdweb/react';
 import { client } from '../utils/client';
-
+// import { inAppWallet } from 'thirdweb/wallets';
+import { defineChain } from "thirdweb/chains";
 const TicketWaveNavbar = () => {
 
 
@@ -43,7 +44,11 @@ const TicketWaveNavbar = () => {
 
       <NavbarContent justify="end" className="gap-10 h-full items-center">
         <NavbarItem>
-          <ConnectButton client={client} />
+          <ConnectButton client={client} accountAbstraction={{
+            chain: defineChain(11155420),
+            sponsorGas: true,
+          }} />
+          {/* <ConnectButton client={client} wallets-{[inAppWallet()]} /> */}
         </NavbarItem>
         <NavbarItem>
           <Dropdown placement="bottom-end">
