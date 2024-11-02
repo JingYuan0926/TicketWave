@@ -3,8 +3,8 @@
         {
             "id": 1,
             "title": "TWICE 5TH WORLD TOUR",
-            "imgCard": "/concertCard/twice.png",
-            "imgCover": "/concertCover/twice.jpg",
+            "imgCard": "https://tokytunes.com/wp-content/uploads/2024/06/TWICEs-two-day-concert-at-Nissan-Stadium-will-be-broadcast-live.jpg",
+            "imgCover": "https://tokytunes.com/wp-content/uploads/2024/06/TWICEs-two-day-concert-at-Nissan-Stadium-will-be-broadcast-live.jpg",
             "date": "6/8/2024",
             "time": "18:30",
             "location": "Tokyo Dome, Tokyo, Japan",

@@ -44,10 +44,13 @@ const TicketWaveNavbar = () => {
 
       <NavbarContent justify="end" className="gap-10 h-full items-center">
         <NavbarItem>
-          <ConnectButton client={client} accountAbstraction={{
-            chain: defineChain(11155420),
-            sponsorGas: true,
-          }} />
+       
+          <ConnectButton client={client} 
+          // accountAbstraction={{
+          //   chain: defineChain(11155420),
+          //   sponsorGas: true,
+          // }} 
+          />
           {/* <ConnectButton client={client} wallets-{[inAppWallet()]} /> */}
         </NavbarItem>
         <NavbarItem>
@@ -65,7 +68,7 @@ const TicketWaveNavbar = () => {
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="settings">My Settings</DropdownItem>
-              <DropdownItem key="portfolio">Portfolio</DropdownItem>
+              <DropdownItem key="portfolio" onPress={() => window.location.href = "/portfolio"}>Portfolio</DropdownItem>
               <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
               <DropdownItem key="logout" color="danger">
                 Log Out
