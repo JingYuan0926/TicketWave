@@ -19,6 +19,7 @@ const DetailsPage = () => {
     const { mutate: sendTransaction } = useSendTransaction();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [transactionStatus, setTransactionStatus] = useState('pending');
+    const [isConfirming, setIsConfirming] = useState(false);
     const { data: ticketData, isPending } = useReadContract({
         contract,
         method: "function getConcertDetails(uint256 concertId) view returns (uint256 totalCapacity, uint256 ticketsSold)",
@@ -50,32 +51,37 @@ const DetailsPage = () => {
 
     const confirmPurchase = async () => {
         try {
-            setTransactionStatus('pending'); // Set to pending state
+            setIsConfirming(true);
+            setTransactionStatus('pending');
+            const seatTypeFormatted = selectedTicketType.charAt(0).toUpperCase() + selectedTicketType.slice(1);
+            
             const transaction = prepareContractCall({
                 contract,
-                method: "function purchaseTicket(uint256 concertId, string imageURI)",
-                params: [Number(id), concert.imgCard]
+                method: "function purchaseTicket(uint256 concertId, string imageURI, string seatType)",
+                params: [
+                    Number(id), 
+                    concert.imgCard,
+                    seatTypeFormatted  
+                ]
             });
-    
-            console.log("Transaction submitted, awaiting confirmation...");
     
             await sendTransaction(transaction, {
                 onSubmitted: () => {
-                    console.log("Transaction is now submitted.");
-                    setTransactionStatus('loading'); // Show loading while waiting for confirmation
+                    setTransactionStatus('loading');
                 },
                 onSuccess: () => {
-                    console.log("Transaction confirmed successfully.");
-                    setTransactionStatus('success'); // Show success once confirmed
+                    setTransactionStatus('success');
+                    setIsConfirming(false);
                 },
                 onError: () => {
-                    console.log("Transaction failed.");
-                    setTransactionStatus('error'); // Show error if transaction fails
+                    setTransactionStatus('error');
+                    setIsConfirming(false);
                 }
             });
         } catch (error) {
             console.error("Transaction failed:", error);
             setTransactionStatus('error');
+            setIsConfirming(false);
         }
     };
     
@@ -85,6 +91,7 @@ const DetailsPage = () => {
     const handleModalClose = () => {
         onClose();
         setTransactionStatus('pending');
+        setIsConfirming(false);
     };
 
     return (
@@ -260,7 +267,7 @@ const DetailsPage = () => {
                                         <p>You are about to purchase:</p>
                                         <div className="p-4 bg-default-100 rounded-lg">
                                             <p className="font-semibold">{concert.title}</p>
-                                            <p>Ticket Type: {selectedTicketType}</p>
+                                            <p>Ticket Type: {selectedTicketType?.charAt(0).toUpperCase() + selectedTicketType?.slice(1)}</p>
                                             <p>Price: ${concert.price[selectedTicketType].toFixed(2)}</p>
                                         </div>
                                     </>
@@ -284,11 +291,21 @@ const DetailsPage = () => {
                             <ModalFooter>
                                 {transactionStatus === 'pending' && (
                                     <>
-                                        <Button color="danger" variant="light" onPress={onClose}>
+                                        <Button 
+                                            color="danger" 
+                                            variant="light" 
+                                            onPress={onClose}
+                                            disabled={isConfirming}
+                                        >
                                             Cancel
                                         </Button>
-                                        <Button color="primary" onPress={confirmPurchase}>
-                                            Confirm Purchase
+                                        <Button 
+                                            color="primary" 
+                                            onPress={confirmPurchase}
+                                            isLoading={isConfirming}
+                                            disabled={isConfirming}
+                                        >
+                                            {isConfirming ? 'Confirming...' : 'Confirm Purchase'}
                                         </Button>
                                     </>
                                 )}

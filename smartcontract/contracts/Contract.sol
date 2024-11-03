@@ -30,7 +30,8 @@ contract ConcertTicketsNFT is ERC721URIStorage, ReentrancyGuard, Ownable {
         address indexed buyer,
         uint256 tokenId,
         uint256 timestamp,
-        string tokenURI
+        string tokenURI,
+        string seatType
     );
 
     event ConcertAdded(uint256 indexed concertId, uint256 capacity);
@@ -66,7 +67,8 @@ contract ConcertTicketsNFT is ERC721URIStorage, ReentrancyGuard, Ownable {
     // Modified purchase ticket function to accept image URI directly
     function purchaseTicket(
         uint256 concertId,
-        string memory imageURI
+        string memory imageURI,
+        string memory seatType
     ) external nonReentrant {
         Concert storage concert = concerts[concertId];
         require(concert.totalCapacity > 0, "Concert does not exist");
@@ -114,7 +116,8 @@ contract ConcertTicketsNFT is ERC721URIStorage, ReentrancyGuard, Ownable {
             msg.sender,
             newTokenId,
             block.timestamp,
-            tokenURI
+            tokenURI,
+            seatType
         );
     }
 

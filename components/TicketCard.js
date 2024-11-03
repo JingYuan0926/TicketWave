@@ -53,8 +53,9 @@ const TicketCard = ({ ticket }) => {
                     <h4 className="font-bold text-large">{ticket.title}</h4>
                     <p className="text-default-500">{ticket.date}</p>
                     <p className="text-default-500 text-small">{ticket.venue}</p>
-                    <div className="mt-2">
+                    <div className="mt-2 flex gap-2">
                         <Chip color="primary" variant="flat">Ticket#{ticket.tokenId}</Chip>
+                        <Chip color="secondary" variant="flat">{ticket.seatType}</Chip>
                     </div>
                 </CardFooter>
             </Card>
@@ -68,6 +69,7 @@ const TicketCard = ({ ticket }) => {
                                 <p>{ticket.title}</p>
                                 <p>Date: {ticket.date}</p>
                                 <p>Venue: {ticket.venue}</p>
+                                <p>Seat Type: {ticket.seatType}</p>
                                 <div className="mt-4 flex justify-center">
                                     {qrCodeUrl && (
                                         <img src={qrCodeUrl} alt="Ticket QR Code" />

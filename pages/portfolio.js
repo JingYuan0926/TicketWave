@@ -17,10 +17,10 @@ const Portfolio = () => {
 
             try {
                 const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
-                const contractAddress = "0xe2a3d5d774Af3086FFcD8F12Cb725fCdb8d34f2D";
+                const contractAddress = "0xd2e14bb75304F967656febE097f4E91D9d21a653";
                 
                 // Updated event signature based on the logs
-                const eventSignature = "TicketMinted(uint256,address,uint256,uint256,string)";
+                const eventSignature = "TicketMinted(uint256,address,uint256,uint256,string,string)";
                 const topic = ethers.utils.id(eventSignature);
 
                 const filter = {
@@ -44,17 +44,19 @@ const Portfolio = () => {
                     
                     // Parse the non-indexed parameters from data
                     const decodedData = ethers.utils.defaultAbiCoder.decode(
-                        ['uint256', 'uint256', 'string'],
+                        ['uint256', 'uint256', 'string', 'string'],
                         ethers.utils.hexDataSlice(log.data, 0)
                     );
                     
                     const tokenId = decodedData[0];
                     const timestamp = decodedData[1];
+                    const seatType = decodedData[3];
 
                     console.log("Parsed event data:", {
                         concertId,
                         tokenId: tokenId.toString(),
-                        timestamp: timestamp.toString()
+                        timestamp: timestamp.toString(),
+                        seatType: seatType
                     });
 
                     const concert = concertData.concerts.find(c => c.id === concertId);
@@ -71,7 +73,8 @@ const Portfolio = () => {
                         venue: concert.venue.name,
                         image: concert.imgCard,
                         hasEntered: false,
-                        purchaseDate: new Date(Number(timestamp) * 1000)
+                        purchaseDate: new Date(Number(timestamp) * 1000),
+                        seatType: seatType
                     };
                 }));
 

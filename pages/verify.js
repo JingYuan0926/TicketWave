@@ -17,6 +17,7 @@ const Verify = () => {
     const [tokenId, setTokenId] = useState(null);
     const [entryStatus, setEntryStatus] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [showScanner, setShowScanner] = useState(false);
     const { mutate: sendTransaction } = useSendTransaction();
 
     const { data: ticketData, isPending } = useReadContract({
@@ -78,12 +79,29 @@ const Verify = () => {
         }
     };
 
+    const handleStartScan = () => {
+        setShowScanner(true);
+    };
+
     return (
         <div className="container mx-auto px-4 py-8 text-center">
             <h1 className="text-2xl font-bold mb-4">Ticket Verification</h1>
             {loading && <Spinner size="lg" />}
             
-            {!tokenId && (
+            {!tokenId && !showScanner && (
+                <div className="flex flex-col items-center gap-4">
+                    <p className="mb-4">Click below to start scanning tickets</p>
+                    <Button 
+                        color="primary" 
+                        size="lg"
+                        onClick={handleStartScan}
+                    >
+                        Start Scanning
+                    </Button>
+                </div>
+            )}
+
+            {!tokenId && showScanner && (
                 <>
                     <p className="mb-4">Please scan your ticket QR code</p>
                     <div className="flex justify-center mb-4">
