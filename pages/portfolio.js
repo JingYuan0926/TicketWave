@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs, Tab, Spinner } from "@nextui-org/react";
 import { useActiveAccount } from "thirdweb/react";
-import { useContractEvents } from "thirdweb/react";
 import ProfileHeader from '../components/ProfileHeader';
 import TicketCard from '../components/TicketCard';
-import { contract } from '../utils/client';
+import { ethers } from 'ethers';
 import concertData from '../data/data.json';
 
 const Portfolio = () => {
@@ -12,59 +11,83 @@ const Portfolio = () => {
     const [tickets, setTickets] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Get all TicketMinted events
-    const { data: events } = useContractEvents({
-        contract,
-        eventName: "TicketMinted",
-    });
-
     useEffect(() => {
         const fetchTickets = async () => {
-            if (!address || !events) return;
+            if (!address) return;
 
             try {
-                console.log("All Events:", events);
-                console.log("Current Address:", address.address);
+                const provider = new ethers.providers.JsonRpcProvider("https://opt-sepolia.g.alchemy.com/v2/2iPF_MT9jp-O4mQ0eWd1HpeamV3zWWt4");
+                const contractAddress = "0xe2a3d5d774Af3086FFcD8F12Cb725fCdb8d34f2D";
+                
+                // Updated event signature based on the logs
+                const eventSignature = "TicketMinted(uint256,address,uint256,uint256,string)";
+                const topic = ethers.utils.id(eventSignature);
 
-                // Filter events where the buyer matches the current address
-                const userTickets = events
-                    .filter(event => {
-                        console.log("Event Args:", event.args);
-                        return event.args && event.args.buyer && 
-                               event.args.buyer.toLowerCase() === address.address.toLowerCase();
-                    })
-                    .map(event => {
-                        console.log("Processing Event:", event);
-                        const concert = concertData.concerts.find(c => c.id === Number(event.args.concertId));
-                        return {
-                            tokenId: Number(event.args.tokenId),
-                            title: concert.title,
-                            date: concert.date,
-                            venue: concert.venue.name,
-                            image: concert.imgCard,
-                            hasEntered: false,
-                            purchaseDate: new Date(Number(event.args.timestamp) * 1000)
-                        };
+                const filter = {
+                    address: contractAddress,
+                    topics: [
+                        topic,
+                        null, // concertId (indexed)
+                        ethers.utils.hexZeroPad(address.address, 32) // buyer (indexed)
+                    ],
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                };
+
+                console.log("Fetching events for address:", address.address);
+                const logs = await provider.getLogs(filter);
+                console.log("Found logs:", logs);
+
+                const userTickets = await Promise.all(logs.map(async log => {
+                    // Parse the indexed parameters from topics
+                    const concertId = parseInt(log.topics[1], 16);
+                    
+                    // Parse the non-indexed parameters from data
+                    const decodedData = ethers.utils.defaultAbiCoder.decode(
+                        ['uint256', 'uint256', 'string'],
+                        ethers.utils.hexDataSlice(log.data, 0)
+                    );
+                    
+                    const tokenId = decodedData[0];
+                    const timestamp = decodedData[1];
+
+                    console.log("Parsed event data:", {
+                        concertId,
+                        tokenId: tokenId.toString(),
+                        timestamp: timestamp.toString()
                     });
 
-                console.log("Filtered Tickets:", userTickets);
-                setTickets(userTickets);
+                    const concert = concertData.concerts.find(c => c.id === concertId);
+                    if (!concert) {
+                        console.warn("Concert not found for ID:", concertId);
+                        return null;
+                    }
+
+                    return {
+                        tokenId: Number(tokenId),
+                        concertId,
+                        title: concert.title,
+                        date: concert.date,
+                        venue: concert.venue.name,
+                        image: concert.imgCard,
+                        hasEntered: false,
+                        purchaseDate: new Date(Number(timestamp) * 1000)
+                    };
+                }));
+
+                const validTickets = userTickets.filter(Boolean);
+                console.log("Final processed tickets:", validTickets);
+                setTickets(validTickets);
                 setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching tickets:", error);
-                console.error("Error details:", {
-                    events: events,
-                    address: address.address,
-                    error: error.message
-                });
                 setIsLoading(false);
             }
         };
 
         fetchTickets();
-    }, [address, events]);
+    }, [address]);
 
-    // Rest of the code remains the same...
     if (!address) {
         return (
             <div className="container mx-auto px-4 py-8 text-center">
@@ -89,6 +112,7 @@ const Portfolio = () => {
             <ProfileHeader
                 ticketCount={tickets.length}
                 attendedCount={pastTickets.length}
+                address={address?.address}
             />
 
             <Tabs

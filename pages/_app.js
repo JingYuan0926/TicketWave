@@ -8,9 +8,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThirdwebProvider>
       <NextUIProvider>
-        <div className="app-container">
+        <div className="min-h-screen flex flex-col">
           <Navbar />
-          <main>
+          <main className="flex-1">
             <Component {...pageProps} />
           </main>
           <Footer />

@@ -24,7 +24,7 @@ const TicketCard = ({ ticket }) => {
                 <p className="text-default-500">{ticket.date}</p>
                 <p className="text-default-500 text-small">{ticket.venue}</p>
                 <div className="mt-2">
-                    <Chip color="primary" variant="flat">#{ticket.tokenId}</Chip>
+                    <Chip color="primary" variant="flat">Ticket#{ticket.tokenId}</Chip>
                 </div>
             </CardFooter>
         </Card>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardBody, Avatar, Button } from "@nextui-org/react";
 
-const ProfileHeader = ({ ticketCount }) => {
+const ProfileHeader = ({ ticketCount, address }) => {
     return (
         <Card className="w-full mb-8">
             <CardBody className="flex flex-col md:flex-row items-center gap-6 p-8">
@@ -12,7 +12,9 @@ const ProfileHeader = ({ ticketCount }) => {
                     color="primary"
                 />
                 <div className="flex flex-col flex-grow">
-                    <h2 className="text-2xl font-bold">Your Name</h2>
+                    <h2 className="text-2xl font-bold">
+                        {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Connect Wallet'}
+                    </h2>
                     <p className="text-default-500">Joined since 2024</p>
                     <div className="flex gap-4 mt-4">
                         <div>

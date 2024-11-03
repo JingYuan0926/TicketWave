@@ -7,6 +7,7 @@ import { prepareContractCall } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
 import { contract } from "../../utils/client";
 import { useActiveAccount } from "thirdweb/react";
+import { useReadContract } from "thirdweb/react";
 
 const DetailsPage = () => {
     const router = useRouter();
@@ -18,6 +19,16 @@ const DetailsPage = () => {
     const { mutate: sendTransaction } = useSendTransaction();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [transactionStatus, setTransactionStatus] = useState('pending');
+    const { data: ticketData, isPending } = useReadContract({
+        contract,
+        method: "function getConcertDetails(uint256 concertId) view returns (uint256 totalCapacity, uint256 ticketsSold)",
+        params: [Number(id)]
+    });
+
+    // Calculate tickets remaining
+    const ticketsIssued = ticketData ? Number(ticketData[0]) : 0;
+    const ticketsSold = ticketData ? Number(ticketData[1]) : 0;
+    const ticketsRemaining = ticketsIssued - ticketsSold;
 
     useEffect(() => {
         if (id) {
@@ -112,7 +123,13 @@ const DetailsPage = () => {
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <IoPeopleOutline className="text-2xl" />
-                                    <span>Capacity: {concert.venue.capacity.toLocaleString()}</span>
+                                    {isPending ? (
+                                        <span>Loading ticket info...</span>
+                                    ) : (
+                                        <span>
+                                            Available: {ticketsRemaining.toLocaleString()} / {ticketsIssued.toLocaleString()}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </div>
