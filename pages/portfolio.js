@@ -147,7 +147,7 @@ const Portfolio = () => {
                 <div className="text-center py-12">
                     <h3 className="text-xl font-semibold mb-2">No tickets found</h3>
                     <p className="text-default-500">
-                        You haven't purchased any tickets yet.
+                        You haven&apos;t purchased any tickets yet.
                     </p>
                 </div>
             )}

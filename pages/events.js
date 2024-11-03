@@ -17,7 +17,7 @@ const EventsPage = () => {
             <h1 className="text-3xl font-bold mb-6">Upcoming Events</h1>
             <div className="space-y-6">
                 {currentConcerts.map((concert) => (
-                    <Card className="w-full mb-4 overflow-hidden">
+                    <Card key={concert.id} className="w-full mb-4 overflow-hidden">
                         <CardBody className="p-0 flex flex-col sm:flex-row">
                             <div className="w-full sm:w-[200px] h-[235px] flex-shrink-0 overflow-hidden flex items-center justify-center">
                                 <Image
