@@ -16,7 +16,7 @@ const Portfolio = () => {
             if (!address) return;
 
             try {
-                const provider = new ethers.providers.JsonRpcProvider("https://opt-sepolia.g.alchemy.com/v2/2iPF_MT9jp-O4mQ0eWd1HpeamV3zWWt4");
+                const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
                 const contractAddress = "0xe2a3d5d774Af3086FFcD8F12Cb725fCdb8d34f2D";
                 
                 // Updated event signature based on the logs
