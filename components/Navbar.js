@@ -44,12 +44,12 @@ const TicketWaveNavbar = () => {
 
       <NavbarContent justify="end" className="gap-10 h-full items-center">
         <NavbarItem>
-       
-          <ConnectButton client={client} 
-          // accountAbstraction={{
-          //   chain: defineChain(11155420),
-          //   sponsorGas: true,
-          // }} 
+
+          <ConnectButton client={client}
+            accountAbstraction={{
+              chain: defineChain(11155420),
+              sponsorGas: true,
+            }}
           />
           {/* <ConnectButton client={client} wallets-{[inAppWallet()]} /> */}
         </NavbarItem>

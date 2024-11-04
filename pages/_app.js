@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThirdwebProvider>
       <NextUIProvider>
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col overflow-x-hidden">
           <Navbar />
           <main className="flex-1">
             <Component {...pageProps} />
