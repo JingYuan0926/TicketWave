@@ -97,25 +97,25 @@ const DetailsPage = () => {
     return (
         <>
             <div className="min-h-screen bg-background">
-                <div className="relative h-[550px] w-full overflow-hidden">
+                <div className="relative h-[550px] md:h-[550px] w-full overflow-hidden">
                     <div
                         className="absolute inset-0 bg-cover bg-center filter blur-xl scale-110 brightness-50"
                         style={{ backgroundImage: `url(${concert.imgCover})` }}
                     />
-                    <div className="absolute inset-0 container mx-auto flex items-center px-8 -translate-y-12">
-                        <div className="relative w-[300px] h-[300px] transform -translate-y-8 transition-transform ">
+                    <div className="absolute inset-0 container mx-auto flex flex-col md:flex-row items-center px-8 md:-translate-y-12">
+                        <div className="relative w-[200px] md:w-[300px] h-[200px] md:h-[300px] transform md:-translate-y-8 transition-transform mt-8 md:mt-0">
                             <Image
                                 src={concert.imgCard}
                                 alt={concert.title}
                                 className="object-contain rounded-xl shadow-2xl"
                                 fill
-                                sizes="300px"
+                                sizes="(max-width: 768px) 200px, 300px"
                                 priority
                             />
                         </div>
-                        <div className="flex-1 ml-12 max-w-[60%]">
-                            <h1 className="text-6xl font-bold text-white mb-6">{concert.title}</h1>
-                            <div className="flex flex-wrap gap-6 text-white text-lg">
+                        <div className="flex-1 md:ml-12 max-w-full md:max-w-[60%] text-center md:text-left mt-6 md:mt-0">
+                            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">{concert.title}</h1>
+                            <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-6 text-white text-lg">
                                 <div className="flex items-center gap-3">
                                     <IoCalendarOutline className="text-2xl" />
                                     <span>{concert.date}</span>

@@ -13,9 +13,9 @@ const TicketWaveNavbar = () => {
       maxWidth="full"
       className="bg-[#1d2951] h-[90px] px-4 flex items-center"
     >
-      <NavbarContent justify="start" className="gap-12 h-full items-center">
+      <NavbarContent justify="start" className="gap-4 sm:gap-12 h-full items-center">
         <NavbarBrand>
-          <p className="font-serif font-bold text-inherit text-3xl text-white">TicketWave</p>
+          <p className="font-serif font-bold text-inherit text-xl sm:text-3xl text-white">TicketWave</p>
         </NavbarBrand>
 
         <NavbarContent className="font-serif hidden sm:flex gap-10 h-full items-center">
@@ -42,16 +42,15 @@ const TicketWaveNavbar = () => {
         </NavbarContent>
       </NavbarContent>
 
-      <NavbarContent justify="end" className="gap-10 h-full items-center">
-        <NavbarItem>
-
+      <NavbarContent justify="end" className="gap-2 sm:gap-10 h-full items-center">
+        <NavbarItem className="scale-90 sm:scale-100">
           <ConnectButton client={client}
             accountAbstraction={{
               chain: defineChain(11155420),
               sponsorGas: true,
+              hidePrivateKeyOption: true
             }}
           />
-          {/* <ConnectButton client={client} wallets-{[inAppWallet()]} /> */}
         </NavbarItem>
         <NavbarItem>
           <Dropdown placement="bottom-end">

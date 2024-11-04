@@ -2,26 +2,25 @@
     "concerts": [
         {
             "id": 1,
-            "title": "TWICE 5TH WORLD TOUR",
-            "imgCard": "https://tokytunes.com/wp-content/uploads/2024/06/TWICEs-two-day-concert-at-Nissan-Stadium-will-be-broadcast-live.jpg",
-            "imgCover": "https://tokytunes.com/wp-content/uploads/2024/06/TWICEs-two-day-concert-at-Nissan-Stadium-will-be-broadcast-live.jpg",
-            "date": "6/8/2024",
-            "time": "18:30",
-            "location": "Tokyo Dome, Tokyo, Japan",
-            "description": "K-pop sensation TWICE brings their electrifying performances to Tokyo as part of their 5th World Tour. Experience hit songs and stunning choreography in this unforgettable show.",
+            "title": "2nd Formative Assessment",
+            "imgCard": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7LSSKeOYwgUTZfoBqRjbw3KUXIWQohJyxAg&s",
+            "imgCover": "https://www.edmates.com/wp-content/uploads/2022/09/Taylors_Lakeside_Campus.jpg",
+            "date": "6/11/2024",
+            "time": "10:00",
+            "location": "Taylor's University Bizpod",
+            "description": "Second formative assessment for startup for Ticketwave to show the prototype",
             "price": {
-                "vip": 299.99,
-                "standard": 149.99,
-                "economy": 79.99
+                "coach": 0.00,
+                "student": 0.00
             },
             "contractAddress": "0x1234567890abcdef1234567890abcdef12345678",
             "venue": {
-                "name": "Tokyo Dome",
-                "address": "1-3-61 Koraku, Bunkyo City, Tokyo",
-                "capacity": 55000
+                "name": "Bizpod",
+                "address": "Taylor's University Lakeside Campus",
+                "capacity": 20
             },
-            "artists": ["Nayeon", "Jeongyeon", "Momo", "Sana", "Jihyo", "Mina", "Dahyun", "Chaeyoung", "Tzuyu"],
-            "additionalInfo": "Gates open 2 hours before the show. No professional cameras allowed."
+            "artists": ["Mr Vincent Kok"],
+            "additionalInfo": "Please buy tickets and scan on entry. Entry is free."
         },
         {
             "id": 2,

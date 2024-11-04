@@ -43,6 +43,18 @@ contract ConcertTicketsNFT is ERC721URIStorage, ReentrancyGuard, Ownable {
         uint256 timestamp
     );
 
+    // Add new mapping for scanners
+    mapping(address => bool) public approvedScanners;
+    
+    // Add event for scanner management
+    event ScannerStatusUpdated(address scanner, bool isApproved);
+    
+    // Add modifier for scanner access
+    modifier onlyScanner() {
+        require(approvedScanners[msg.sender] || msg.sender == owner(), "Not authorized scanner");
+        _;
+    }
+
     constructor() ERC721("ConcertTicket", "CTKT") Ownable() {}
 
     // Add a new concert
@@ -144,7 +156,7 @@ contract ConcertTicketsNFT is ERC721URIStorage, ReentrancyGuard, Ownable {
     // Scan ticket for entry
     function scanTicketForEntry(
         uint256 tokenId
-    ) external nonReentrant onlyOwner {
+    ) external nonReentrant onlyScanner {
         require(_exists(tokenId), "Ticket does not exist");
         Ticket storage ticket = tickets[tokenId];
         require(!ticket.hasEntered, "Ticket already used for entry");
@@ -190,5 +202,11 @@ contract ConcertTicketsNFT is ERC721URIStorage, ReentrancyGuard, Ownable {
     ) external view returns (uint256 totalCapacity, uint256 ticketsSold) {
         Concert memory concert = concerts[concertId];
         return (concert.totalCapacity, concert.ticketsSold);
+    }
+
+    // Add function to manage scanners
+    function setScanner(address scanner, bool isApproved) external onlyOwner {
+        approvedScanners[scanner] = isApproved;
+        emit ScannerStatusUpdated(scanner, isApproved);
     }
 }

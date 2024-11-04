@@ -17,7 +17,7 @@ const Portfolio = () => {
 
             try {
                 const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
-                const contractAddress = "0xd2e14bb75304F967656febE097f4E91D9d21a653";
+                const contractAddress = "0x5039e2bF006967F8049933c7DF6c7Ca0b49AeBeB";
                 
                 // Updated event signature based on the logs
                 const eventSignature = "TicketMinted(uint256,address,uint256,uint256,string,string)";

@@ -10,5 +10,5 @@ export const client = createThirdwebClient({
 export const contract = getContract({
     client,
     chain: defineChain(11155420),
-    address: "0xd2e14bb75304F967656febE097f4E91D9d21a653"
+    address: "0x5039e2bF006967F8049933c7DF6c7Ca0b49AeBeB"
   });
