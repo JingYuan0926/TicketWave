@@ -4,9 +4,14 @@ import { NextUIProvider } from "@nextui-org/react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ThirdwebProvider } from "thirdweb/react";
+
 function MyApp({ Component, pageProps }) {
   return (
-    <ThirdwebProvider>
+    <ThirdwebProvider 
+      cacheProvider={{
+        type: "localStorage"
+      }}
+    >
       <NextUIProvider>
         <div className="min-h-screen flex flex-col overflow-x-hidden">
           <Navbar />
