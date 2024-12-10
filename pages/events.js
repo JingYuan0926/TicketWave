@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { Card, CardBody, Image, Button, Pagination } from "@nextui-org/react";
 import concertData from '../data/data.json';
 
-const EventsPage = () => {
+const EventsPage = ({ concertIds }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
-    const totalPages = Math.ceil(concertData.concerts.length / itemsPerPage);
 
-    const currentConcerts = concertData.concerts.slice(
+    // Filter concerts based on concertIds prop
+    const filteredConcerts = concertIds && concertIds[0] !== -1
+        ? concertData.concerts.filter(concert => concertIds.includes(concert.id))
+        : concertData.concerts;
+
+    const totalPages = Math.ceil(filteredConcerts.length / itemsPerPage);
+
+    const currentConcerts = filteredConcerts.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
@@ -56,6 +62,11 @@ const EventsPage = () => {
             </div>
         </div>
     );
+};
+
+// Add default props
+EventsPage.defaultProps = {
+    concertIds: [-1] // Show all concerts by default
 };
 
 export default EventsPage;
