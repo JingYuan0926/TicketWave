@@ -8,6 +8,8 @@ import { useSendTransaction } from "thirdweb/react";
 import { contract } from "../../utils/client";
 import { useActiveAccount } from "thirdweb/react";
 import { useReadContract } from "thirdweb/react";
+import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "../../utils/firebase";
 
 const DetailsPage = () => {
     const router = useRouter();
@@ -17,20 +19,25 @@ const DetailsPage = () => {
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     const [concert, setConcert] = useState(null);
     const { mutate: sendTransaction } = useSendTransaction();
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isPurchaseOpen, onOpen: onPurchaseOpen, onClose: onPurchaseClose } = useDisclosure();
     const [transactionStatus, setTransactionStatus] = useState('pending');
     const [isConfirming, setIsConfirming] = useState(false);
+    const [userInfo, setUserInfo] = useState({ email: '', name: '', university: '' });
     const { data: ticketData, isPending } = useReadContract({
         contract,
         method: "function getConcertDetails(uint256 concertId) view returns (uint256 totalCapacity, uint256 ticketsSold)",
         params: [Number(id)]
     });
+    const [hasTicket, setHasTicket] = useState(false);
 
-    // Calculate tickets remaining
-    const ticketsIssued = ticketData ? Number(ticketData[0]) : 0;
-    const ticketsSold = ticketData ? Number(ticketData[1]) : 0;
-    const ticketsRemaining = ticketsIssued - ticketsSold;
+    // Monitor wallet connection
+    useEffect(() => {
+        if (wallet) {
+            console.log("Wallet connected:", wallet.address);
+        }
+    }, [wallet]);
 
+    // Load concert data
     useEffect(() => {
         if (id) {
             const foundConcert = concertData.concerts.find(c => c.id === Number(id));
@@ -38,23 +45,62 @@ const DetailsPage = () => {
         }
     }, [id]);
 
-    if (!concert) return (
-        <div className="min-h-screen flex items-center justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-        </div>
-    );
+    // Calculate tickets remaining
+    const ticketsIssued = ticketData ? Number(ticketData[0]) : 0;
+    const ticketsSold = ticketData ? Number(ticketData[1]) : 0;
+    const ticketsRemaining = ticketsIssued - ticketsSold;
+
+    // Add new useEffect to check for existing ticket
+    useEffect(() => {
+        const checkExistingTicket = async () => {
+            if (wallet?.address && id) {
+                try {
+                    const docRef = doc(db, "purchases", wallet.address);
+                    const docSnap = await getDoc(docRef);
+                    
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        // Check if user has ticket for this specific event
+                        if (data.event.id === Number(id)) {
+                            setHasTicket(true);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error checking existing ticket:", error);
+                }
+            }
+        };
+
+        checkExistingTicket();
+    }, [wallet?.address, id]);
 
     const handleBuyTickets = async () => {
+        if (!wallet?.address) {
+            return;
+        }
+        
         if (!selectedTicketType || !id || !concert) return;
-        onOpen();
+        onPurchaseOpen();
     };
 
     const confirmPurchase = async () => {
+        if (!userInfo.email || !userInfo.name || !userInfo.university) {
+            return;
+        }
+
+        // Check if wallet is connected
+        if (!wallet?.address) {
+            console.error("No wallet connected");
+            setTransactionStatus('error');
+            return;
+        }
+
         try {
             setIsConfirming(true);
             setTransactionStatus('pending');
             const seatTypeFormatted = selectedTicketType.charAt(0).toUpperCase() + selectedTicketType.slice(1);
             
+            // First handle blockchain transaction
             const transaction = prepareContractCall({
                 contract,
                 method: "function purchaseTicket(uint256 concertId, string imageURI, string seatType)",
@@ -64,35 +110,67 @@ const DetailsPage = () => {
                     seatTypeFormatted  
                 ]
             });
-    
+
+            let transactionHash = null;
+
             await sendTransaction(transaction, {
-                onSubmitted: () => {
+                onSubmitted: (hash) => {
                     setTransactionStatus('loading');
+                    transactionHash = hash; // Store the transaction hash
                 },
-                onSuccess: () => {
-                    setTransactionStatus('success');
-                    setIsConfirming(false);
+                onSuccess: async (result) => {
+                    // After blockchain transaction succeeds, store in Firebase
+                    try {
+                        await setDoc(doc(db, "purchases", wallet.address), {
+                            timestamp: new Date(),
+                            user: {
+                                email: userInfo.email,
+                                name: userInfo.name,
+                                university: userInfo.university,
+                                walletAddress: wallet.address
+                            },
+                            event: {
+                                id: Number(id),
+                                name: concert.title,
+                                ticketType: seatTypeFormatted,
+                                price: concert.price[selectedTicketType],
+                                venue: concert.venue.name,
+                                date: concert.date,
+                                time: concert.time
+                            },
+                            status: 'completed',
+                            transactionHash: transactionHash
+                        });
+                        
+                        console.log("Purchase document stored with wallet address as ID");
+                        setTransactionStatus('success');
+                        setIsConfirming(false);
+                        
+                    } catch (firebaseError) {
+                        console.error("Failed to store purchase data:", firebaseError);
+                        setTransactionStatus('success');
+                        setIsConfirming(false);
+                    }
                 },
-                onError: () => {
+                onError: (error) => {
+                    console.error("Blockchain transaction failed:", error);
                     setTransactionStatus('error');
                     setIsConfirming(false);
                 }
             });
+            
         } catch (error) {
             console.error("Transaction failed:", error);
             setTransactionStatus('error');
             setIsConfirming(false);
         }
     };
-    
-    
-    
 
-    const handleModalClose = () => {
-        onClose();
-        setTransactionStatus('pending');
-        setIsConfirming(false);
-    };
+    if (!concert) return (
+        <div className="min-h-screen flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        </div>
+    );
 
     return (
         <>
@@ -235,11 +313,18 @@ const DetailsPage = () => {
                                     <Button
                                         color="primary"
                                         size="lg"
-                                        className="w-full"
-                                        disabled={!selectedTicketType}
+                                        className={`w-full ${(!selectedTicketType || !wallet?.address || hasTicket) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={!selectedTicketType || !wallet?.address || hasTicket}
                                         onClick={handleBuyTickets}
                                     >
-                                        {selectedTicketType ? 'Buy Ticket' : 'Select a Ticket Type'}
+                                        {!wallet?.address 
+                                            ? 'Sign in first before buying tickets'
+                                            : hasTicket
+                                                ? 'You Already Have a Ticket'
+                                                : selectedTicketType 
+                                                    ? 'Buy Ticket' 
+                                                    : 'Select a Ticket Type'
+                                        }
                                     </Button>
 
                                     <p className="text-tiny text-default-500 text-center">
@@ -252,23 +337,46 @@ const DetailsPage = () => {
                 </div>
             </div>
 
-            <Modal isOpen={isOpen} onClose={handleModalClose}>
+            <Modal isOpen={isPurchaseOpen} onClose={onPurchaseClose}>
                 <ModalContent>
                     {(onClose) => (
                         <>
                             <ModalHeader className="flex flex-col gap-1">
-                                {transactionStatus === 'pending' ? 'Confirm Purchase' : 
+                                {transactionStatus === 'pending' ? 'Complete Purchase' : 
                                  transactionStatus === 'success' ? 'Purchase Successful!' : 
                                  'Purchase Failed'}
                             </ModalHeader>
                             <ModalBody>
                                 {transactionStatus === 'pending' && (
                                     <>
-                                        <p>You are about to purchase:</p>
-                                        <div className="p-4 bg-default-100 rounded-lg">
+                                        <p className="mb-4">You are about to purchase:</p>
+                                        <div className="p-4 bg-default-100 rounded-lg mb-4">
                                             <p className="font-semibold">{concert.title}</p>
                                             <p>Ticket Type: {selectedTicketType?.charAt(0).toUpperCase() + selectedTicketType?.slice(1)}</p>
                                             <p>Price: ${concert.price[selectedTicketType].toFixed(2)}</p>
+                                        </div>
+                                        <div className="space-y-4">
+                                            <input
+                                                type="email"
+                                                placeholder="Email"
+                                                className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
+                                                value={userInfo.email}
+                                                onChange={(e) => setUserInfo(prev => ({ ...prev, email: e.target.value }))}
+                                            />
+                                            <input
+                                                type="text"
+                                                placeholder="Full Name"
+                                                className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
+                                                value={userInfo.name}
+                                                onChange={(e) => setUserInfo(prev => ({ ...prev, name: e.target.value }))}
+                                            />
+                                            <input
+                                                type="text"
+                                                placeholder="University/Workspace"
+                                                className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
+                                                value={userInfo.university}
+                                                onChange={(e) => setUserInfo(prev => ({ ...prev, university: e.target.value }))}
+                                            />
                                         </div>
                                     </>
                                 )}

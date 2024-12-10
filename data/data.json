@@ -136,6 +136,27 @@
             },
             "artists": ["Nayeon", "Jeongyeon", "Momo", "Sana", "Jihyo", "Mina", "Dahyun", "Chaeyoung", "Tzuyu"],
             "additionalInfo": "Two-day event. Tickets valid for both days. Special merchandise available exclusively for ticket holders."
+        },
+        {
+            "id": 7,
+            "title": "Blockchain 101",
+            "imgCard": "/monopoly.jpg",
+            "imgCover": "/monopoly.jpg",
+            "date": "21/12/2024",
+            "time": "09:00",
+            "location": "Taylor's University Lakeside Campus",
+            "description": "Learn Blockchain through Monopoly - Play a game where your strategies enhance your blockchain knowledge for a digital future. An engaging, educational, and interactive experience.",
+            "price": {
+                "standard": 0.00
+            },
+            "contractAddress": "0x7890123456abcdef7890123456abcdef78901234",
+            "venue": {
+                "name": "Taylor's University Lakeside Campus",
+                "address": "1, Jalan Taylor's, 47500 Subang Jaya, Selangor",
+                "capacity": 50
+            },
+            "artists": ["Blockchain Experts"],
+            "additionalInfo": "Two-day educational event. Free entry for all participants. Learn blockchain concepts through interactive gameplay."
         }
     ]
 }
