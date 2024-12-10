@@ -8,7 +8,7 @@ import { useSendTransaction } from "thirdweb/react";
 import { contract } from "../../utils/client";
 import { useActiveAccount } from "thirdweb/react";
 import { useReadContract } from "thirdweb/react";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 
 const DetailsPage = () => {
@@ -22,12 +22,13 @@ const DetailsPage = () => {
     const { isOpen: isPurchaseOpen, onOpen: onPurchaseOpen, onClose: onPurchaseClose } = useDisclosure();
     const [transactionStatus, setTransactionStatus] = useState('pending');
     const [isConfirming, setIsConfirming] = useState(false);
-    const [userInfo, setUserInfo] = useState({ email: '', name: '', studentId: '' });
+    const [userInfo, setUserInfo] = useState({ email: '', name: '', university: '' });
     const { data: ticketData, isPending } = useReadContract({
         contract,
         method: "function getConcertDetails(uint256 concertId) view returns (uint256 totalCapacity, uint256 ticketsSold)",
         params: [Number(id)]
     });
+    const [hasTicket, setHasTicket] = useState(false);
 
     // Monitor wallet connection
     useEffect(() => {
@@ -49,13 +50,41 @@ const DetailsPage = () => {
     const ticketsSold = ticketData ? Number(ticketData[1]) : 0;
     const ticketsRemaining = ticketsIssued - ticketsSold;
 
+    // Add new useEffect to check for existing ticket
+    useEffect(() => {
+        const checkExistingTicket = async () => {
+            if (wallet?.address && id) {
+                try {
+                    const docRef = doc(db, "purchases", wallet.address);
+                    const docSnap = await getDoc(docRef);
+                    
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        // Check if user has ticket for this specific event
+                        if (data.event.id === Number(id)) {
+                            setHasTicket(true);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error checking existing ticket:", error);
+                }
+            }
+        };
+
+        checkExistingTicket();
+    }, [wallet?.address, id]);
+
     const handleBuyTickets = async () => {
+        if (!wallet?.address) {
+            return;
+        }
+        
         if (!selectedTicketType || !id || !concert) return;
         onPurchaseOpen();
     };
 
     const confirmPurchase = async () => {
-        if (!userInfo.email || !userInfo.name || !userInfo.studentId) {
+        if (!userInfo.email || !userInfo.name || !userInfo.university) {
             return;
         }
 
@@ -92,12 +121,12 @@ const DetailsPage = () => {
                 onSuccess: async (result) => {
                     // After blockchain transaction succeeds, store in Firebase
                     try {
-                        const docRef = await addDoc(collection(db, "purchases"), {
+                        await setDoc(doc(db, "purchases", wallet.address), {
                             timestamp: new Date(),
                             user: {
                                 email: userInfo.email,
                                 name: userInfo.name,
-                                studentId: userInfo.studentId,
+                                university: userInfo.university,
                                 walletAddress: wallet.address
                             },
                             event: {
@@ -113,14 +142,12 @@ const DetailsPage = () => {
                             transactionHash: transactionHash
                         });
                         
-                        console.log("Purchase document stored with ID: ", docRef.id);
-                        console.log("Transaction hash: ", transactionHash);
+                        console.log("Purchase document stored with wallet address as ID");
                         setTransactionStatus('success');
                         setIsConfirming(false);
                         
                     } catch (firebaseError) {
                         console.error("Failed to store purchase data:", firebaseError);
-                        // Even if Firebase storage fails, the blockchain transaction succeeded
                         setTransactionStatus('success');
                         setIsConfirming(false);
                     }
@@ -286,11 +313,18 @@ const DetailsPage = () => {
                                     <Button
                                         color="primary"
                                         size="lg"
-                                        className="w-full"
-                                        disabled={!selectedTicketType}
+                                        className={`w-full ${(!selectedTicketType || !wallet?.address || hasTicket) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={!selectedTicketType || !wallet?.address || hasTicket}
                                         onClick={handleBuyTickets}
                                     >
-                                        {selectedTicketType ? 'Buy Ticket' : 'Select a Ticket Type'}
+                                        {!wallet?.address 
+                                            ? 'Sign in first before buying tickets'
+                                            : hasTicket
+                                                ? 'You Already Have a Ticket'
+                                                : selectedTicketType 
+                                                    ? 'Buy Ticket' 
+                                                    : 'Select a Ticket Type'
+                                        }
                                     </Button>
 
                                     <p className="text-tiny text-default-500 text-center">
@@ -338,10 +372,10 @@ const DetailsPage = () => {
                                             />
                                             <input
                                                 type="text"
-                                                placeholder="Student ID"
+                                                placeholder="University/Workspace"
                                                 className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
-                                                value={userInfo.studentId}
-                                                onChange={(e) => setUserInfo(prev => ({ ...prev, studentId: e.target.value }))}
+                                                value={userInfo.university}
+                                                onChange={(e) => setUserInfo(prev => ({ ...prev, university: e.target.value }))}
                                             />
                                         </div>
                                     </>
