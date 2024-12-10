@@ -66,7 +66,7 @@ const EventsPage = ({ concertIds }) => {
 
 // Add default props
 EventsPage.defaultProps = {
-    concertIds: [-1] // Show all concerts by default
+    concertIds: [7] // Show all concerts by default
 };
 
 export default EventsPage;
