@@ -59,7 +59,10 @@ const UpcomingEvents = ({ concertIds }) => {
                             <p className="text-default-500 text-small">{event.venue.name}</p>
                             <div className="mt-2">
                                 <span className="text-default-600 font-semibold">
-                                    From ${Math.min(...Object.values(event.price))}
+                                    {Math.min(...Object.values(event.price)) === 0 
+                                        ? "Free"
+                                        : `From $${Math.min(...Object.values(event.price))}`
+                                    }
                                 </span>
                             </div>
                         </CardFooter>

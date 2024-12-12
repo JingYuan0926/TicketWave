@@ -302,15 +302,6 @@ const DetailsPage = () => {
                                         ))}
                                     </div>
 
-                                    {selectedTicketType && (
-                                        <div className="flex justify-between items-center py-2">
-                                            <span className="font-semibold">Total:</span>
-                                            <span className="font-bold text-xl">
-                                                ${concert.price[selectedTicketType].toFixed(2)}
-                                            </span>
-                                        </div>
-                                    )}
-
                                     <Button
                                         color="primary"
                                         size="lg"

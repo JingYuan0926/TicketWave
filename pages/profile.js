@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Tabs, Tab, Spinner } from "@nextui-org/react";
+import { Tabs, Tab, Skeleton, Card } from "@nextui-org/react";
 import { useActiveAccount } from "thirdweb/react";
 import ProfileHeader from '../components/ProfileHeader';
 import TicketCard from '../components/TicketCard';
@@ -101,8 +101,46 @@ const Portfolio = () => {
 
     if (isLoading) {
         return (
-            <div className="container mx-auto px-4 py-8 flex justify-center">
-                <Spinner size="lg" />
+            <div className="container mx-auto px-4 py-8">
+                {/* Skeleton for ProfileHeader */}
+                <div className="mb-8">
+                    <Card className="p-10 space-y-4">
+                        <div className="flex items-center gap-6">
+                            <Skeleton className="rounded-full w-24 h-24" />
+                            <div className="space-y-4 flex-1">
+                                <Skeleton className="h-4 w-3/5 rounded-lg" />
+                                <Skeleton className="h-4 w-4/5 rounded-lg" />
+                            </div>
+                        </div>
+                    </Card>
+                </div>
+
+                {/* Skeleton for Tabs */}
+                <div className="mb-8">
+                    <Skeleton className="h-12 rounded-lg mb-4 w-full" />
+                    
+                    {/* Skeleton grid for tickets */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {[...Array(8)].map((_, index) => (
+                            <Card key={index} className="space-y-5 p-4">
+                                <Skeleton className="rounded-lg">
+                                    <div className="h-40 rounded-lg bg-default-300" />
+                                </Skeleton>
+                                <div className="space-y-3">
+                                    <Skeleton className="w-3/5 rounded-lg">
+                                        <div className="h-3 rounded-lg bg-default-200" />
+                                    </Skeleton>
+                                    <Skeleton className="w-4/5 rounded-lg">
+                                        <div className="h-3 rounded-lg bg-default-200" />
+                                    </Skeleton>
+                                    <Skeleton className="w-2/5 rounded-lg">
+                                        <div className="h-3 rounded-lg bg-default-200" />
+                                    </Skeleton>
+                                </div>
+                            </Card>
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     }

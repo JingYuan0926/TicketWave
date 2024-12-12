@@ -147,7 +147,7 @@
             "location": "Taylor's University Lakeside Campus",
             "description": "Learn Blockchain through Monopoly - Play a game where your strategies enhance your blockchain knowledge for a digital future. An engaging, educational, and interactive experience.",
             "price": {
-                "standard": 0.00
+                "Participant": 0.00
             },
             "contractAddress": "0x7890123456abcdef7890123456abcdef78901234",
             "venue": {
