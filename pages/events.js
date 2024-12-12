@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Card, CardBody, Image, Button, Pagination } from "@nextui-org/react";
 import concertData from '../data/data.json';
 
-const EventsPage = ({ concertIds }) => {
+const EventsPage = () => {
+    const router = useRouter();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
-    // Filter concerts based on concertIds prop
-    const filteredConcerts = concertIds && concertIds[0] !== -1
+    // Get concertIds from query parameters
+    const concertIds = router.query.concertIds
+        ? router.query.concertIds.split(',').map(Number)
+        : [];
+
+    // Filter concerts based on query parameters
+    const filteredConcerts = concertIds.length > 0
         ? concertData.concerts.filter(concert => concertIds.includes(concert.id))
         : concertData.concerts;
 
@@ -62,11 +69,6 @@ const EventsPage = ({ concertIds }) => {
             </div>
         </div>
     );
-};
-
-// Add default props
-EventsPage.defaultProps = {
-    concertIds: [7] // Show all concerts by default
 };
 
 export default EventsPage;

@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Card, CardBody, Image, Button, Chip, Divider, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import { IoCalendarOutline, IoLocationOutline, IoTimeOutline, IoPeopleOutline } from "react-icons/io5";
-import concertData from '../../data/data.json';
+import concertData from '../data/data.json';
 import { prepareContractCall } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
-import { contract } from "../../utils/client";
+import { contract } from "../utils/client";
 import { useActiveAccount } from "thirdweb/react";
 import { useReadContract } from "thirdweb/react";
 import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
-import { db } from "../../utils/firebase";
+import { db } from "../utils/firebase";
 
 const DetailsPage = () => {
     const router = useRouter();
-    const { id } = router.query;
+    const { slug } = router.query;
+    const id = slug ? parseInt(slug.split('-').pop()) : null;
     const wallet = useActiveAccount();
     const [selectedTicketType, setSelectedTicketType] = useState(null);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
