@@ -6,6 +6,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { SiSpacex } from "react-icons/si";
+import { FaTicketSimple } from "react-icons/fa6";
 import { FiArrowRight, FiMapPin } from "react-icons/fi";
 import { useRouter } from "next/router"; // Import useRouter for navigation
 import ParallaxImg from "../components/ParallaxImg";
@@ -39,12 +40,12 @@ const Nav = () => {
 
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-3 text-white">
-      <SiSpacex className="text-3xl mix-blend-difference" />
+      <FaTicketSimple className="text-3xl mix-blend-difference" />
       <button
         onClick={handleLaunchScheduleClick} // Trigger navigation on button click
         className="flex items-center gap-1 text-xs text-zinc-400"
       >
-        LAUNCH SCHEDULE <FiArrowRight />
+        Proceed to Mainsite <FiArrowRight />
       </button>
     </nav>
   );
@@ -89,12 +90,12 @@ const CenterImage = () => {
       className="sticky top-0 h-screen w-full"
       style={{
         clipPath,
-        backgroundSize,
+        backgroundSize: "cover", // Makes the image fill the container
+        backgroundPosition: "center 130%", // Centers horizontally and moves the image down vertically
         opacity,
         backgroundImage:
-          "url(https://images.unsplash.com/photo-1460186136353-977e9d6085a1?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+          "url(https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg?cs=srgb&dl=pexels-thibault-trillet-44912-167636.jpg&fm=jpg)",
+        backgroundRepeat: "no-repeat", // Prevents tiling
       }}
     />
   );
@@ -104,29 +105,29 @@ const ParallaxImages = () => {
   return (
     <div className="mx-auto max-w-5xl px-4 pt-[200px]">
       <ParallaxImg
-        src="https://images.unsplash.com/photo-1484600899469-230e8d1d59c0?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="And example of a space launch"
+        src="https://m.kedglobal.com/data/ked/image/2022/02/25/ked202202250019.jpg"
+        alt="Blackpink Concert"
         start={-200}
         end={200}
         className="w-1/3"
       />
       <ParallaxImg
-        src="https://images.unsplash.com/photo-1446776709462-d6b525c57bd3?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="An example of a space launch"
+        src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
+        alt="Taylor Swift"
         start={200}
         end={-250}
         className="mx-auto w-2/3"
       />
       <ParallaxImg
-        src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Orbiting satellite"
+        src="https://wp.dailybruin.com/images/2022/09/web.ae_.weekndreview.MC_.jpg"
+        alt="The Weeknd"
         start={-200}
         end={200}
         className="ml-auto w-1/3"
       />
       <ParallaxImg
-        src="https://images.unsplash.com/photo-1494022299300-899b96e49893?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Orbiting satellite"
+        src="https://asianews.network/wp-content/uploads/bfi_thumb/20230927000881_0-7bogr16e51eqcag6r46vhanm8d1zub2ugjge8uh8u2o.jpeg"
+        alt="Blackpink Concert"
         start={0}
         end={-500}
         className="ml-24 w-5/12"
