@@ -246,7 +246,7 @@ const DetailsPage = () => {
 
                 {/* For desktop screens */}
                 <div className="hidden md:block">
-                    <div className="relative h-[550px] w-full overflow-hidden">
+                    <div className="relative h-[650px] w-full overflow-hidden">
                         <div
                             className="absolute inset-0 bg-cover bg-center filter blur-xl scale-110 brightness-50"
                             style={{ backgroundImage: `url(${concert.imgCover})` }}
@@ -308,10 +308,13 @@ const DetailsPage = () => {
                                 <div className="space-y-4">
                                     <h3 className="text-xl font-semibold">Venue Information</h3>
                                     <div className="space-y-2">
-                                        <p className="flex items-center gap-2">
-                                            <span className="font-semibold">Location:</span>
-                                            <span>{concert.venue.name}</span>
-                                        </p>
+
+                                        {concert.venue.detailedLocation && (
+                                            <p className="flex items-center gap-2">
+                                                <span className="font-semibold">Detailed Location:</span>
+                                                <span>{concert.venue.detailedLocation}</span>
+                                            </p>
+                                        )}
                                         <p className="flex items-center gap-2">
                                             <span className="font-semibold">Address:</span>
                                             <span>{concert.venue.address}</span>

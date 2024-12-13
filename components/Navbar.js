@@ -27,7 +27,6 @@ const TicketWaveNavbar = () => {
     return (
         <Navbar
             isBordered
-            isMenuOpen={isMenuOpen}
             maxWidth="full"
             className="bg-[#1d2951] h-[90px] px-4 flex items-center"
             onMenuOpenChange={setIsMenuOpen}
