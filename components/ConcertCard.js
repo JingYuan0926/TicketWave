@@ -9,8 +9,13 @@ const UpcomingEvents = ({ concertIds }) => {
         ? concertData.concerts.filter(concert => concertIds.includes(concert.id))
         : concertData.concerts;
 
-    const handleEventClick = (eventId) => {
-        router.push(`/details/${eventId}`);
+    const getEventSlug = (title, id) => {
+        return `/${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${id}`;
+    };
+
+    const handleEventClick = (event) => {
+        const slug = getEventSlug(event.title, event.id);
+        router.push(slug);
     };
 
     return (
@@ -35,7 +40,7 @@ const UpcomingEvents = ({ concertIds }) => {
                         shadow="sm" 
                         key={event.id} 
                         isPressable 
-                        onPress={() => handleEventClick(event.id)}
+                        onPress={() => handleEventClick(event)}
                         className="hover:scale-105 transition-transform duration-200"
                     >
                         <CardBody className="p-0">
@@ -50,11 +55,15 @@ const UpcomingEvents = ({ concertIds }) => {
                         </CardBody>
                         <CardFooter className="flex-col items-start">
                             <h4 className="font-bold text-large">{event.title}</h4>
-                            <p className="text-default-500">{event.date} at {event.time}</p>
+                            <p className="text-default-500">{event.date}</p>
+                            <p className="text-default-500">{event.time}</p>
                             <p className="text-default-500 text-small">{event.venue.name}</p>
                             <div className="mt-2">
                                 <span className="text-default-600 font-semibold">
-                                    From ${Math.min(...Object.values(event.price))}
+                                    {Math.min(...Object.values(event.price)) === 0 
+                                        ? "Free"
+                                        : `From $${Math.min(...Object.values(event.price))}`
+                                    }
                                 </span>
                             </div>
                         </CardFooter>

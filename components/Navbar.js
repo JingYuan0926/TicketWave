@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenuToggle, NavbarMenuItem, NavbarMenu } from "@nextui-org/react";
 import Link from 'next/link';
 import { ConnectButton } from 'thirdweb/react';
 import { client } from '../utils/client';
@@ -9,49 +9,54 @@ import { useRouter } from 'next/router';
 
 const TicketWaveNavbar = () => {
     const router = useRouter();
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const handleNavigation = (e, path) => {
         e.preventDefault();
         router.push(path);
     };
 
+    const menuItems = [
+        { name: "HOME", path: "/" },
+        { name: "EVENTS", path: "/events" },
+        { name: "PROFILE", path: "/profile" },
+        { name: "CONTACT US", path: "/contact" },
+    ];
+
     return (
         <Navbar
             isBordered
             maxWidth="full"
             className="bg-[#1d2951] h-[90px] px-4 flex items-center"
+            onMenuOpenChange={setIsMenuOpen}
         >
             <NavbarContent justify="start" className="gap-4 sm:gap-12 h-full items-center">
+                <NavbarMenuToggle
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    className="lg:hidden text-white"
+                />
                 <NavbarBrand>
                     <p className="font-serif font-bold text-inherit text-xl sm:text-3xl text-white">TicketWave</p>
                 </NavbarBrand>
 
-                <NavbarContent className="font-serif hidden sm:flex gap-10 h-full items-center">
-                    <NavbarItem>
-                        <Link href="/" onClick={(e) => handleNavigation(e, '/')} className="text-white text-2xl">
-                            HOME
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem>
-                        <Link href="/events" onClick={(e) => handleNavigation(e, '/events')} className="text-white text-2xl">
-                            EVENTS
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem>
-                        <Link href="/marketplace" onClick={(e) => handleNavigation(e, '/marketplace')} className="text-white text-2xl">
-                            MARKETPLACE
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem>
-                        <Link href="/contact" onClick={(e) => handleNavigation(e, '/contact')} className="text-white text-2xl">
-                            CONTACT US
-                        </Link>
-                    </NavbarItem>
+                {/* Desktop Navigation */}
+                <NavbarContent className="font-serif hidden lg:flex gap-10 h-full items-center">
+                    {menuItems.map((item, index) => (
+                        <NavbarItem key={index}>
+                            <Link 
+                                href={item.path} 
+                                onClick={(e) => handleNavigation(e, item.path)} 
+                                className="text-white text-2xl"
+                            >
+                                {item.name}
+                            </Link>
+                        </NavbarItem>
+                    ))}
                 </NavbarContent>
             </NavbarContent>
 
-            <NavbarContent justify="end" className="gap-2 sm:gap-10 h-full items-center">
-                <NavbarItem className="scale-90 sm:scale-100">
+            <NavbarContent justify="end" className="gap-2 lg:gap-10 h-full items-center">
+                <NavbarItem className="scale-90 lg:scale-100">
                     <ConnectButton
                         client={client}
                         wallets={[
@@ -59,7 +64,6 @@ const TicketWaveNavbar = () => {
                                 auth: {
                                     options: ["email", "google", "facebook","phone","apple"]
                                 },
-
                                 hidePrivateKeyExport: true,
                             })
                         ]}
@@ -73,33 +77,24 @@ const TicketWaveNavbar = () => {
                             sponsorGas: true,
                             hidePrivateKeyOption: true
                           }}
-
                     />
                 </NavbarItem>
-                <NavbarItem>
-                    <Dropdown placement="bottom-end">
-                        <DropdownTrigger>
-                            <Avatar
-                                isBordered
-                                as="button"
-                                className="transition-transform"
-                                color="#f8f4f4"
-                                name="User"
-                                size="sm"
-                                src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"
-                            />
-                        </DropdownTrigger>
-                        <DropdownMenu aria-label="Profile Actions" variant="flat">
-                            <DropdownItem key="settings">My Settings</DropdownItem>
-                            <DropdownItem key="portfolio" onPress={() => router.push('/portfolio')}>Portfolio</DropdownItem>
-                            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-                            <DropdownItem key="logout" color="danger">
-                                Log Out
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                </NavbarItem>
             </NavbarContent>
+
+            {/* Mobile Navigation Menu */}
+            <NavbarMenu className="bg-[#1d2951] pt-6 font-serif">
+                {menuItems.map((item, index) => (
+                    <NavbarMenuItem key={index}>
+                        <Link
+                            className="w-full text-white text-xl py-2"
+                            href={item.path}
+                            onClick={(e) => handleNavigation(e, item.path)}
+                        >
+                            {item.name}
+                        </Link>
+                    </NavbarMenuItem>
+                ))}
+            </NavbarMenu>
         </Navbar>
     );
 };
