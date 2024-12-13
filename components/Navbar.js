@@ -82,7 +82,7 @@ const TicketWaveNavbar = () => {
             </NavbarContent>
 
             {/* Mobile Navigation Menu */}
-            <NavbarMenu className="bg-[#1d2951] pt-6">
+            <NavbarMenu className="bg-[#1d2951] pt-6 font-serif">
                 {menuItems.map((item, index) => (
                     <NavbarMenuItem key={index}>
                         <Link

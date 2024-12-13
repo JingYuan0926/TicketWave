@@ -176,155 +176,208 @@ const DetailsPage = () => {
     return (
         <>
             <div className="min-h-screen bg-background">
-                <div className="relative h-[550px] md:h-[550px] w-full overflow-hidden">
-                    <div
-                        className="absolute inset-0 bg-cover bg-center filter blur-xl scale-110 brightness-50"
-                        style={{ backgroundImage: `url(${concert.imgCover})` }}
-                    />
-                    <div className="absolute inset-0 container mx-auto flex flex-col md:flex-row items-center px-8 md:-translate-y-12">
-                        <div className="relative w-[200px] md:w-[300px] h-[200px] md:h-[300px] transform md:-translate-y-8 transition-transform mt-8 md:mt-0">
-                            <Image
-                                src={concert.imgCard}
-                                alt={concert.title}
-                                className="object-contain rounded-xl shadow-2xl"
-                                fill
-                                sizes="(max-width: 768px) 200px, 300px"
-                                priority
-                            />
-                        </div>
-                        <div className="flex-1 md:ml-12 max-w-full md:max-w-[60%] text-center md:text-left mt-6 md:mt-0">
-                            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">{concert.title}</h1>
-                            <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-6 text-white text-lg">
-                                <div className="flex items-center gap-3">
-                                    <IoCalendarOutline className="text-2xl" />
-                                    <span>{concert.date}</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <IoTimeOutline className="text-2xl" />
-                                    <span>{concert.time}</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <IoLocationOutline className="text-2xl" />
-                                    <span>{concert.venue.name}</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <IoPeopleOutline className="text-2xl" />
-                                    {isPending ? (
-                                        <span>Loading ticket info...</span>
-                                    ) : (
-                                        <span>
-                                            Available: {ticketsRemaining.toLocaleString()} / {ticketsIssued.toLocaleString()}
-                                        </span>
-                                    )}
+                {/* For mobile screens */}
+                <div className="md:hidden">
+                    <div className="relative h-[700px] w-full overflow-hidden">
+                        <div
+                            className="absolute inset-0 bg-cover bg-center filter blur-xl scale-110 brightness-50"
+                            style={{ backgroundImage: `url(${concert.imgCover})` }}
+                        />
+                        <div className="absolute inset-0 container mx-auto flex flex-col items-center px-8">
+                            <div className="relative w-[200px] h-[200px] mt-16 mb-16">
+                                <Image
+                                    src={concert.imgCard}
+                                    alt={concert.title}
+                                    className="object-contain rounded-xl shadow-2xl"
+                                    fill
+                                    sizes="200px"
+                                    priority
+                                />
+                            </div>
+                            <div className="flex-1 max-w-full text-center mt-20 relative z-10">
+                                <h1 className="text-4xl font-bold text-white mb-6">{concert.title}</h1>
+                                <div className="flex flex-wrap justify-center gap-4 text-white text-lg">
+                                    <div className="flex items-center gap-3">
+                                        <IoCalendarOutline className="text-2xl" />
+                                        <span>{concert.date}</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <IoTimeOutline className="text-2xl" />
+                                        <span>{concert.time}</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <IoLocationOutline className="text-2xl" />
+                                        <span>{concert.venue.name}</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <IoPeopleOutline className="text-2xl" />
+                                        {isPending ? (
+                                            <span>Loading ticket info...</span>
+                                        ) : (
+                                            <span>
+                                                Available: {ticketsRemaining.toLocaleString()} / {ticketsIssued.toLocaleString()}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
                 </div>
 
-                <div className="container mx-auto px-4 py-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div className="lg:col-span-2 space-y-6">
-                            <Card>
-                                <CardBody className="space-y-4">
-                                    <h2 className="text-2xl font-bold">Event Details</h2>
-                                    <p className="text-default-700 leading-relaxed">
-                                        {concert.description}
-                                    </p>
-                                    <Divider />
-                                    <div className="space-y-4">
-                                        <h3 className="text-xl font-semibold">Venue Information</h3>
-                                        <div className="space-y-2">
-                                            <p className="flex items-center gap-2">
-                                                <span className="font-semibold">Location:</span>
-                                                <span>{concert.venue.name}</span>
-                                            </p>
-                                            <p className="flex items-center gap-2">
-                                                <span className="font-semibold">Address:</span>
-                                                <span>{concert.venue.address}</span>
-                                            </p>
-                                        </div>
+                {/* For desktop screens */}
+                <div className="hidden md:block">
+                    <div className="relative h-[550px] w-full overflow-hidden">
+                        <div
+                            className="absolute inset-0 bg-cover bg-center filter blur-xl scale-110 brightness-50"
+                            style={{ backgroundImage: `url(${concert.imgCover})` }}
+                        />
+                        <div className="absolute inset-0 container mx-auto flex flex-row items-center px-8 -translate-y-12">
+                            <div className="relative w-[300px] h-[300px] transform -translate-y-8 transition-transform">
+                                <Image
+                                    src={concert.imgCard}
+                                    alt={concert.title}
+                                    className="object-contain rounded-xl shadow-2xl"
+                                    fill
+                                    sizes="300px"
+                                    priority
+                                />
+                            </div>
+                            <div className="flex-1 ml-12 max-w-[60%] text-left">
+                                <h1 className="text-6xl font-bold text-white mb-6">{concert.title}</h1>
+                                <div className="flex flex-wrap justify-start gap-6 text-white text-lg">
+                                    <div className="flex items-center gap-3">
+                                        <IoCalendarOutline className="text-2xl" />
+                                        <span>{concert.date}</span>
                                     </div>
-                                    <Divider />
-                                    <div className="space-y-4">
-                                        <h3 className="text-xl font-semibold">Featured Artists</h3>
-                                        <div className="flex flex-wrap gap-2">
-                                            {concert.artists.map((artist) => (
-                                                <Chip
-                                                    key={artist}
-                                                    color="primary"
-                                                    variant="flat"
-                                                    className="text-sm"
-                                                >
-                                                    {artist}
-                                                </Chip>
-                                            ))}
-                                        </div>
+                                    <div className="flex items-center gap-3">
+                                        <IoTimeOutline className="text-2xl" />
+                                        <span>{concert.time}</span>
                                     </div>
-                                </CardBody>
-                            </Card>
-
-                            <Card>
-                                <CardBody>
-                                    <h3 className="text-xl font-semibold mb-4">Additional Information</h3>
-                                    <p className="text-default-600">
-                                        {concert.additionalInfo}
-                                    </p>
-                                </CardBody>
-                            </Card>
+                                    <div className="flex items-center gap-3">
+                                        <IoLocationOutline className="text-2xl" />
+                                        <span>{concert.venue.name}</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <IoPeopleOutline className="text-2xl" />
+                                        {isPending ? (
+                                            <span>Loading ticket info...</span>
+                                        ) : (
+                                            <span>
+                                                Available: {ticketsRemaining.toLocaleString()} / {ticketsIssued.toLocaleString()}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
+                    </div>
+                </div>
+            </div>
 
-                        <div className="space-y-6">
-                            <Card className="sticky top-4">
-                                <CardBody className="space-y-6">
-                                    <h2 className="text-2xl font-bold">Select Tickets</h2>
-                                    <div className="space-y-4">
-                                        {Object.entries(concert.price).map(([type, price]) => (
-                                            <div
-                                                key={type}
-                                                className={`p-4 border rounded-lg cursor-pointer transition-colors ${selectedTicketType === type
-                                                    ? 'border-primary bg-primary/10'
-                                                    : 'border-default-200 hover:border-primary'
-                                                    }`}
-                                                onClick={() => setSelectedTicketType(type)}
+            <div className="container mx-auto px-4 py-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="lg:col-span-2 space-y-6">
+                        <Card>
+                            <CardBody className="space-y-4">
+                                <h2 className="text-2xl font-bold">Event Details</h2>
+                                <p className="text-default-700 leading-relaxed">
+                                    {concert.description}
+                                </p>
+                                <Divider />
+                                <div className="space-y-4">
+                                    <h3 className="text-xl font-semibold">Venue Information</h3>
+                                    <div className="space-y-2">
+                                        <p className="flex items-center gap-2">
+                                            <span className="font-semibold">Location:</span>
+                                            <span>{concert.venue.name}</span>
+                                        </p>
+                                        <p className="flex items-center gap-2">
+                                            <span className="font-semibold">Address:</span>
+                                            <span>{concert.venue.address}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <Divider />
+                                <div className="space-y-4">
+                                    <h3 className="text-xl font-semibold">Featured Artists</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {concert.artists.map((artist) => (
+                                            <Chip
+                                                key={artist}
+                                                color="primary"
+                                                variant="flat"
+                                                className="text-sm"
                                             >
-                                                <div className="flex justify-between items-center">
-                                                    <div>
-                                                        <h3 className="font-semibold capitalize">{type}</h3>
-                                                        <p className="text-small text-default-500">Limited to 1 ticket per person</p>
-                                                    </div>
-                                                    <p className="font-bold text-large">
-                                                        ${price.toFixed(2)}
-                                                    </p>
-                                                </div>
-                                            </div>
+                                                {artist}
+                                            </Chip>
                                         ))}
                                     </div>
+                                </div>
+                            </CardBody>
+                        </Card>
 
-                                    <Button
-                                        color="primary"
-                                        size="lg"
-                                        className={`w-full ${(!selectedTicketType || !wallet?.address || hasTicket) ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                        disabled={!selectedTicketType || !wallet?.address || hasTicket}
-                                        onClick={handleBuyTickets}
-                                    >
-                                        {!wallet?.address 
-                                            ? 'Sign in first before buying tickets'
-                                            : hasTicket
-                                                ? 'You Already Have a Ticket'
-                                                : selectedTicketType 
-                                                    ? 'Buy Ticket' 
-                                                    : 'Select a Ticket Type'
-                                        }
-                                    </Button>
+                        <Card>
+                            <CardBody>
+                                <h3 className="text-xl font-semibold mb-4">Additional Information</h3>
+                                <p className="text-default-600">
+                                    {concert.additionalInfo}
+                                </p>
+                            </CardBody>
+                        </Card>
+                    </div>
 
-                                    <p className="text-tiny text-default-500 text-center">
-                                        By purchasing tickets, you agree to our Terms of Service
-                                    </p>
-                                </CardBody>
-                            </Card>
-                        </div>
+                    <div className="space-y-6">
+                        <Card className="sticky top-4">
+                            <CardBody className="space-y-6">
+                                <h2 className="text-2xl font-bold">Select Tickets</h2>
+                                <div className="space-y-4">
+                                    {Object.entries(concert.price).map(([type, price]) => (
+                                        <div
+                                            key={type}
+                                            className={`p-4 border rounded-lg cursor-pointer transition-colors ${selectedTicketType === type
+                                                ? 'border-primary bg-primary/10'
+                                                : 'border-default-200 hover:border-primary'
+                                                }`}
+                                            onClick={() => setSelectedTicketType(type)}
+                                        >
+                                            <div className="flex justify-between items-center">
+                                                <div>
+                                                    <h3 className="font-semibold capitalize">{type}</h3>
+                                                    <p className="text-small text-default-500">Limited to 1 ticket per person</p>
+                                                </div>
+                                                <p className="font-bold text-large">
+                                                    ${price.toFixed(2)}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <Button
+                                    color="primary"
+                                    size="lg"
+                                    className={`w-full ${(!selectedTicketType || !wallet?.address || hasTicket) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={!selectedTicketType || !wallet?.address || hasTicket}
+                                    onClick={handleBuyTickets}
+                                >
+                                    {!wallet?.address 
+                                        ? 'Sign in first before buying tickets'
+                                        : hasTicket
+                                            ? 'You Already Have a Ticket'
+                                            : selectedTicketType 
+                                                ? 'Buy Ticket' 
+                                                : 'Select a Ticket Type'
+                                    }
+                                </Button>
+
+                                <p className="text-tiny text-default-500 text-center">
+                                    By purchasing tickets, you agree to our Terms of Service
+                                </p>
+                            </CardBody>
+                        </Card>
                     </div>
                 </div>
             </div>
