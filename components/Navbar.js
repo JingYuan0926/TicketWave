@@ -13,6 +13,7 @@ const TicketWaveNavbar = () => {
 
     const handleNavigation = (e, path) => {
         e.preventDefault();
+        setIsMenuOpen(false);
         router.push(path);
     };
 
@@ -26,6 +27,7 @@ const TicketWaveNavbar = () => {
     return (
         <Navbar
             isBordered
+            isMenuOpen={isMenuOpen}
             maxWidth="full"
             className="bg-[#1d2951] h-[90px] px-4 flex items-center"
             onMenuOpenChange={setIsMenuOpen}
