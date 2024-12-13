@@ -329,23 +329,23 @@ const DetailsPage = () => {
                                             {concert.organisers.map((organiser, index) => (
                                                 <div
                                                     key={organiser}
-                                                    className="flex flex-col items-center p-4 rounded-lg bg-content2 shadow-sm"
+                                                    className="flex flex-col items-center p-6 rounded-lg bg-content2 shadow-sm"
                                                 >
-                                                    <div className="relative w-[200px] h-[200px] md:w-full md:h-full mb-4">
+                                                    <div className="relative w-[250px] h-[250px] flex items-center justify-center">
                                                         <Image
                                                             src={concert.organisersImage[index]}
                                                             alt={organiser}
                                                             className="object-contain"
                                                             fill
-                                                            sizes="(max-width: 768px) 200px, 33vw"
+                                                            sizes="250px"
                                                             style={{
                                                                 maxWidth: '100%',
                                                                 maxHeight: '100%',
-                                                                margin: 'auto'
+                                                                padding: '20px'
                                                             }}
                                                         />
                                                     </div>
-                                                    <span className="text-sm font-medium text-center">
+                                                    <span className="text-sm font-medium text-center mt-2">
                                                         {organiser}
                                                     </span>
                                                 </div>
@@ -367,6 +367,72 @@ const DetailsPage = () => {
                                         </div>
                                     )}
                                 </div>
+
+                                {/* Sponsors Section */}
+                                {concert.sponsors && (
+                                    <div className="space-y-4">
+                                        <h3 className="text-xl font-semibold">Sponsors</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            {concert.sponsors.map((sponsor, index) => (
+                                                <div
+                                                    key={sponsor}
+                                                    className="flex flex-col items-center p-6 rounded-lg bg-content2 shadow-sm"
+                                                >
+                                                    <div className="relative w-[250px] h-[250px] flex items-center justify-center">
+                                                        <Image
+                                                            src={concert.sponsorsImage[index]}
+                                                            alt={sponsor}
+                                                            className="object-contain"
+                                                            fill
+                                                            sizes="250px"
+                                                            style={{
+                                                                maxWidth: '100%',
+                                                                maxHeight: '100%',
+                                                                padding: '20px'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <span className="text-sm font-medium text-center mt-2">
+                                                        {sponsor}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Partnerships Section */}
+                                {concert.partnerships && (
+                                    <div className="space-y-4">
+                                        <h3 className="text-xl font-semibold">Partnerships</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            {concert.partnerships.map((partnership, index) => (
+                                                <div
+                                                    key={partnership}
+                                                    className="flex flex-col items-center p-4 rounded-lg bg-content2 shadow-sm"
+                                                >
+                                                    <div className="relative w-[200px] h-[200px] md:w-full md:h-full mb-4">
+                                                        <Image
+                                                            src={concert.partnershipsImage[index]}
+                                                            alt={partnership}
+                                                            className="object-contain"
+                                                            fill
+                                                            sizes="(max-width: 768px) 200px, 33vw"
+                                                            style={{
+                                                                maxWidth: '100%',
+                                                                maxHeight: '100%',
+                                                                margin: 'auto'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <span className="text-sm font-medium text-center">
+                                                        {partnership}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </CardBody>
                         </Card>
 

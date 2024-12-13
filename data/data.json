@@ -188,7 +188,12 @@
                 "/Taylor.jpg",
                 "/TARUMT.png"
             ],
-
+            "sponsors": [
+                "Superteam Malaysia"
+            ],
+            "sponsorsImage": [
+                "/superteam.png"
+            ],
             "additionalInfo": "Enhance your blockchain knowledge through interactive games and workshops, then participate in an Ideathon to develop innovative solutions and pitch your ideas for a brighter digital future! \n\n**Summary for Participants:**\n- Hands-on Blockchain Workshop with a Board Game\n- Access to expert panel discussion\n- Refreshment provided\n- Ideathon participation with the opportunity to win prizes\n- Certificates for participation\n\n**Expected Outcomes:**\n- Participants will gain a deeper understanding of blockchain technology and its potential applications.\n- Participants will learn to collaborate effectively in teams to create conceptual solutions.\n- Winners will receive prizes based on the creativity and feasibility of their ideas."
         }
 ]
