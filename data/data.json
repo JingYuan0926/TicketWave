@@ -19,7 +19,9 @@
                 "address": "Taylor's University Lakeside Campus",
                 "capacity": 20
             },
-            "artists": ["Mr Vincent Kok"],
+            "artists": [
+                "Mr Vincent Kok"
+            ],
             "additionalInfo": "Please buy tickets and scan on entry. Entry is free."
         },
         {
@@ -42,7 +44,9 @@
                 "address": "4 Pennsylvania Plaza, New York, NY 10001",
                 "capacity": 20000
             },
-            "artists": ["Bazzi"],
+            "artists": [
+                "Bazzi"
+            ],
             "additionalInfo": "Doors open at 18:30. Meet & Greet packages available for VIP ticket holders."
         },
         {
@@ -65,7 +69,12 @@
                 "address": "Wembley, London HA9 0WS, United Kingdom",
                 "capacity": 90000
             },
-            "artists": ["Chris Martin", "Jonny Buckland", "Guy Berryman", "Will Champion"],
+            "artists": [
+                "Chris Martin",
+                "Jonny Buckland",
+                "Guy Berryman",
+                "Will Champion"
+            ],
             "additionalInfo": "This is a sustainable concert. Please bring your own reusable water bottle. Special LED wristbands will be provided."
         },
         {
@@ -88,7 +97,9 @@
                 "address": "740 Bourke St, Docklands VIC 3008, Australia",
                 "capacity": 53359
             },
-            "artists": ["Ed Sheeran"],
+            "artists": [
+                "Ed Sheeran"
+            ],
             "additionalInfo": "No backpacks allowed. Small bags under 30x30cm permitted. Show includes special effects and strobe lighting."
         },
         {
@@ -111,7 +122,9 @@
                 "address": "Peninsula Square, London SE10 0DX, United Kingdom",
                 "capacity": 20000
             },
-            "artists": ["Lauv"],
+            "artists": [
+                "Lauv"
+            ],
             "additionalInfo": "Special acoustic session included. Early entry for VIP ticket holders at 18:30."
         },
         {
@@ -134,7 +147,17 @@
                 "address": "3300 Kozukue-cho, Kohoku-ku, Yokohama, Kanagawa Prefecture",
                 "capacity": 72327
             },
-            "artists": ["Nayeon", "Jeongyeon", "Momo", "Sana", "Jihyo", "Mina", "Dahyun", "Chaeyoung", "Tzuyu"],
+            "artists": [
+                "Nayeon",
+                "Jeongyeon",
+                "Momo",
+                "Sana",
+                "Jihyo",
+                "Mina",
+                "Dahyun",
+                "Chaeyoung",
+                "Tzuyu"
+            ],
             "additionalInfo": "Two-day event. Tickets valid for both days. Special merchandise available exclusively for ticket holders."
         },
         {
@@ -142,21 +165,30 @@
             "title": "Blockchain 101",
             "imgCard": "/monopoly.jpg",
             "imgCover": "/monopoly.jpg",
-            "date": "21/12/2024",
-            "time": "09:00",
+            "date": "21/12/2024 - 22/12/2024",
+            "time": "09:00 - 16:30",
             "location": "Taylor's University Lakeside Campus",
-            "description": "Learn Blockchain through Monopoly - Play a game where your strategies enhance your blockchain knowledge for a digital future. An engaging, educational, and interactive experience.",
+            "description": "This two-day workshop is designed to introduce participants to the world of Blockchain technology. On Day 1, participants will learn blockchain fundamentals in a workshop, followed by an Ideathon Challenge to develop blockchain-based solutions. On Day 2, teams will pitch their ideas during the Ideathon Pitching session, followed by a Panel Evaluation. The event concludes with the Announcement of Ideathon Results & Prize Distribution, rewarding the best ideas. The event aims to provide hands-on experience in both learning and problem-solving within the blockchain space, and participants will have the opportunity to showcase their ideas for the chance to win prizes.",
             "price": {
                 "Participant": 0.00
             },
             "contractAddress": "0x7890123456abcdef7890123456abcdef78901234",
             "venue": {
-                "name": "Taylor's University Lakeside Campus",
-                "address": "1, Jalan Taylor's, 47500 Subang Jaya, Selangor",
-                "capacity": 50
+                "name": "Taylor's University Lakeside Campus    ",
+                "address": "1, Jalan Taylor's, 47500 Subang Jaya, Selangor"
             },
-            "artists": ["Blockchain Experts"],
-            "additionalInfo": "Two-day educational event. Free entry for all participants. Learn blockchain concepts through interactive gameplay."
+            "organisers": [
+                "Taylor's IET Club",
+                "Taylor Blockchain Club",
+                "TARUMT Blockchain Club"
+            ],
+            "organisersImage": [
+                "/IET.jpg",
+                "/Taylor.jpg",
+                "/TARUMT.png"
+            ],
+
+            "additionalInfo": "Enhance your blockchain knowledge through interactive games and workshops, then participate in an Ideathon to develop innovative solutions and pitch your ideas for a brighter digital future! \n\n**Summary for Participants:**\n- Hands-on Blockchain Workshop\n- Access to expert panel discussion\n- Refreshment provided\n- Ideathon participation with the opportunity to win prizes\n- Workshop materials, including whiteboards/tablets\n- Certificates for participation\n\n**Expected Outcomes:**\n- Participants will gain a deeper understanding of blockchain technology and its potential applications.\n- Participants will learn to collaborate effectively in teams to create conceptual solutions.\n- Winners will receive prizes based on the creativity and feasibility of their ideas."
         }
-    ]
+]
 }

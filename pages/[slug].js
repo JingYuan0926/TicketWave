@@ -10,6 +10,7 @@ import { useActiveAccount } from "thirdweb/react";
 import { useReadContract } from "thirdweb/react";
 import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../utils/firebase";
+import ReactMarkdown from 'react-markdown';
 
 const DetailsPage = () => {
     const router = useRouter();
@@ -302,19 +303,52 @@ const DetailsPage = () => {
                                 </div>
                                 <Divider />
                                 <div className="space-y-4">
-                                    <h3 className="text-xl font-semibold">Featured Artists</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {concert.artists.map((artist) => (
-                                            <Chip
-                                                key={artist}
-                                                color="primary"
-                                                variant="flat"
-                                                className="text-sm"
-                                            >
-                                                {artist}
-                                            </Chip>
-                                        ))}
-                                    </div>
+                                    <h3 className="text-xl font-semibold">
+                                        {concert.organisers ? 'Organizers' : 'Featured Artists'}
+                                    </h3>
+                                    {concert.organisers ? (
+                                        // Organizers display with images in 3-column grid
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            {concert.organisers.map((organiser, index) => (
+                                                <div
+                                                    key={organiser}
+                                                    className="flex flex-col items-center p-4 rounded-lg bg-content2 shadow-sm"
+                                                >
+                                                    <div className="relative w-[200px] h-[200px] md:w-full md:h-full mb-4">
+                                                        <Image
+                                                            src={concert.organisersImage[index]}
+                                                            alt={organiser}
+                                                            className="object-contain"
+                                                            fill
+                                                            sizes="(max-width: 768px) 200px, 33vw"
+                                                            style={{
+                                                                maxWidth: '100%',
+                                                                maxHeight: '100%',
+                                                                margin: 'auto'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <span className="text-sm font-medium text-center">
+                                                        {organiser}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        // Original artists display
+                                        <div className="flex flex-wrap gap-2">
+                                            {concert.artists.map((artist) => (
+                                                <Chip
+                                                    key={artist}
+                                                    color="primary"
+                                                    variant="flat"
+                                                    className="text-sm"
+                                                >
+                                                    {artist}
+                                                </Chip>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </CardBody>
                         </Card>
@@ -322,9 +356,30 @@ const DetailsPage = () => {
                         <Card>
                             <CardBody>
                                 <h3 className="text-xl font-semibold mb-4">Additional Information</h3>
-                                <p className="text-default-600">
-                                    {concert.additionalInfo}
-                                </p>
+                                <div className="text-default-600 prose prose-sm max-w-none">
+                                    <ReactMarkdown
+                                        components={{
+                                            // Style for bullet points
+                                            ul: ({node, ...props}) => (
+                                                <ul className="list-disc pl-4 space-y-2 mb-4" {...props} />
+                                            ),
+                                            // Style for list items
+                                            li: ({node, ...props}) => (
+                                                <li className="text-default-600" {...props} />
+                                            ),
+                                            // Style for paragraphs
+                                            p: ({node, ...props}) => (
+                                                <p className="mb-4" {...props} />
+                                            ),
+                                            // Style for bold text
+                                            strong: ({node, ...props}) => (
+                                                <strong className="font-semibold" {...props} />
+                                            ),
+                                        }}
+                                    >
+                                        {concert.additionalInfo}
+                                    </ReactMarkdown>
+                                </div>
                             </CardBody>
                         </Card>
                     </div>
@@ -349,7 +404,7 @@ const DetailsPage = () => {
                                                     <p className="text-small text-default-500">Limited to 1 ticket per person</p>
                                                 </div>
                                                 <p className="font-bold text-large">
-                                                    ${price.toFixed(2)}
+                                                    {price === 0 ? 'Free' : `$${price.toFixed(2)}`}
                                                 </p>
                                             </div>
                                         </div>
@@ -398,7 +453,7 @@ const DetailsPage = () => {
                                         <div className="p-4 bg-default-100 rounded-lg mb-4">
                                             <p className="font-semibold">{concert.title}</p>
                                             <p>Ticket Type: {selectedTicketType?.charAt(0).toUpperCase() + selectedTicketType?.slice(1)}</p>
-                                            <p>Price: ${concert.price[selectedTicketType].toFixed(2)}</p>
+                                            <p>Price: {concert.price[selectedTicketType] === 0 ? 'Free' : `$${concert.price[selectedTicketType].toFixed(2)}`}</p>
                                         </div>
                                         <div className="space-y-4">
                                             <input

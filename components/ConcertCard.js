@@ -55,7 +55,8 @@ const UpcomingEvents = ({ concertIds }) => {
                         </CardBody>
                         <CardFooter className="flex-col items-start">
                             <h4 className="font-bold text-large">{event.title}</h4>
-                            <p className="text-default-500">{event.date} at {event.time}</p>
+                            <p className="text-default-500">{event.date}</p>
+                            <p className="text-default-500">{event.time}</p>
                             <p className="text-default-500 text-small">{event.venue.name}</p>
                             <div className="mt-2">
                                 <span className="text-default-600 font-semibold">

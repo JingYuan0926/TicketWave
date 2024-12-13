@@ -66,9 +66,30 @@ module.exports = {
             backgroundPosition: 'var(--bg-size) 0'
           }
         }
-      }
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'inherit',
+            p: {
+              color: 'inherit',
+            },
+            strong: {
+              color: 'inherit',
+            },
+            li: {
+              color: 'inherit',
+            },
+          },
+        },
+      },
     }
   },
   darkMode: ["class"],
-  plugins: [nextui(), require("tailwindcss-animate")],
+  plugins: [
+    nextui(),
+    require("tailwindcss-animate"),
+    require('@tailwindcss/typography'),
+  ],
 };
