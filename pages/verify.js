@@ -1,11 +1,10 @@
 // pages/verify.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Spinner, Button } from '@nextui-org/react';
-import { useSendTransaction } from 'thirdweb/react';
-import { prepareContractCall } from 'thirdweb';
+import { prepareContractCall, sendTransaction } from "thirdweb";
 import { contract } from '../utils/client'; // Adjust this path based on your setup
-import { useReadContract } from 'thirdweb/react';
 import dynamic from 'next/dynamic';
+import { useActiveAccount } from "thirdweb/react";
 
 // Correctly import the QR Reader with proper configuration
 const QrReader = dynamic(() => import('react-qr-reader-es6'), {
@@ -14,34 +13,19 @@ const QrReader = dynamic(() => import('react-qr-reader-es6'), {
 });
 
 const Verify = () => {
+    const address = useActiveAccount();
     const [tokenId, setTokenId] = useState(null);
     const [entryStatus, setEntryStatus] = useState(null);
     const [loading, setLoading] = useState(false);
     const [showScanner, setShowScanner] = useState(false);
-    const { mutate: sendTransaction } = useSendTransaction();
-
-    const { data: ticketData, isPending } = useReadContract({
-        contract,
-        method: "function getTicketDetails(uint256 tokenId) view returns (uint256 concertId, bool hasEntered, uint256 purchaseDate, string tokenURI, address ticketOwner)",
-        params: tokenId ? [tokenId] : []
-    });
-
-    useEffect(() => {
-        if (!isPending && ticketData && tokenId) {
-            const [, hasEntered] = ticketData;
-            setEntryStatus(hasEntered ? 'alreadyEntered' : 'canEnter');
-        } else if (!ticketData && tokenId && !isPending) {
-            setEntryStatus('error');
-        }
-    }, [ticketData, isPending, tokenId]);
 
     const handleScan = (data) => {
         if (data) {
             try {
-                // Extract tokenId from the scanned data
                 const tokenIdMatch = data.match(/tokenId=(\d+)/);
                 if (tokenIdMatch && tokenIdMatch[1]) {
                     setTokenId(tokenIdMatch[1]);
+                    setEntryStatus('canEnter');
                 }
             } catch (error) {
                 console.error('Error parsing QR code data:', error);
@@ -54,28 +38,32 @@ const Verify = () => {
     };
 
     const handleEntryConfirmation = async () => {
-        if (!tokenId) return;
+        if (!tokenId || !address) return;
+        setLoading(true);
 
         try {
-            const transaction = prepareContractCall({
+            const transaction = await prepareContractCall({
                 contract,
                 method: "function scanTicketForEntry(uint256 tokenId)",
-                params: [tokenId]
+                params: [tokenId],
             });
 
-            sendTransaction(transaction, {
-                onSuccess: () => {
-                    console.log("Ticket marked as entered successfully.");
-                    setEntryStatus('alreadyEntered');
-                },
-                onError: (error) => {
-                    console.error("Error confirming entry:", error);
-                    setEntryStatus('error');
-                }
+            const { transactionHash } = await sendTransaction({
+                transaction,
+                account: address,
             });
+
+            console.log("Transaction successful:", transactionHash);
+            setEntryStatus('successfulEntry');
+            setLoading(false);
         } catch (error) {
             console.error("Transaction failed:", error);
-            setEntryStatus('error');
+            if (error.message.includes("Ticket already used for entry")) {
+                setEntryStatus('alreadyScanned');
+            } else {
+                setEntryStatus('error');
+            }
+            setLoading(false);
         }
     };
 
@@ -83,10 +71,25 @@ const Verify = () => {
         setShowScanner(true);
     };
 
+    const resetState = () => {
+        setTokenId(null);
+        setEntryStatus(null);
+        setShowScanner(true);
+        setLoading(false);
+    };
+
+    if (!address) {
+        return (
+            <div className="container mx-auto px-4 py-8 text-center">
+                <h1 className="text-2xl font-bold mb-4">Ticket Verification</h1>
+                <p className="text-red-500">Please connect your wallet to verify tickets.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="container mx-auto px-4 py-8 text-center">
             <h1 className="text-2xl font-bold mb-4">Ticket Verification</h1>
-            {loading && <Spinner size="lg" />}
             
             {!tokenId && !showScanner && (
                 <div className="flex flex-col items-center gap-4">
@@ -107,7 +110,7 @@ const Verify = () => {
                     <div className="flex justify-center mb-4">
                         <div style={{ width: '100%', maxWidth: '400px' }}>
                             <QrReader
-                                delay={300}
+                                delay={100}
                                 onError={handleError}
                                 onScan={handleScan}
                                 style={{ width: '100%' }}
@@ -121,16 +124,38 @@ const Verify = () => {
             {tokenId && entryStatus === 'canEnter' && (
                 <>
                     <p className="text-lg mb-4">Ticket #{tokenId} is valid for entry.</p>
-                    <Button color="success" onClick={handleEntryConfirmation}>Mark as Entered</Button>
+                    <div className="flex flex-col items-center gap-4">
+                        <Button 
+                            color="success" 
+                            onClick={handleEntryConfirmation}
+                            disabled={loading}
+                        >
+                            {loading ? <Spinner size="sm" /> : 'Mark as Entered'}
+                        </Button>
+                        <Button color="primary" onClick={resetState}>Verify Another Ticket</Button>
+                    </div>
                 </>
             )}
 
-            {tokenId && entryStatus === 'alreadyEntered' && (
-                <p className="text-lg mb-4 text-red-500">Ticket #{tokenId} has already been used for entry.</p>
+            {tokenId && entryStatus === 'successfulEntry' && (
+                <div className="flex flex-col items-center gap-4">
+                    <p className="text-lg mb-4 text-green-500">✅ Participant #{tokenId} has been successfully approved for entry!</p>
+                    <Button color="primary" onClick={resetState}>Verify Another Ticket</Button>
+                </div>
+            )}
+
+            {tokenId && entryStatus === 'alreadyScanned' && (
+                <div className="flex flex-col items-center gap-4">
+                    <p className="text-lg mb-4 text-yellow-500">⚠️ Ticket #{tokenId} has already been scanned and used for entry.</p>
+                    <Button color="primary" onClick={resetState}>Verify Another Ticket</Button>
+                </div>
             )}
 
             {tokenId && entryStatus === 'error' && (
-                <p className="text-lg mb-4 text-red-500">Error: Unable to verify the ticket. Please try again.</p>
+                <div className="flex flex-col items-center gap-4">
+                    <p className="text-lg mb-4 text-red-500">Error: Unable to verify the ticket. Please try again.</p>
+                    <Button color="primary" onClick={resetState}>Verify Another Ticket</Button>
+                </div>
             )}
         </div>
     );

@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import { Card, CardBody, Image, Button, Pagination } from "@nextui-org/react";
 import concertData from '../data/data.json';
 
 const EventsPage = () => {
-    const router = useRouter();
     const [currentPage, setCurrentPage] = useState(1);
+    const selectedIds = [8]; // Show all by default, change this array to filter specific concerts
     const itemsPerPage = 5;
 
-    // Get concertIds from query parameters
-    const concertIds = router.query.concertIds
-        ? router.query.concertIds.split(',').map(Number)
-        : [];
-
-    // Filter concerts based on query parameters
-    const filteredConcerts = concertIds.length > 0
-        ? concertData.concerts.filter(concert => concertIds.includes(concert.id))
-        : concertData.concerts;
+    // Filtering logic
+    const filteredConcerts = selectedIds.includes(-1)
+        ? concertData.concerts
+        : concertData.concerts.filter(concert => selectedIds.includes(concert.id));
 
     const totalPages = Math.ceil(filteredConcerts.length / itemsPerPage);
-
     const currentConcerts = filteredConcerts.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
@@ -28,6 +21,7 @@ const EventsPage = () => {
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold mb-6">Upcoming Events</h1>
+            
             <div className="space-y-6">
                 {currentConcerts.map((concert) => (
                     <Card key={concert.id} className="w-full mb-4 overflow-hidden">

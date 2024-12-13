@@ -31,6 +31,7 @@ const DetailsPage = () => {
         params: [Number(id)]
     });
     const [hasTicket, setHasTicket] = useState(false);
+    const [shouldRefresh, setShouldRefresh] = useState(false);
 
     // Monitor wallet connection
     useEffect(() => {
@@ -74,7 +75,7 @@ const DetailsPage = () => {
         };
 
         checkExistingTicket();
-    }, [wallet?.address, id]);
+    }, [wallet?.address, id, shouldRefresh]);
 
     const handleBuyTickets = async () => {
         if (!wallet?.address) {
@@ -161,6 +162,8 @@ const DetailsPage = () => {
                         console.log("Purchase document stored with wallet address as ID");
                         setTransactionStatus('success');
                         setIsConfirming(false);
+                        setShouldRefresh(prev => !prev);
+                        onPurchaseClose();
                         
                     } catch (firebaseError) {
                         console.error("Failed to store purchase data:", firebaseError);
@@ -451,7 +454,12 @@ const DetailsPage = () => {
                 </div>
             </div>
 
-            <Modal isOpen={isPurchaseOpen} onClose={onPurchaseClose}>
+            <Modal 
+                isOpen={isPurchaseOpen} 
+                onClose={onPurchaseClose}
+                isDismissable={!isConfirming}  // Prevent closing when confirming
+                hideCloseButton={isConfirming} // Hide the X button when confirming
+            >
                 <ModalContent>
                     {(onClose) => (
                         <>
@@ -516,24 +524,15 @@ const DetailsPage = () => {
                             </ModalBody>
                             <ModalFooter>
                                 {transactionStatus === 'pending' && (
-                                    <>
-                                        <Button 
-                                            color="danger" 
-                                            variant="light" 
-                                            onPress={onClose}
-                                            disabled={isConfirming}
-                                        >
-                                            Cancel
-                                        </Button>
-                                        <Button 
-                                            color="primary" 
-                                            onPress={confirmPurchase}
-                                            isLoading={isConfirming}
-                                            disabled={isConfirming}
-                                        >
-                                            {isConfirming ? 'Confirming...' : 'Confirm Purchase'}
-                                        </Button>
-                                    </>
+                                    <Button 
+                                        color="primary" 
+                                        onPress={confirmPurchase}
+                                        isLoading={isConfirming}
+                                        disabled={isConfirming}
+                                        className="w-full"
+                                    >
+                                        {isConfirming ? 'Processing Transaction...' : 'Confirm Purchase'}
+                                    </Button>
                                 )}
                                 {(transactionStatus === 'success' || transactionStatus === 'error') && (
                                     <Button color="primary" onPress={onClose}>

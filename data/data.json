@@ -161,14 +161,15 @@
             "additionalInfo": "Two-day event. Tickets valid for both days. Special merchandise available exclusively for ticket holders."
         },
         {
-            "id": 7,
+            "id": 8,
             "title": "Blockchain 101",
             "imgCard": "/monopoly.jpg",
             "imgCover": "/monopoly.jpg",
             "date": "21/12/2024 - 22/12/2024",
-            "time": "09:00 - 16:30",
+            "time": " 09:00 am (Day 1), 10:00 am (Day 2)",
+            "detailedTime": " 09:00 am (Day 1), 10:00 am (Day 2)",
             "location": "Taylor's University Lakeside Campus",
-            "description": "This two-day workshop is designed to introduce participants to the world of Blockchain technology. On Day 1, participants will learn blockchain fundamentals in a workshop, followed by an Ideathon Challenge to develop blockchain-based solutions. On Day 2, teams will pitch their ideas during the Ideathon Pitching session, followed by a Panel Evaluation. The event concludes with the Announcement of Ideathon Results & Prize Distribution, rewarding the best ideas. The event aims to provide hands-on experience in both learning and problem-solving within the blockchain space, and participants will have the opportunity to showcase their ideas for the chance to win prizes.",
+            "description": "This two-day workshop offers participants an engaging introduction to Blockchain technology. Day 1 begins with a hands-on workshop featuring a widely known board game, followed by an Ideathon session where students will develop blockchain-based solutions. Day 2 focuses on pitching these ideas during the Ideathon Pitching session, followed by a Panel Discussion. The event concludes with the announcement of results and prize distribution, rewarding the top five innovative ideas. This workshop provides hands-on learning and problem-solving experience in the blockchain space, offering participants the chance to showcase their creativity and win exciting prizes. Day 1 runs from 9:00 AM to 4:30 PM, and Day 2 runs from 10:00 AM to 2:30 PM.",
             "price": {
                 "Participant": 0.00
             },
@@ -188,7 +189,7 @@
                 "/TARUMT.png"
             ],
 
-            "additionalInfo": "Enhance your blockchain knowledge through interactive games and workshops, then participate in an Ideathon to develop innovative solutions and pitch your ideas for a brighter digital future! \n\n**Summary for Participants:**\n- Hands-on Blockchain Workshop\n- Access to expert panel discussion\n- Refreshment provided\n- Ideathon participation with the opportunity to win prizes\n- Workshop materials, including whiteboards/tablets\n- Certificates for participation\n\n**Expected Outcomes:**\n- Participants will gain a deeper understanding of blockchain technology and its potential applications.\n- Participants will learn to collaborate effectively in teams to create conceptual solutions.\n- Winners will receive prizes based on the creativity and feasibility of their ideas."
+            "additionalInfo": "Enhance your blockchain knowledge through interactive games and workshops, then participate in an Ideathon to develop innovative solutions and pitch your ideas for a brighter digital future! \n\n**Summary for Participants:**\n- Hands-on Blockchain Workshop with a Board Game\n- Access to expert panel discussion\n- Refreshment provided\n- Ideathon participation with the opportunity to win prizes\n- Certificates for participation\n\n**Expected Outcomes:**\n- Participants will gain a deeper understanding of blockchain technology and its potential applications.\n- Participants will learn to collaborate effectively in teams to create conceptual solutions.\n- Winners will receive prizes based on the creativity and feasibility of their ideas."
         }
 ]
 }
