@@ -85,8 +85,22 @@ const DetailsPage = () => {
         onPurchaseOpen();
     };
 
+    // Add email validation function
+    const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
     const confirmPurchase = async () => {
+        // Add validation checks
         if (!userInfo.email || !userInfo.name || !userInfo.university) {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        // Validate email format
+        if (!isValidEmail(userInfo.email)) {
+            alert("Please enter a valid email address");
             return;
         }
 
@@ -459,7 +473,11 @@ const DetailsPage = () => {
                                             <input
                                                 type="email"
                                                 placeholder="Email"
-                                                className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
+                                                className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-primary ${
+                                                    userInfo.email && !isValidEmail(userInfo.email)
+                                                        ? 'border-danger text-danger'
+                                                        : 'border-default-200'
+                                                }`}
                                                 value={userInfo.email}
                                                 onChange={(e) => setUserInfo(prev => ({ ...prev, email: e.target.value }))}
                                             />
