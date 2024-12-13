@@ -75,23 +75,39 @@ export default function TicketDetails() {
             <h3 className="text-lg font-bold mb-4">Transaction History</h3>
             <div className="relative h-64 bg-white p-4">
               {/* Y-axis labels */}
-              <div className="absolute left-4 top-0 h-full flex flex-col justify-between text-xs text-gray-600">
+              <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-600 pr-2">
                 <span>2.60</span>
+                <span>2.50</span>
                 <span>2.40</span>
+                <span>2.30</span>
                 <span>2.20</span>
+                <span>2.10</span>
                 <span>2.00</span>
+                <span>1.90</span>
                 <span>1.80</span>
               </div>
 
               {/* Graph Container */}
-              <div className="w-full h-full pl-12 pr-4">
-                {/* Graph */}
+              <div className="w-full h-full pl-12">
                 <svg
                   className="w-full h-full"
-                  viewBox="0 0 200 100"
-                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 100 50"
+                  preserveAspectRatio="none"
                 >
-                  {/* Gradient Fill */}
+                  {/* Horizontal Grid Lines */}
+                  {[...Array(9)].map((_, i) => (
+                    <line
+                      key={i}
+                      x1="0"
+                      y1={i * 6.25}
+                      x2="100"
+                      y2={i * 6.25}
+                      stroke="#e5e7eb"
+                      strokeWidth="0.5"
+                    />
+                  ))}
+
+                  {/* Updated Gradient Fill */}
                   <defs>
                     <linearGradient
                       id="gradientFill"
@@ -100,33 +116,69 @@ export default function TicketDetails() {
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="0%" stopColor="#ef4444" stopOpacity="0.5" />
-                      <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+                      <stop
+                        offset="0%"
+                        stopColor="rgb(239, 68, 68)"
+                        stopOpacity="0.2"
+                      />
+                      <stop
+                        offset="100%"
+                        stopColor="rgb(239, 68, 68)"
+                        stopOpacity="0.05"
+                      />
                     </linearGradient>
                   </defs>
-                  <path
-                    d="M 0 80 L 20 70 L 40 60 L 60 65 L 80 55 L 100 60 L 120 50 L 140 55 L 160 60 L 180 65 L 200 70 L 200 100 L 0 100 Z"
-                    fill="url(#gradientFill)"
-                  />
-                  {/* Line */}
-                  <path
-                    d="M 0 80 L 20 70 L 40 60 L 60 65 L 80 55 L 100 60 L 120 50 L 140 55 L 160 60 L 180 65 L 200 70"
-                    fill="none"
-                    stroke="#ef4444"
-                    strokeWidth="2"
-                  />
-                  {/* Data Points */}
-                  <circle cx="0" cy="80" r="2" fill="#ef4444" />
-                  <circle cx="20" cy="70" r="2" fill="#ef4444" />
-                  <circle cx="40" cy="60" r="2" fill="#ef4444" />
-                  <circle cx="60" cy="65" r="2" fill="#ef4444" />
-                  <circle cx="80" cy="55" r="2" fill="#ef4444" />
-                  <circle cx="100" cy="60" r="2" fill="#ef4444" />
-                  <circle cx="120" cy="50" r="2" fill="#ef4444" />
-                  <circle cx="140" cy="55" r="2" fill="#ef4444" />
-                  <circle cx="160" cy="60" r="2" fill="#ef4444" />
-                  <circle cx="180" cy="65" r="2" fill="#ef4444" />
-                  <circle cx="200" cy="70" r="2" fill="#ef4444" />
+
+                  {/* Data points and paths */}
+                  {(() => {
+                    const points = [
+                      { x: 0, y: 38 }, // 5 Dec
+                      { x: 6.25, y: 37 }, // 6 Dec
+                      { x: 12.5, y: 38 }, // 7 Dec
+                      { x: 18.75, y: 25 }, // 7 Dec PM - First Spike!
+                      { x: 25, y: 37 }, // 8 Dec
+                      { x: 31.25, y: 38 }, // 8 Dec PM
+                      { x: 37.5, y: 37 }, // 9 Dec
+                      { x: 43.75, y: 28 }, // 9 Dec PM - Second Spike!
+                      { x: 50, y: 37 }, // 10 Dec
+                      { x: 56.25, y: 38 }, // 10 Dec PM
+                      { x: 62.5, y: 37 }, // 11 Dec
+                      { x: 68.75, y: 38 }, // 12 Dec
+                      { x: 75, y: 23 }, // 13 Dec - Third Spike!
+                      { x: 81.25, y: 38 }, // 14 Dec
+                      { x: 87.5, y: 37 }, // 15 Dec
+                      { x: 93.75, y: 38 }, // 16 Dec
+                      { x: 100, y: 37 }, // 17 Dec
+                    ];
+
+                    const pathD = points
+                      .map((p, i) => (i === 0 ? "M" : "L") + `${p.x} ${p.y}`)
+                      .join(" ");
+
+                    return (
+                      <>
+                        <path
+                          d={`${pathD} V50 H0 Z`}
+                          fill="url(#gradientFill)"
+                        />
+                        <path
+                          d={pathD}
+                          fill="none"
+                          stroke="#ef4444"
+                          strokeWidth="0.75"
+                        />
+                        {points.map((point, i) => (
+                          <circle
+                            key={i}
+                            cx={point.x}
+                            cy={point.y}
+                            r="0.75"
+                            fill="#ef4444"
+                          />
+                        ))}
+                      </>
+                    );
+                  })()}
                 </svg>
               </div>
 
