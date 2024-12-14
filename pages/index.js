@@ -23,12 +23,7 @@ export default function Home() {
   };
 
   const handleSeeMore = () => {
-    router.push({
-      pathname: '/events',
-      query: { 
-        concertIds: config.events.concertIds.join(',')
-      }
-    });
+    router.push('/events');
   };
 
   const getEventSlug = (title, id) => {
@@ -42,7 +37,7 @@ export default function Home() {
       <div className="flex justify-center mt-4 mb-8">
         <div className="z-10 flex min-h-24 items-center justify-center p-8">
           <ShinyButton className="text-xl py-4 px-8" onClick={handleSeeMore}>
-            See More Concerts
+            See More Events
           </ShinyButton>
         </div>
       </div>
