@@ -9,18 +9,10 @@ export default function InstallPWA() {
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         setInstallPrompt(e);
-        if (window.gtag) {
-          console.log('PWA is installable - triggering event');
-          window.gtag('event', 'pwa_installable', {
-            event_category: 'PWA',
-            event_label: 'Install Prompt Shown'
-          });
-        }
       });
 
       window.addEventListener('appinstalled', () => {
         if (window.gtag) {
-          console.log('PWA installed - triggering event');
           window.gtag('event', 'pwa_install', {
             event_category: 'PWA',
             event_label: 'Install Success'
@@ -39,7 +31,6 @@ export default function InstallPWA() {
     const choiceResult = await installPrompt.userChoice;
     
     if (choiceResult.outcome === 'accepted') {
-      console.log('User accepted PWA install - triggering event');
       if (window.gtag) {
         window.gtag('event', 'pwa_install_accepted', {
           event_category: 'PWA',
@@ -47,7 +38,6 @@ export default function InstallPWA() {
         });
       }
     } else {
-      console.log('User declined PWA install - triggering event');
       if (window.gtag) {
         window.gtag('event', 'pwa_install_declined', {
           event_category: 'PWA',
@@ -59,7 +49,6 @@ export default function InstallPWA() {
   };
 
   const handleDismiss = () => {
-    console.log('User dismissed PWA install - triggering event');
     if (window.gtag) {
       window.gtag('event', 'pwa_install_dismissed', {
         event_category: 'PWA',
