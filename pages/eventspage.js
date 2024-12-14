@@ -12,7 +12,7 @@ export default function Eventspage() {
           <img
             src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
             alt="Event Background"
-            className="w-full h-64 object-cover object-[center_100%]"
+            className="w-full h-96 object-cover object-[center_40%]" // Changed height to h-96 and object position to center
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           <div className="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white shadow-md">

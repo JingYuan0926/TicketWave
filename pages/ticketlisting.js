@@ -9,7 +9,7 @@ export default function TicketDetails() {
           {/* Left Section: Event Image */}
           <div>
             <img
-              src="https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg?cs=srgb&dl=pexels-thibault-trillet-44912-167636.jpg&fm=jpg"
+              src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
               alt="Event Ticket"
               className="w-full h-[600px] object-cover rounded shadow-lg"
             />
@@ -198,17 +198,19 @@ export default function TicketDetails() {
           {/* Details Section */}
           <div className="border p-4 rounded shadow">
             <h3 className="text-lg font-bold mb-4">Details</h3>
-            <p className="text-sm text-gray-600">
-              Contract Address: 0x7a58c0be72be218b41c608b7fe7c5bb630736c71
-            </p>
-            <p className="text-sm text-gray-600">
-              Owner Address: 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
-            </p>
-            <p className="text-sm text-gray-600">Chain: Ethereum</p>
-            <p className="text-sm text-gray-600">Token Standard: ERC-721</p>
-            <p className="text-sm text-gray-600">
-              Metadata: Taylor Swift Eras Tour VIP Access Token
-            </p>
+            <div className="flex flex-col justify-between h-40">
+              <p className="text-sm text-gray-600">
+                Contract Address: 0x7a58c0be72be218b41c608b7fe7c5bb630736c71
+              </p>
+              <p className="text-sm text-gray-600">
+                Owner Address: 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
+              </p>
+              <p className="text-sm text-gray-600">Chain: Ethereum</p>
+              <p className="text-sm text-gray-600">Token Standard: ERC-721</p>
+              <p className="text-sm text-gray-600">
+                Metadata: Taylor Swift Eras Tour VIP Access Token
+              </p>
+            </div>
           </div>
 
           {/* Ticket Description */}

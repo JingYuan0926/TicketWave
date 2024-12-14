@@ -28,7 +28,8 @@ const NFTMarketplace = () => {
     {
       id: 2,
       name: "Beyoncé Renaissance Tour",
-      image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
+      image:
+        "https://ew.com/thmb/4FERulFEKAWdfxv_uHXPWgDUCnE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/beyonce-tour-100323-22419fdd92974d1f963c4d2373ef7d7b.jpg",
       floorPrice: 1.8,
       volume: 380,
       items: 4000,
@@ -37,7 +38,8 @@ const NFTMarketplace = () => {
     {
       id: 3,
       name: "Ed Sheeran Tour",
-      image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
+      image:
+        "https://fkpscorpio.be/img/asset/bWFpbi9pbWcvY3JlZGl0LW1hcmstc3VycmlkZ2UtLTg0NzYtMS5qcGc=?w=1900&h=900&fit=crop&s=895dcdff43a047d817d65dece77f9202",
       floorPrice: 1.2,
       volume: 280,
       items: 3500,
@@ -46,7 +48,8 @@ const NFTMarketplace = () => {
     {
       id: 4,
       name: "Coldplay Music of Spheres",
-      image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
+      image:
+        "https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg",
       floorPrice: 1.5,
       volume: 320,
       items: 4500,
@@ -73,32 +76,171 @@ const NFTMarketplace = () => {
   ];
 
   const trendingNFTs = [
-    { id: 1, name: "Taylor Swift - VIP Floor", floorPrice: 2.5, volume: 450 },
-    { id: 2, name: "Beyoncé - Front Row", floorPrice: 1.8, volume: 380 },
-    { id: 3, name: "Ed Sheeran - Golden Circle", floorPrice: 1.2, volume: 280 },
-    { id: 4, name: "Coldplay - Premium Seats", floorPrice: 1.5, volume: 320 },
-    { id: 5, name: "The Weeknd - VIP Package", floorPrice: 1.1, volume: 250 },
-    { id: 6, name: "Bad Bunny - Meet & Greet", floorPrice: 1.6, volume: 290 },
-    { id: 7, name: "Drake - VIP Experience", floorPrice: 2.0, volume: 400 },
-    { id: 8, name: "Billie Eilish - Pit Access", floorPrice: 1.4, volume: 310 },
-    { id: 9, name: "Harry Styles - Premium", floorPrice: 1.7, volume: 360 },
-    { id: 10, name: "Post Malone - VIP Suite", floorPrice: 1.3, volume: 270 },
+    {
+      id: 1,
+      name: "Taylor Swift - VIP Floor",
+      floorPrice: 2.5,
+      volume: 450,
+      image:
+        "https://people.com/thmb/hGBx2o9so78bb7NZQ_WWPGhBU8c=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(1045x501:1047x503)/Taylor-Swift-Reputation-081824-01-9c2cc19b358f42fbb8ae582b8e12c027.jpg",
+    },
+    {
+      id: 2,
+      name: "Beyoncé - Front Row",
+      floorPrice: 1.8,
+      volume: 380,
+      image:
+        "https://assets.teenvogue.com/photos/65870cb0062dbbca4e282c10/16:9/w_2560%2Cc_limit/1580039832",
+    },
+    {
+      id: 3,
+      name: "Ed Sheeran - Golden Circle",
+      floorPrice: 1.2,
+      volume: 280,
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/c/c1/Ed_Sheeran-6886_%28cropped%29.jpg",
+    },
+    {
+      id: 4,
+      name: "Coldplay - Premium Seats",
+      floorPrice: 1.5,
+      volume: 320,
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq8bvui-UEnF70We7cTrS001hP1lF1K3qmkg&s",
+    },
+    {
+      id: 5,
+      name: "The Weeknd - VIP Package",
+      floorPrice: 1.1,
+      volume: 250,
+      image:
+        "https://ca-times.brightspotcdn.com/dims4/default/d7c74c4/2147483647/strip/true/crop/1960x1234+0+0/resize/1200x756!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fb8%2F5e%2Fc778bd834a9bbcbb55f844250792%2Fu-s-premiere-of-avatar-the-way-of-water-88166.jpg",
+    },
+    {
+      id: 6,
+      name: "Bad Bunny - Meet & Greet",
+      floorPrice: 1.6,
+      volume: 290,
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/b/b1/Bad_Bunny_2019_by_Glenn_Francis_%28cropped%29.jpg",
+    },
+    {
+      id: 7,
+      name: "Drake - VIP Experience",
+      floorPrice: 2.0,
+      volume: 400,
+      image:
+        "https://imageio.forbes.com/specials-images/imageserve/5ed578988b3c370006234c35/0x0.jpg?format=jpg&crop=1031,1031,x43,y49,safe&height=416&width=416&fit=bounds",
+    },
+    {
+      id: 8,
+      name: "Billie Eilish - Pit Access",
+      floorPrice: 1.4,
+      volume: 310,
+      image:
+        "https://thefader-res.cloudinary.com/private_images/w_760,c_limit,f_auto,q_auto:eco/287596-1C-004-04_10MB_Web_vd7pmy/billie-eilish-cover-story.jpg",
+    },
+    {
+      id: 9,
+      name: "Harry Styles - Premium",
+      floorPrice: 1.7,
+      volume: 360,
+      image:
+        "https://m.media-amazon.com/images/M/MV5BMTUxMzU2MTk1OF5BMl5BanBnXkFtZTgwNzg4NjAwMzI@._V1_.jpg",
+    },
+    {
+      id: 10,
+      name: "Post Malone - VIP Suite",
+      floorPrice: 1.3,
+      volume: 270,
+      image:
+        "https://m.media-amazon.com/images/M/MV5BN2VmNDI3OWUtMGEyYS00Njg5LTlkNDUtOTI1MDk5MjdmYmExXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    },
   ];
 
   const endingSoonNFTs = [
-    { id: 1, name: "Taylor Swift LA Night 1", floor: 2.5, volume: 450 },
-    { id: 2, name: "Beyoncé NYC Final Show", floor: 1.8, volume: 380 },
-    { id: 3, name: "Ed Sheeran London", floor: 1.2, volume: 280 },
-    { id: 4, name: "Coldplay Paris Night", floor: 1.5, volume: 320 },
-    { id: 5, name: "The Weeknd Toronto", floor: 1.1, volume: 250 },
+    {
+      id: 1,
+      name: "Taylor Swift LA Night 1",
+      floor: 2.5,
+      volume: 25750,
+      image:
+        "https://media.nbclosangeles.com/2023/08/GettyImages-1591513903.jpg?quality=85&strip=all",
+    },
+    {
+      id: 2,
+      name: "Beyoncé NYC Final Show",
+      floor: 1.8,
+      volume: 7080,
+      image:
+        "https://images.hellomagazine.com/horizon/landscape/8d5f6dde77b1-gettyimages-1499593702.jpg?tx=c_limit,w_640",
+    },
+    {
+      id: 3,
+      name: "Ed Sheeran London",
+      floor: 1.2,
+      volume: 13280,
+      image:
+        "https://cdn.apollo.audio/one/media/6143/5d64/9300/2f47/697e/ece4/ed-sheeran-2022-tour.jpg?quality=80&format=jpg&crop=0,0,843,1500&resize=crop",
+    },
+    {
+      id: 4,
+      name: "Coldplay Paris Night",
+      floor: 1.5,
+      volume: 12020,
+      image: "https://live.staticflickr.com/3677/14292292232_c91e0ee562_b.jpg",
+    },
+    {
+      id: 5,
+      name: "The Weeknd Toronto",
+      floor: 1.1,
+      volume: 9550,
+      image:
+        "https://variety.com/wp-content/uploads/2022/09/GettyImages-1409221667.jpg",
+    },
   ];
 
   const newLast24Hours = [
-    { id: 1, name: "Travis Scott Utopia", floor: 1.9, volume: 385 },
-    { id: 2, name: "SZA SOS Tour", floor: 1.4, volume: 295 },
-    { id: 3, name: "Kendrick Lamar Big Steps", floor: 1.7, volume: 345 },
-    { id: 4, name: "Rihanna Comeback Tour", floor: 2.2, volume: 420 },
-    { id: 5, name: "Lady Gaga Chromatica", floor: 1.6, volume: 330 },
+    {
+      id: 1,
+      name: "Travis Scott Utopia",
+      floor: 1.9,
+      volume: 385,
+      image:
+        "https://www.rollingstone.com/wp-content/uploads/2023/07/travis-scott-utopia.jpg",
+    },
+    {
+      id: 2,
+      name: "SZA SOS Tour",
+      floor: 1.4,
+      volume: 295,
+      image:
+        "https://i8.amplience.net/i/naras/SZA-SOS-Tour-2023-GettyImages-1247432060",
+    },
+    {
+      id: 3,
+      name: "Kendrick Lamar Big Steps",
+      floor: 1.7,
+      volume: 345,
+      image:
+        "https://variety.com/wp-content/uploads/2022/10/Kendrick-Lamar-by-Greg-Noire-for-The-Big-Steppers-Tour-2022_GN_00286s-copy-e1666563492676.jpg?w=1000&h=667&crop=1",
+    },
+    {
+      id: 4,
+      name: "Rihanna Comeback Tour",
+      floor: 2.2,
+      volume: 420,
+      image:
+        "https://media.vanityfair.com/photos/56f96e4ab24e140048474af3/master/pass/rihanna-anti-world-tour-barclays.jpg",
+    },
+    {
+      id: 5,
+      name: "Lady Gaga Chromatica",
+      floor: 1.6,
+      volume: 330,
+      image:
+        "https://www.udiscovermusic.com/wp-content/uploads/2021/09/Lady-Gaga-Chromatica-Remix-Press-Shot.jpg",
+    },
   ];
 
   return (
@@ -230,7 +372,7 @@ const NFTMarketplace = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <img
-                        src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d"
+                        src={nft.image}
                         alt={nft.name}
                         className="w-8 h-8 rounded-full object-cover"
                       />
@@ -273,7 +415,7 @@ const NFTMarketplace = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <img
-                        src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d"
+                        src={nft.image}
                         alt={nft.name}
                         className="w-8 h-8 rounded-full object-cover"
                       />
@@ -308,7 +450,7 @@ const NFTMarketplace = () => {
                 className="bg-gray-200 rounded-lg overflow-hidden shadow-md"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d"
+                  src={nft.image}
                   alt={nft.name}
                   className="w-full h-40 object-cover"
                 />
@@ -340,7 +482,7 @@ const NFTMarketplace = () => {
                 className="bg-gray-200 rounded-lg overflow-hidden shadow-md"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d"
+                  src={nft.image}
                   alt={nft.name}
                   className="w-full h-40 object-cover"
                 />

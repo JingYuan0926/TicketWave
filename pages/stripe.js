@@ -18,11 +18,13 @@ export default function StripePage() {
         {/* Left Column */}
         <div>
           <div className="mb-12"></div>
-          <h2 className="text-2xl font-bold mb-4">Concert Name</h2>
-          <p className="text-lg mb-6">Price</p>
+          <h2 className="text-2xl font-bold mb-4">
+            Taylor Swift | The Eras Tour
+          </h2>
+          <p className="text-lg mb-6">499.99 USD</p>
           {/* Concert image */}
           <img
-            src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d"
+            src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
             alt="Concert"
             className="w-full h-[30rem] object-cover rounded-lg"
           />

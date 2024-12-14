@@ -75,17 +75,20 @@ export default function TicketDetails() {
           {/* Details Section */}
           <div className="border p-4 rounded shadow">
             <h3 className="text-lg font-bold mb-4">Details</h3>
-            <p className="text-sm text-gray-600">
-              Contract Address: 0x495f947276749Ce646f68AC8c248420045cb7b5e
-            </p>
-            <p className="text-sm text-gray-600">
-              Owner Address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
-            </p>
-            <p className="text-sm text-gray-600">Chain: Ethereum</p>
-            <p className="text-sm text-gray-600">Token Standard: ERC-721</p>
-            <p className="text-sm text-gray-600">
-              Metadata: ipfs://QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/0
-            </p>
+            <div className="flex flex-col justify-between h-[calc(100%-2rem)]">
+              <p className="text-sm text-gray-600">
+                Contract Address: 0x495f947276749Ce646f68AC8c248420045cb7b5e
+              </p>
+              <p className="text-sm text-gray-600">
+                Owner Address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+              </p>
+              <p className="text-sm text-gray-600">Chain: Ethereum</p>
+              <p className="text-sm text-gray-600">Token Standard: ERC-721</p>
+              <p className="text-sm text-gray-600">
+                Metadata:
+                ipfs://QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/0
+              </p>
+            </div>
           </div>
 
           {/* Transaction History */}
