@@ -9,8 +9,8 @@ export default function TicketDetails() {
           {/* Left Section: Event Image */}
           <div>
             <img
-              src="https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg?cs=srgb&dl=pexels-thibault-trillet-44912-167636.jpg&fm=jpg"
-              alt="Event Ticket"
+              src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
+              alt="Taylor Swift Concert Ticket"
               className="w-full h-[600px] object-cover rounded shadow-lg"
             />
           </div>
@@ -19,22 +19,28 @@ export default function TicketDetails() {
           <div className="flex flex-col h-[600px] space-y-6">
             <div className="flex-1 flex flex-col justify-between">
               <div className="flex flex-col h-full justify-between">
-                <h2 className="text-4xl font-bold">Event Name</h2>
-                <p className="text-xl font-bold text-gray-600">Ticket Type</p>
+                <h2 className="text-4xl font-bold">
+                  Taylor Swift | The Eras Tour
+                </h2>
                 <p className="text-xl font-bold text-gray-600">
-                  Ticket ID: #1234
+                  VIP Floor Ticket
                 </p>
-                <p className="text-lg text-gray-600">Ticket Owner Name</p>
+                <p className="text-xl font-bold text-gray-600">
+                  Ticket ID: #TS2024-VIP-1842
+                </p>
+                <p className="text-lg text-gray-600">
+                  Owner: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+                </p>
               </div>
             </div>
 
             {/* Pricing Card */}
             <div className="p-6 border rounded shadow-lg">
-              <p className="text-lg text-gray-600 mb-4">Ends in XXXXX</p>
+              <p className="text-lg text-gray-600 mb-4">Ends in 2d 14h 35m</p>
               <div>
                 <p className="text-xl font-semibold mb-2">Current Price</p>
-                <p className="text-3xl font-bold mb-1">ETH Price</p>
-                <p className="text-lg text-gray-600 mb-4">USD Price</p>
+                <p className="text-3xl font-bold mb-1">1.740 ETH</p>
+                <p className="text-lg text-gray-600 mb-4">$3,915.32 USD</p>
                 <button className="w-full px-6 py-4 bg-blue-500 text-white text-xl font-bold rounded hover:bg-blue-600 transition-colors">
                   Buy Now
                 </button>
@@ -47,14 +53,20 @@ export default function TicketDetails() {
         <div className="mt-8 border p-4 rounded shadow">
           <h3 className="text-lg font-bold mb-4">Ticket Description</h3>
           <p className="text-gray-600">
-            Full Event Name and detailed description of the event, including
-            venue details, timing, and other relevant information.
+            Taylor Swift The Eras Tour - Experience all of Taylor's eras in one
+            unforgettable night! This VIP Floor ticket includes premium standing
+            room access, exclusive VIP entrance, commemorative VIP laminate, and
+            a special merchandise package.
           </p>
           <div className="flex flex-wrap justify-between mt-4">
-            <p className="text-sm text-gray-600">Location: XYZ Arena</p>
-            <p className="text-sm text-gray-600">Date: 2024-12-01</p>
-            <p className="text-sm text-gray-600">Time: 7:00 PM</p>
-            <p className="text-sm text-gray-600">Seating Area: Section A</p>
+            <p className="text-sm text-gray-600">
+              Location: SoFi Stadium, Los Angeles
+            </p>
+            <p className="text-sm text-gray-600">Date: August 3, 2024</p>
+            <p className="text-sm text-gray-600">Time: 7:00 PM PST</p>
+            <p className="text-sm text-gray-600">
+              Seating Area: VIP Floor Section
+            </p>
           </div>
         </div>
 
@@ -63,11 +75,17 @@ export default function TicketDetails() {
           {/* Details Section */}
           <div className="border p-4 rounded shadow">
             <h3 className="text-lg font-bold mb-4">Details</h3>
-            <p className="text-sm text-gray-600">Contract Address: 0x123...</p>
-            <p className="text-sm text-gray-600">Owner Address: 0x456...</p>
+            <p className="text-sm text-gray-600">
+              Contract Address: 0x495f947276749Ce646f68AC8c248420045cb7b5e
+            </p>
+            <p className="text-sm text-gray-600">
+              Owner Address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+            </p>
             <p className="text-sm text-gray-600">Chain: Ethereum</p>
             <p className="text-sm text-gray-600">Token Standard: ERC-721</p>
-            <p className="text-sm text-gray-600">Metadata: Event Metadata</p>
+            <p className="text-sm text-gray-600">
+              Metadata: ipfs://QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/0
+            </p>
           </div>
 
           {/* Transaction History */}
@@ -199,7 +217,7 @@ export default function TicketDetails() {
         {/* Browse More Section */}
         <div className="text-center mt-8">
           <button className="px-6 py-3 bg-blue-500 text-white font-bold rounded">
-            Browse More
+            Browse More Tickets
           </button>
         </div>
       </section>

@@ -7,7 +7,7 @@ import Slider2 from "@/components/Slider2";
 import TabsList from "@/components/Tab/TabsList";
 import TabsContent from "@/components/Tab/TabsContent";
 import Tab from "@/components/Tab/Tab";
-import { Star } from "react-icons/fa"; // Example icon, use any relevant icon
+import { Star } from "react-icons/fa";
 import { useRouter } from "next/router";
 
 // NFT Marketplace
@@ -17,87 +17,88 @@ const NFTMarketplace = () => {
   const featuredCollections = [
     {
       id: 1,
-      name: "Collection 1",
-      image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
-      floorPrice: 0.5,
-      volume: 100,
-      items: 1000,
-      owners: 500,
+      name: "Taylor Swift Eras Tour VIP",
+      image:
+        "https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg",
+      floorPrice: 2.5,
+      volume: 450,
+      items: 5000,
+      owners: 2300,
     },
     {
       id: 2,
-      name: "Collection 2",
+      name: "Beyoncé Renaissance Tour",
       image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
-      floorPrice: 0.7,
-      volume: 150,
-      items: 2000,
-      owners: 800,
+      floorPrice: 1.8,
+      volume: 380,
+      items: 4000,
+      owners: 1800,
     },
     {
       id: 3,
-      name: "Collection 3",
+      name: "Ed Sheeran Tour",
       image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
-      floorPrice: 0.4,
-      volume: 80,
-      items: 1500,
-      owners: 600,
+      floorPrice: 1.2,
+      volume: 280,
+      items: 3500,
+      owners: 1500,
     },
     {
       id: 4,
-      name: "Collection 4",
+      name: "Coldplay Music of Spheres",
       image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
-      floorPrice: 0.6,
-      volume: 120,
-      items: 3000,
-      owners: 1000,
+      floorPrice: 1.5,
+      volume: 320,
+      items: 4500,
+      owners: 2000,
     },
     {
       id: 5,
-      name: "Collection 5",
+      name: "The Weeknd After Hours",
       image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
-      floorPrice: 0.2,
-      volume: 135,
-      items: 5000,
-      owners: 300,
+      floorPrice: 1.1,
+      volume: 250,
+      items: 3000,
+      owners: 1200,
     },
     {
       id: 6,
-      name: "Collection 6",
+      name: "Bad Bunny World Tour",
       image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d",
-      floorPrice: 1.0,
-      volume: 60,
-      items: 100,
-      owners: 20,
+      floorPrice: 1.6,
+      volume: 290,
+      items: 3800,
+      owners: 1600,
     },
   ];
 
   const trendingNFTs = [
-    { id: 1, name: "NFT 1", floorPrice: 0.5, volume: 100 },
-    { id: 2, name: "NFT 2", floorPrice: 0.7, volume: 150 },
-    { id: 3, name: "NFT 3", floorPrice: 0.4, volume: 80 },
-    { id: 4, name: "NFT 4", floorPrice: 0.6, volume: 120 },
-    { id: 5, name: "NFT 5", floorPrice: 0.8, volume: 180 },
-    { id: 6, name: "NFT 6", floorPrice: 0.5, volume: 100 },
-    { id: 7, name: "NFT 7", floorPrice: 0.7, volume: 150 },
-    { id: 8, name: "NFT 8", floorPrice: 0.4, volume: 80 },
-    { id: 9, name: "NFT 9", floorPrice: 0.6, volume: 120 },
-    { id: 10, name: "NFT 10", floorPrice: 0.8, volume: 180 },
+    { id: 1, name: "Taylor Swift - VIP Floor", floorPrice: 2.5, volume: 450 },
+    { id: 2, name: "Beyoncé - Front Row", floorPrice: 1.8, volume: 380 },
+    { id: 3, name: "Ed Sheeran - Golden Circle", floorPrice: 1.2, volume: 280 },
+    { id: 4, name: "Coldplay - Premium Seats", floorPrice: 1.5, volume: 320 },
+    { id: 5, name: "The Weeknd - VIP Package", floorPrice: 1.1, volume: 250 },
+    { id: 6, name: "Bad Bunny - Meet & Greet", floorPrice: 1.6, volume: 290 },
+    { id: 7, name: "Drake - VIP Experience", floorPrice: 2.0, volume: 400 },
+    { id: 8, name: "Billie Eilish - Pit Access", floorPrice: 1.4, volume: 310 },
+    { id: 9, name: "Harry Styles - Premium", floorPrice: 1.7, volume: 360 },
+    { id: 10, name: "Post Malone - VIP Suite", floorPrice: 1.3, volume: 270 },
   ];
 
   const endingSoonNFTs = [
-    { id: 1, name: "NFT 1", floor: 0.5, volume: 100 },
-    { id: 2, name: "NFT 2", floor: 0.7, volume: 150 },
-    { id: 3, name: "NFT 3", floor: 0.4, volume: 80 },
-    { id: 4, name: "NFT 4", floor: 0.6, volume: 120 },
-    { id: 5, name: "NFT 5", floor: 0.8, volume: 180 },
+    { id: 1, name: "Taylor Swift LA Night 1", floor: 2.5, volume: 450 },
+    { id: 2, name: "Beyoncé NYC Final Show", floor: 1.8, volume: 380 },
+    { id: 3, name: "Ed Sheeran London", floor: 1.2, volume: 280 },
+    { id: 4, name: "Coldplay Paris Night", floor: 1.5, volume: 320 },
+    { id: 5, name: "The Weeknd Toronto", floor: 1.1, volume: 250 },
   ];
 
   const newLast24Hours = [
-    { id: 1, name: "NFT 1", floor: 0.5, volume: 100 },
-    { id: 2, name: "NFT 2", floor: 0.7, volume: 150 },
-    { id: 3, name: "NFT 3", floor: 0.4, volume: 80 },
-    { id: 4, name: "NFT 4", floor: 0.6, volume: 120 },
-    { id: 5, name: "NFT 5", floor: 0.8, volume: 180 },
+    { id: 1, name: "Travis Scott Utopia", floor: 1.9, volume: 385 },
+    { id: 2, name: "SZA SOS Tour", floor: 1.4, volume: 295 },
+    { id: 3, name: "Kendrick Lamar Big Steps", floor: 1.7, volume: 345 },
+    { id: 4, name: "Rihanna Comeback Tour", floor: 2.2, volume: 420 },
+    { id: 5, name: "Lady Gaga Chromatica", floor: 1.6, volume: 330 },
   ];
 
   return (

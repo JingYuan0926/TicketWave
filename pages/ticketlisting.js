@@ -19,12 +19,18 @@ export default function TicketDetails() {
           <div className="flex flex-col h-[600px] space-y-6">
             <div className="flex-1 flex flex-col justify-between">
               <div className="flex flex-col h-full justify-between">
-                <h2 className="text-4xl font-bold">Event Name</h2>
-                <p className="text-xl font-bold text-gray-600">Ticket Type</p>
+                <h2 className="text-4xl font-bold">
+                  Taylor Swift | The Eras Tour
+                </h2>
                 <p className="text-xl font-bold text-gray-600">
-                  Ticket ID: #1234
+                  VIP Floor Access
                 </p>
-                <p className="text-lg text-gray-600">Ticket Owner Name</p>
+                <p className="text-xl font-bold text-gray-600">
+                  Ticket ID: #TS2024-VIP-1842
+                </p>
+                <p className="text-lg text-gray-600">
+                  0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+                </p>
               </div>
             </div>
 
@@ -48,14 +54,14 @@ export default function TicketDetails() {
                 <p className="text-xl font-semibold">Listing Price</p>
               </div>
               <hr className="border-gray-200 mb-4" />
-              <p className="text-lg text-gray-600 mb-4">Capped at XXX</p>
+              <p className="text-lg text-gray-600 mb-4">Capped at $2,500 USD</p>
               <div className="mb-4">
                 <input
                   type="text"
                   placeholder="Enter USD"
                   className="w-full p-3 border rounded mb-2"
                 />
-                <p className="text-lg text-gray-600">Price in ETH</p>
+                <p className="text-lg text-gray-600">≈ 1.25 ETH</p>
               </div>
               <button className="w-full px-6 py-4 bg-blue-500 text-white text-xl font-bold rounded hover:bg-blue-600 transition-colors">
                 List Now
@@ -192,25 +198,38 @@ export default function TicketDetails() {
           {/* Details Section */}
           <div className="border p-4 rounded shadow">
             <h3 className="text-lg font-bold mb-4">Details</h3>
-            <p className="text-sm text-gray-600">Contract Address: 0x123...</p>
-            <p className="text-sm text-gray-600">Owner Address: 0x456...</p>
+            <p className="text-sm text-gray-600">
+              Contract Address: 0x7a58c0be72be218b41c608b7fe7c5bb630736c71
+            </p>
+            <p className="text-sm text-gray-600">
+              Owner Address: 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
+            </p>
             <p className="text-sm text-gray-600">Chain: Ethereum</p>
             <p className="text-sm text-gray-600">Token Standard: ERC-721</p>
-            <p className="text-sm text-gray-600">Metadata: Event Metadata</p>
+            <p className="text-sm text-gray-600">
+              Metadata: Taylor Swift Eras Tour VIP Access Token
+            </p>
           </div>
 
           {/* Ticket Description */}
           <div className="border p-4 rounded shadow">
             <h3 className="text-lg font-bold mb-4">Ticket Description</h3>
             <p className="text-gray-600">
-              Full Event Name and detailed description of the event, including
-              venue details, timing, and other relevant information.
+              Taylor Swift: The Eras Tour - Experience all of Taylor's eras in
+              one unforgettable night! This VIP Floor Access ticket includes
+              premium viewing area, exclusive merchandise package, and dedicated
+              entrance. Join thousands of Swifties for an epic 3+ hour musical
+              journey through Taylor's legendary discography.
             </p>
             <div className="flex flex-wrap justify-between mt-4">
-              <p className="text-sm text-gray-600">Location: XYZ Arena</p>
-              <p className="text-sm text-gray-600">Date: 2024-12-01</p>
-              <p className="text-sm text-gray-600">Time: 7:00 PM</p>
-              <p className="text-sm text-gray-600">Seating Area: Section A</p>
+              <p className="text-sm text-gray-600">
+                Location: SoFi Stadium, Los Angeles
+              </p>
+              <p className="text-sm text-gray-600">Date: 2024-08-03</p>
+              <p className="text-sm text-gray-600">Time: 7:30 PM PST</p>
+              <p className="text-sm text-gray-600">
+                Seating Area: VIP Floor Section A
+              </p>
             </div>
           </div>
         </div>
