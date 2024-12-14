@@ -11,6 +11,7 @@ import { useReadContract } from "thirdweb/react";
 import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import ReactMarkdown from 'react-markdown';
+import { FaDownload } from 'react-icons/fa';
 
 const DetailsPage = () => {
     const router = useRouter();
@@ -32,6 +33,16 @@ const DetailsPage = () => {
     });
     const [hasTicket, setHasTicket] = useState(false);
     const [shouldRefresh, setShouldRefresh] = useState(false);
+    const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                setDeferredPrompt(e);
+            });
+        }
+    }, []);
 
     // Monitor wallet connection
     useEffect(() => {
@@ -163,7 +174,6 @@ const DetailsPage = () => {
                         setTransactionStatus('success');
                         setIsConfirming(false);
                         setShouldRefresh(prev => !prev);
-                        onPurchaseClose();
                         
                     } catch (firebaseError) {
                         console.error("Failed to store purchase data:", firebaseError);
@@ -580,12 +590,40 @@ const DetailsPage = () => {
                                     </>
                                 )}
                                 {transactionStatus === 'success' && (
-                                    <div className="text-center">
-                                        <div className="text-success text-xl mb-4">🎉</div>
-                                        <p>Your ticket has been purchased successfully!</p>
-                                        <p className="text-small text-default-500 mt-2">
-                                            You can view your ticket in your wallet
+                                    <div className="text-center px-4 py-6">
+                                        <div className="mb-6">
+                                            <span className="text-4xl animate-bounce inline-block">🎊</span>
+                                        </div>
+                                        <h3 className="text-2xl font-bold mb-4">Purchase Successful!</h3>
+                                        <p className="text-xl mb-6">
+                                            Your ticket has been purchased successfully!
                                         </p>
+                                        <div className="space-y-4 text-default-600">
+                                            <p className="text-medium">
+                                                You can view your ticket in your profile
+                                            </p>
+                                            <div className="bg-default-50 p-4 rounded-lg text-sm leading-relaxed mb-4">
+                                                Log in to Ticketwave in browser during the event to scan your 
+                                                ticket for entry. Additionally, you can download ticketwave app 
+                                                to scan your ticket for entry for more easier access.
+                                            </div>
+                                            
+                                            {/* Download App Button */}
+                                            <Button
+                                                onClick={async () => {
+                                                    if (deferredPrompt) {
+                                                        deferredPrompt.prompt();
+                                                        await deferredPrompt.userChoice;
+                                                        setDeferredPrompt(null);
+                                                    }
+                                                }}
+                                                className="bg-primary text-white hover:bg-primary/90 w-full"
+                                                startContent={<FaDownload />}
+                                                isDisabled={!deferredPrompt}
+                                            >
+                                                Download App
+                                            </Button>
+                                        </div>
                                     </div>
                                 )}
                                 {transactionStatus === 'error' && (
