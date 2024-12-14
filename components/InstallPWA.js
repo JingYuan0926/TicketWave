@@ -11,12 +11,11 @@ export default function InstallPWA() {
         setInstallPrompt(e);
       });
 
-      window.addEventListener('appinstalled', (e) => {
-        console.log('PWA was installed');
+      window.addEventListener('appinstalled', () => {
         if (window.gtag) {
           window.gtag('event', 'pwa_install', {
-            'event_category': 'PWA',
-            'event_label': 'Install Success'
+            event_category: 'PWA',
+            event_label: 'Install Success'
           });
         }
         setInstalled(true);
@@ -29,35 +28,31 @@ export default function InstallPWA() {
     if (!installPrompt) return;
     
     installPrompt.prompt();
-    
     const choiceResult = await installPrompt.userChoice;
     
     if (choiceResult.outcome === 'accepted') {
-      console.log('User accepted the install prompt');
       if (window.gtag) {
         window.gtag('event', 'pwa_install_accepted', {
-          'event_category': 'PWA',
-          'event_label': 'Install Prompt Accepted'
+          event_category: 'PWA',
+          event_label: 'Install Prompt Accepted'
         });
       }
     } else {
-      console.log('User dismissed the install prompt');
       if (window.gtag) {
         window.gtag('event', 'pwa_install_declined', {
-          'event_category': 'PWA',
-          'event_label': 'Install Prompt Declined'
+          event_category: 'PWA',
+          event_label: 'Install Prompt Declined'
         });
       }
     }
-
     setInstallPrompt(null);
   };
 
   const handleDismiss = () => {
     if (window.gtag) {
       window.gtag('event', 'pwa_install_dismissed', {
-        'event_category': 'PWA',
-        'event_label': 'Install Prompt Dismissed'
+        event_category: 'PWA',
+        event_label: 'Install Prompt Dismissed'
       });
     }
     setInstallPrompt(null);
@@ -74,9 +69,7 @@ export default function InstallPWA() {
       >
         ×
       </button>
-      <button 
-        onClick={handleInstallClick}
-      >
+      <button onClick={handleInstallClick}>
         Download App to Home Screen
       </button>
     </div>
