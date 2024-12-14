@@ -53,14 +53,32 @@ export default function InstallPWA() {
     setInstallPrompt(null);
   };
 
+  const handleDismiss = () => {
+    if (window.gtag) {
+      window.gtag('event', 'pwa_install_dismissed', {
+        'event_category': 'PWA',
+        'event_label': 'Install Prompt Dismissed'
+      });
+    }
+    setInstallPrompt(null);
+  };
+
   if (!installPrompt || installed) return null;
 
   return (
-    <button 
-      onClick={handleInstallClick}
-      className="fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg z-50"
-    >
-      Add to Home Screen
-    </button>
+    <div className="fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center gap-2">
+      <button 
+        onClick={handleDismiss}
+        className="text-white hover:text-gray-200"
+        aria-label="Dismiss install prompt"
+      >
+        ×
+      </button>
+      <button 
+        onClick={handleInstallClick}
+      >
+        Download App to Home Screen
+      </button>
+    </div>
   );
 } 

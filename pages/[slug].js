@@ -507,7 +507,11 @@ const DetailsPage = () => {
                                     {!wallet?.address 
                                         ? 'Sign in first before buying tickets'
                                         : hasTicket
-                                            ? 'You Already Have a Ticket'
+                                            ? <>
+                                                You Already Have a Ticket
+                                                <br />
+                                                See Ticket in Your Profile
+                                              </>
                                             : selectedTicketType 
                                                 ? 'Buy Ticket' 
                                                 : 'Select a Ticket Type'
