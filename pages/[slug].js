@@ -71,7 +71,7 @@ const DetailsPage = () => {
                 try {
                     const docRef = doc(db, "purchases", wallet.address);
                     const docSnap = await getDoc(docRef);
-                    
+
                     if (docSnap.exists()) {
                         const data = docSnap.data();
                         // Check if user has ticket for this specific event
@@ -92,7 +92,7 @@ const DetailsPage = () => {
         if (!wallet?.address) {
             return;
         }
-        
+
         if (!selectedTicketType || !id || !concert) return;
         onPurchaseOpen();
     };
@@ -127,15 +127,15 @@ const DetailsPage = () => {
             setIsConfirming(true);
             setTransactionStatus('pending');
             const seatTypeFormatted = selectedTicketType.charAt(0).toUpperCase() + selectedTicketType.slice(1);
-            
+
             // First handle blockchain transaction
             const transaction = prepareContractCall({
                 contract,
                 method: "function purchaseTicket(uint256 concertId, string imageURI, string seatType)",
                 params: [
-                    Number(id), 
+                    Number(id),
                     concert.imgCard,
-                    seatTypeFormatted  
+                    seatTypeFormatted
                 ]
             });
 
@@ -169,12 +169,12 @@ const DetailsPage = () => {
                             status: 'completed',
                             transactionHash: transactionHash
                         });
-                        
+
                         console.log("Purchase document stored with wallet address as ID");
                         setTransactionStatus('success');
                         setIsConfirming(false);
                         setShouldRefresh(prev => !prev);
-                        
+
                     } catch (firebaseError) {
                         console.error("Failed to store purchase data:", firebaseError);
                         setTransactionStatus('success');
@@ -187,7 +187,7 @@ const DetailsPage = () => {
                     setIsConfirming(false);
                 }
             });
-            
+
         } catch (error) {
             console.error("Transaction failed:", error);
             setTransactionStatus('error');
@@ -318,17 +318,81 @@ const DetailsPage = () => {
                                 <div className="space-y-4">
                                     <h3 className="text-xl font-semibold">Venue Information</h3>
                                     <div className="space-y-2">
-
                                         {concert.venue.detailedLocation && (
-                                            <p className="flex items-center gap-2">
-                                                <span className="font-semibold">Detailed Location:</span>
-                                                <span>{concert.venue.detailedLocation}</span>
-                                            </p>
+                                            <div>
+                                                {/* Mobile view - stacked */}
+                                                <div className="md:hidden space-y-1">
+                                                    <p className="font-semibold">Detailed Location:</p>
+                                                    <p>{concert.venue.detailedLocation}</p>
+                                                </div>
+                                                {/* Desktop view - inline */}
+                                                <div className="hidden md:flex">
+                                                    <p className="font-semibold">Detailed Location: </p>
+                                                    <p>{concert.venue.detailedLocation}</p>
+                                                </div>
+                                            </div>
                                         )}
-                                        <p className="flex items-center gap-2">
-                                            <span className="font-semibold">Address:</span>
-                                            <span>{concert.venue.address}</span>
-                                        </p>
+                                        <div>
+                                            {/* Mobile view - stacked */}
+                                            <div className="md:hidden space-y-1">
+                                                <p className="font-semibold">Address:</p>
+                                                <p>{concert.venue.address}</p>
+                                            </div>
+                                            {/* Desktop view - inline */}
+                                            <div className="hidden md:flex">
+                                                <p className="font-semibold">Address: </p>
+                                                <p>{concert.venue.address}</p>
+                                            </div>
+                                        </div>
+                                        {concert.venue.parking && (
+                                            <div>
+                                                {/* Mobile view - stacked */}
+                                                <div className="md:hidden space-y-1">
+                                                    <p className="font-semibold">Parking:</p>
+                                                    <p>{concert.venue.parking}</p>
+                                                </div>
+                                                {/* Desktop view - inline */}
+                                                <div className="hidden md:flex">
+                                                    <p className="font-semibold">Parking: </p>
+                                                    <p>{concert.venue.parking}</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                        {concert.venue.howToGetThere && (
+                                            <div className="space-y-2">
+                                                <p className="font-semibold">How to get there:</p>
+                                                <div className=" space-y-2">
+                                                    {concert.venue.howToGetThere.day1 && (
+                                                        <div>
+                                                            {/* Mobile view - stacked */}
+                                                            <div className="md:hidden space-y-1">
+                                                                <p className="font-medium">Day 1:</p>
+                                                                <p >{concert.venue.howToGetThere.day1}</p>
+                                                            </div>
+                                                            {/* Desktop view - inline */}
+                                                            <div className="hidden md:flex">
+                                                                <p className="font-medium">Day 1: </p>
+                                                                <p >{concert.venue.howToGetThere.day1}</p>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    {concert.venue.howToGetThere.day2 && (
+                                                        <div>
+                                                            {/* Mobile view - stacked */}
+                                                            <div className="md:hidden space-y-1">
+                                                                <p className="font-medium">Day 2:</p>
+                                                                <p>{concert.venue.howToGetThere.day2}</p>
+                                                            </div>
+                                                            {/* Desktop view - inline */}
+                                                            <div className="hidden md:flex">
+                                                                <p className="font-medium">Day 2: </p>
+                                                                <p>{concert.venue.howToGetThere.day2}</p>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                                 <Divider />
@@ -456,19 +520,19 @@ const DetailsPage = () => {
                                     <ReactMarkdown
                                         components={{
                                             // Style for bullet points
-                                            ul: ({node, ...props}) => (
+                                            ul: ({ node, ...props }) => (
                                                 <ul className="list-disc pl-4 space-y-2 mb-4" {...props} />
                                             ),
                                             // Style for list items
-                                            li: ({node, ...props}) => (
+                                            li: ({ node, ...props }) => (
                                                 <li className="text-default-600" {...props} />
                                             ),
                                             // Style for paragraphs
-                                            p: ({node, ...props}) => (
+                                            p: ({ node, ...props }) => (
                                                 <p className="mb-4" {...props} />
                                             ),
                                             // Style for bold text
-                                            strong: ({node, ...props}) => (
+                                            strong: ({ node, ...props }) => (
                                                 <strong className="font-semibold" {...props} />
                                             ),
                                         }}
@@ -514,16 +578,16 @@ const DetailsPage = () => {
                                     disabled={!selectedTicketType || !wallet?.address || hasTicket}
                                     onClick={handleBuyTickets}
                                 >
-                                    {!wallet?.address 
+                                    {!wallet?.address
                                         ? 'Sign in first before buying tickets'
                                         : hasTicket
                                             ? <>
                                                 You Already Have a Ticket
                                                 <br />
                                                 See Ticket in Your Profile
-                                              </>
-                                            : selectedTicketType 
-                                                ? 'Buy Ticket' 
+                                            </>
+                                            : selectedTicketType
+                                                ? 'Buy Ticket'
                                                 : 'Select a Ticket Type'
                                     }
                                 </Button>
@@ -537,8 +601,8 @@ const DetailsPage = () => {
                 </div>
             </div>
 
-            <Modal 
-                isOpen={isPurchaseOpen} 
+            <Modal
+                isOpen={isPurchaseOpen}
                 onClose={onPurchaseClose}
                 isDismissable={!isConfirming}  // Prevent closing when confirming
                 hideCloseButton={isConfirming} // Hide the X button when confirming
@@ -547,9 +611,9 @@ const DetailsPage = () => {
                     {(onClose) => (
                         <>
                             <ModalHeader className="flex flex-col gap-1">
-                                {transactionStatus === 'pending' ? 'Complete Purchase' : 
-                                 transactionStatus === 'success' ? 'Purchase Successful!' : 
-                                 'Purchase Failed'}
+                                {transactionStatus === 'pending' ? 'Complete Purchase' :
+                                    transactionStatus === 'success' ? 'Purchase Successful!' :
+                                        'Purchase Failed'}
                             </ModalHeader>
                             <ModalBody>
                                 {transactionStatus === 'pending' && (
@@ -564,11 +628,10 @@ const DetailsPage = () => {
                                             <input
                                                 type="email"
                                                 placeholder="Email"
-                                                className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-primary ${
-                                                    userInfo.email && !isValidEmail(userInfo.email)
-                                                        ? 'border-danger text-danger'
-                                                        : 'border-default-200'
-                                                }`}
+                                                className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-primary ${userInfo.email && !isValidEmail(userInfo.email)
+                                                    ? 'border-danger text-danger'
+                                                    : 'border-default-200'
+                                                    }`}
                                                 value={userInfo.email}
                                                 onChange={(e) => setUserInfo(prev => ({ ...prev, email: e.target.value }))}
                                             />
@@ -603,11 +666,11 @@ const DetailsPage = () => {
                                                 You can view your ticket in your profile
                                             </p>
                                             <div className="bg-default-50 p-4 rounded-lg text-sm leading-relaxed mb-4">
-                                                Log in to Ticketwave in browser during the event to scan your 
-                                                ticket for entry. Additionally, you can download ticketwave app 
+                                                Log in to Ticketwave in browser during the event to scan your
+                                                ticket for entry. Additionally, you can download ticketwave app
                                                 to scan your ticket for entry for more easier access.
                                             </div>
-                                            
+
                                             {/* Download App Button */}
                                             <Button
                                                 onClick={async () => {
@@ -635,8 +698,8 @@ const DetailsPage = () => {
                             </ModalBody>
                             <ModalFooter>
                                 {transactionStatus === 'pending' && (
-                                    <Button 
-                                        color="primary" 
+                                    <Button
+                                        color="primary"
                                         onPress={confirmPurchase}
                                         isLoading={isConfirming}
                                         disabled={isConfirming}
