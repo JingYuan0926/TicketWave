@@ -27,7 +27,7 @@ const ProfileHeader = ({ ticketCount, address }) => {
                         </div>
                     </div>
                 </div>
-                <Button color="primary">Edit Profile</Button>
+                {/* <Button color="primary">Edit Profile</Button> */}
             </CardBody>
         </Card>
     );
