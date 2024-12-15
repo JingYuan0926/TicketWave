@@ -24,7 +24,7 @@ export default function StripePage() {
           <p className="text-lg mb-6">299.99 USD</p>
           {/* Concert image */}
           <img
-            src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
+            src="https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
             alt="Concert"
             className="w-full h-[30rem] object-cover rounded-lg"
           />
