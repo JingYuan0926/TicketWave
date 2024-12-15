@@ -4,6 +4,14 @@ import { useRouter } from "next/router";
 export default function Eventspage() {
   const router = useRouter();
 
+  // Use React.useState to handle client-side rendering
+  const [tickets] = React.useState(() =>
+    Array.from({ length: 20 }).map((_, index) => ({
+      id: `#MOTS2024-VIP-${1842 + index}`,
+      price: (Math.random() * (1.893 - 1.655) + 1.655).toFixed(3),
+    }))
+  );
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header Section */}
@@ -88,30 +96,22 @@ export default function Eventspage() {
       <section className="py-8">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-4 gap-6">
-            {Array.from({ length: 20 }).map((_, index) => {
-              const randomPrice = (
-                Math.random() * (1.893 - 1.655) +
-                1.655
-              ).toFixed(3);
-              return (
-                <div
-                  key={index}
-                  className="bg-white shadow-lg rounded p-4 text-center border-2 border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
-                  onClick={() => router.push("/ticketdetails")}
-                >
-                  <img
-                    src="https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
-                    alt="Concert Ticket"
-                    className="h-32 w-full object-cover mb-4"
-                  />
-                  <p className="font-semibold">
-                    Ticket ID: #MOTS2024-VIP-{1842 + index}
-                  </p>
-                  <p>Owner: 0x7a58c0be72be...736c71</p>
-                  <p>Price: {randomPrice} ETH</p>
-                </div>
-              );
-            })}
+            {tickets.map((ticket, index) => (
+              <div
+                key={index}
+                className="bg-white shadow-lg rounded p-4 text-center border-2 border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
+                onClick={() => router.push("/ticketdetails")}
+              >
+                <img
+                  src="https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
+                  alt="Concert Ticket"
+                  className="h-32 w-full object-cover mb-4"
+                />
+                <p className="font-semibold">Ticket ID: {ticket.id}</p>
+                <p>Owner: 0x7a58c0be72be...736c71</p>
+                <p>Price: {ticket.price} ETH</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
