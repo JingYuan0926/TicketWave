@@ -17,13 +17,13 @@ const NFTMarketplace = () => {
   const featuredCollections = [
     {
       id: 1,
-      name: "Taylor Swift Eras Tour VIP",
+      name: "Coldplay Music of Spheres",
       image:
-        "https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg",
-      floorPrice: 2.5,
-      volume: 450,
-      items: 5000,
-      owners: 2300,
+        "https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg",
+      floorPrice: 1.5,
+      volume: 320,
+      items: 4500,
+      owners: 2000,
     },
     {
       id: 2,
@@ -47,13 +47,13 @@ const NFTMarketplace = () => {
     },
     {
       id: 4,
-      name: "Coldplay Music of Spheres",
+      name: "Taylor Swift Eras Tour VIP",
       image:
-        "https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg",
-      floorPrice: 1.5,
-      volume: 320,
-      items: 4500,
-      owners: 2000,
+        "https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg",
+      floorPrice: 2.5,
+      volume: 450,
+      items: 5000,
+      owners: 2300,
     },
     {
       id: 5,

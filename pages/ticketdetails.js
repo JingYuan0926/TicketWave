@@ -9,8 +9,8 @@ export default function TicketDetails() {
           {/* Left Section: Event Image */}
           <div>
             <img
-              src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
-              alt="Taylor Swift Concert Ticket"
+              src="https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
+              alt="Coldplay Concert Ticket"
               className="w-full h-[600px] object-cover rounded shadow-lg"
             />
           </div>
@@ -20,16 +20,16 @@ export default function TicketDetails() {
             <div className="flex-1 flex flex-col justify-between">
               <div className="flex flex-col h-full justify-between">
                 <h2 className="text-4xl font-bold">
-                  Taylor Swift | The Eras Tour
+                  Coldplay | Music Of The Spheres World Tour
                 </h2>
                 <p className="text-xl font-bold text-gray-600">
-                  VIP Floor Ticket
+                  VIP Ultimate Spheres Experience
                 </p>
                 <p className="text-xl font-bold text-gray-600">
-                  Ticket ID: #TS2024-VIP-1842
+                  Ticket ID: #MOTS2024-VIP-1842
                 </p>
                 <p className="text-lg text-gray-600">
-                  Owner: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+                  0x742d35Cc6634C0532925a3b844Bc454e4438f44e
                 </p>
               </div>
             </div>
@@ -53,19 +53,22 @@ export default function TicketDetails() {
         <div className="mt-8 border p-4 rounded shadow">
           <h3 className="text-lg font-bold mb-4">Ticket Description</h3>
           <p className="text-gray-600">
-            Taylor Swift The Eras Tour - Experience all of Taylor's eras in one
-            unforgettable night! This VIP Floor ticket includes premium standing
-            room access, exclusive VIP entrance, commemorative VIP laminate, and
-            a special merchandise package.
+            Coldplay: Music Of The Spheres World Tour - Experience an
+            otherworldly spectacular in one magical night! This VIP Ultimate
+            Spheres Experience includes premium viewing area, sustainable tour
+            merchandise package, and dedicated entrance. Join thousands of fans
+            for an incredible cosmic journey through Coldplay's spectacular show
+            featuring stunning visuals, LED wristbands, and their greatest hits
+            from across their entire career.
           </p>
           <div className="flex flex-wrap justify-between mt-4">
             <p className="text-sm text-gray-600">
               Location: SoFi Stadium, Los Angeles
             </p>
-            <p className="text-sm text-gray-600">Date: August 3, 2024</p>
-            <p className="text-sm text-gray-600">Time: 7:00 PM PST</p>
+            <p className="text-sm text-gray-600">Date: 2024-08-03</p>
+            <p className="text-sm text-gray-600">Time: 7:30 PM PST</p>
             <p className="text-sm text-gray-600">
-              Seating Area: VIP Floor Section
+              Seating Area: VIP Sphere Zone A
             </p>
           </div>
         </div>
@@ -75,18 +78,17 @@ export default function TicketDetails() {
           {/* Details Section */}
           <div className="border p-4 rounded shadow">
             <h3 className="text-lg font-bold mb-4">Details</h3>
-            <div className="flex flex-col justify-between h-[calc(100%-2rem)]">
+            <div className="flex flex-col justify-between h-40">
               <p className="text-sm text-gray-600">
-                Contract Address: 0x495f947276749Ce646f68AC8c248420045cb7b5e
+                Contract Address: 0x7a58c0be72be218b41c608b7fe7c5bb630736c71
               </p>
               <p className="text-sm text-gray-600">
-                Owner Address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+                Owner Address: 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
               </p>
               <p className="text-sm text-gray-600">Chain: Ethereum</p>
               <p className="text-sm text-gray-600">Token Standard: ERC-721</p>
               <p className="text-sm text-gray-600">
-                Metadata:
-                ipfs://QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/0
+                Metadata: Coldplay Music Of The Spheres VIP Access Token
               </p>
             </div>
           </div>

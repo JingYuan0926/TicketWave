@@ -10,9 +10,9 @@ export default function Eventspage() {
       <section className="relative bg-gray-200">
         <div className="relative flex justify-center">
           <img
-            src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
+            src="https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
             alt="Event Background"
-            className="w-full h-96 object-cover object-[center_40%]" // Changed height to h-96 and object position to center
+            className="w-full h-96 object-cover object-[center_40%]"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           <div className="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white shadow-md">
@@ -20,16 +20,16 @@ export default function Eventspage() {
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-4">
                   <img
-                    src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
+                    src="https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
                     alt="Event Thumbnail"
                     className="w-16 h-16 object-cover rounded-lg"
                   />
                   <div className="flex flex-col justify-center">
                     <h1 className="text-xl font-bold text-gray-800 mb-1">
-                      Taylor Swift | The Eras Tour
+                      Coldplay | Music Of The Spheres World Tour
                     </h1>
                     <p className="text-gray-700 text-sm">
-                      Experience all of Taylor's eras in one unforgettable
+                      Experience an otherworldly spectacular in one magical
                       night!{" "}
                       <a href="#" className="text-blue-500 hover:text-blue-600">
                         See More
@@ -100,12 +100,12 @@ export default function Eventspage() {
                   onClick={() => router.push("/ticketdetails")}
                 >
                   <img
-                    src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
+                    src="https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
                     alt="Concert Ticket"
                     className="h-32 w-full object-cover mb-4"
                   />
                   <p className="font-semibold">
-                    Ticket ID: #TS2024-VIP-{1842 + index}
+                    Ticket ID: #MOTS2024-VIP-{1842 + index}
                   </p>
                   <p>Owner: 0x7a58c0be72be...736c71</p>
                   <p>Price: {randomPrice} ETH</p>

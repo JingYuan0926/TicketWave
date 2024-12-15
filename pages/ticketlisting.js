@@ -1,6 +1,10 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 export default function TicketDetails() {
+  const router = useRouter();
+  const ticket = router.query.ticket ? JSON.parse(router.query.ticket) : null;
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Main Content */}
@@ -9,7 +13,10 @@ export default function TicketDetails() {
           {/* Left Section: Event Image */}
           <div>
             <img
-              src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
+              src={
+                ticket?.image ||
+                "https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
+              }
               alt="Event Ticket"
               className="w-full h-[600px] object-cover rounded shadow-lg"
             />
@@ -20,13 +27,13 @@ export default function TicketDetails() {
             <div className="flex-1 flex flex-col justify-between">
               <div className="flex flex-col h-full justify-between">
                 <h2 className="text-4xl font-bold">
-                  Taylor Swift | The Eras Tour
+                  Coldplay | Music Of The Spheres World Tour
                 </h2>
                 <p className="text-xl font-bold text-gray-600">
-                  VIP Floor Access
+                  VIP Ultimate Spheres Experience
                 </p>
                 <p className="text-xl font-bold text-gray-600">
-                  Ticket ID: #TS2024-VIP-1842
+                  Ticket ID: #MOTS2024-VIP-1842
                 </p>
                 <p className="text-lg text-gray-600">
                   0x742d35Cc6634C0532925a3b844Bc454e4438f44e
@@ -208,7 +215,7 @@ export default function TicketDetails() {
               <p className="text-sm text-gray-600">Chain: Ethereum</p>
               <p className="text-sm text-gray-600">Token Standard: ERC-721</p>
               <p className="text-sm text-gray-600">
-                Metadata: Taylor Swift Eras Tour VIP Access Token
+                Metadata: Coldplay Music Of The Spheres VIP Access Token
               </p>
             </div>
           </div>
@@ -217,11 +224,13 @@ export default function TicketDetails() {
           <div className="border p-4 rounded shadow">
             <h3 className="text-lg font-bold mb-4">Ticket Description</h3>
             <p className="text-gray-600">
-              Taylor Swift: The Eras Tour - Experience all of Taylor's eras in
-              one unforgettable night! This VIP Floor Access ticket includes
-              premium viewing area, exclusive merchandise package, and dedicated
-              entrance. Join thousands of Swifties for an epic 3+ hour musical
-              journey through Taylor's legendary discography.
+              Coldplay: Music Of The Spheres World Tour - Experience an
+              otherworldly spectacular in one magical night! This VIP Ultimate
+              Spheres Experience includes premium viewing area, sustainable tour
+              merchandise package, and dedicated entrance. Join thousands of
+              fans for an incredible cosmic journey through Coldplay's
+              spectacular show featuring stunning visuals, LED wristbands, and
+              their greatest hits.
             </p>
             <div className="flex flex-wrap justify-between mt-4">
               <p className="text-sm text-gray-600">
@@ -230,7 +239,7 @@ export default function TicketDetails() {
               <p className="text-sm text-gray-600">Date: 2024-08-03</p>
               <p className="text-sm text-gray-600">Time: 7:30 PM PST</p>
               <p className="text-sm text-gray-600">
-                Seating Area: VIP Floor Section A
+                Seating Area: VIP Sphere Zone A
               </p>
             </div>
           </div>

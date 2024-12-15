@@ -19,9 +19,9 @@ export default function StripePage() {
         <div>
           <div className="mb-12"></div>
           <h2 className="text-2xl font-bold mb-4">
-            Taylor Swift | The Eras Tour
+            Coldplay | Music of the Spheres World Tour
           </h2>
-          <p className="text-lg mb-6">499.99 USD</p>
+          <p className="text-lg mb-6">299.99 USD</p>
           {/* Concert image */}
           <img
             src="https://assets.teenvogue.com/photos/64f0a106a683b28e919ea05c/16:9/w_2560%2Cc_limit/GettyImages-1604947670.jpg"
