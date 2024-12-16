@@ -35,9 +35,7 @@ export default function TicketDetails() {
                 <p className="text-xl font-bold text-gray-600">
                   Ticket ID: #MOTS2024-VIP-1842
                 </p>
-                <p className="text-lg text-gray-600">
-                  0x742d35Cc6634C0532925a3b844Bc454e4438f44e
-                </p>
+                <p className="text-lg text-gray-600">0xcF0f...0CC2 (Marcus)</p>
               </div>
             </div>
 
