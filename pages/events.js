@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Card, CardBody, Image, Button, Pagination } from "@nextui-org/react";
 import concertData from "../data/data.json";
+import { useRouter } from "next/router";
 
 const EventsPage = () => {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const totalPages = Math.ceil(concertData.concerts.length / itemsPerPage);
@@ -38,7 +40,12 @@ const EventsPage = () => {
                   <p className="mt-2 line-clamp-3">{concert.description}</p>
                 </div>
                 <div className="mt-4">
-                  <Button color="primary">Book Tickets</Button>
+                  <Button
+                    color="primary"
+                    onClick={() => router.push(`/details/${concert.id}`)}
+                  >
+                    Book Tickets
+                  </Button>
                 </div>
               </div>
             </CardBody>
