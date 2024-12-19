@@ -580,21 +580,23 @@ const DetailsPage = () => {
                                 <Button
                                     color="primary"
                                     size="lg"
-                                    className={`w-full ${(!selectedTicketType || !wallet?.address || hasTicket) ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    disabled={!selectedTicketType || !wallet?.address || hasTicket}
+                                    className={`w-full ${(!selectedTicketType || !wallet?.address || hasTicket || ticketsRemaining <= 0) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={!selectedTicketType || !wallet?.address || hasTicket || ticketsRemaining <= 0}
                                     onClick={handleBuyTickets}
                                 >
-                                    {!wallet?.address
-                                        ? 'Sign in first before buying tickets'
-                                        : hasTicket
-                                            ? <>
-                                                You Already Have a Ticket
-                                                <br />
-                                                See Ticket in Your Profile
-                                            </>
-                                            : selectedTicketType
-                                                ? 'Buy Ticket'
-                                                : 'Select a Ticket Type'
+                                    {ticketsRemaining <= 0
+                                        ? 'Sold Out'
+                                        : !wallet?.address
+                                            ? 'Sign in first before buying tickets'
+                                            : hasTicket
+                                                ? <>
+                                                    You Already Have a Ticket
+                                                    <br />
+                                                    See Ticket in Your Profile
+                                                </>
+                                                : selectedTicketType
+                                                    ? 'Buy Ticket'
+                                                    : 'Select a Ticket Type'
                                     }
                                 </Button>
 
