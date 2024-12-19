@@ -322,12 +322,12 @@ const DetailsPage = () => {
                                             <div>
                                                 {/* Mobile view - stacked */}
                                                 <div className="md:hidden space-y-1">
-                                                    <p className="font-semibold">Detailed Location:</p>
+                                                    <p className="font-semibold">Detailed Location:&nbsp;</p>
                                                     <p>{concert.venue.detailedLocation}</p>
                                                 </div>
                                                 {/* Desktop view - inline */}
                                                 <div className="hidden md:flex">
-                                                    <p className="font-semibold">Detailed Location: </p>
+                                                    <p className="font-semibold">Detailed Location:&nbsp;</p>
                                                     <p>{concert.venue.detailedLocation}</p>
                                                 </div>
                                             </div>
@@ -335,12 +335,12 @@ const DetailsPage = () => {
                                         <div>
                                             {/* Mobile view - stacked */}
                                             <div className="md:hidden space-y-1">
-                                                <p className="font-semibold">Address:</p>
+                                                <p className="font-semibold">Address:&nbsp;</p>
                                                 <p>{concert.venue.address}</p>
                                             </div>
                                             {/* Desktop view - inline */}
                                             <div className="hidden md:flex">
-                                                <p className="font-semibold">Address: </p>
+                                                <p className="font-semibold">Address:&nbsp;</p>
                                                 <p>{concert.venue.address}</p>
                                             </div>
                                         </div>
@@ -348,12 +348,12 @@ const DetailsPage = () => {
                                             <div>
                                                 {/* Mobile view - stacked */}
                                                 <div className="md:hidden space-y-1">
-                                                    <p className="font-semibold">Parking:</p>
+                                                    <p className="font-semibold">Parking:&nbsp;</p>
                                                     <p>{concert.venue.parking}</p>
                                                 </div>
                                                 {/* Desktop view - inline */}
                                                 <div className="hidden md:flex">
-                                                    <p className="font-semibold">Parking: </p>
+                                                    <p className="font-semibold">Parking:&nbsp;</p>
                                                     <p>{concert.venue.parking}</p>
                                                 </div>
                                             </div>
@@ -361,34 +361,40 @@ const DetailsPage = () => {
                                         {concert.venue.howToGetThere && (
                                             <div className="space-y-2">
                                                 <p className="font-semibold">How to get there:</p>
-                                                <div className=" space-y-2">
-                                                    {concert.venue.howToGetThere.day1 && (
-                                                        <div>
-                                                            {/* Mobile view - stacked */}
-                                                            <div className="md:hidden space-y-1">
-                                                                <p className="font-medium">Day 1:</p>
-                                                                <p >{concert.venue.howToGetThere.day1}</p>
-                                                            </div>
-                                                            {/* Desktop view - inline */}
-                                                            <div className="hidden md:flex">
-                                                                <p className="font-medium">Day 1: </p>
-                                                                <p >{concert.venue.howToGetThere.day1}</p>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                    {concert.venue.howToGetThere.day2 && (
-                                                        <div>
-                                                            {/* Mobile view - stacked */}
-                                                            <div className="md:hidden space-y-1">
-                                                                <p className="font-medium">Day 2:</p>
-                                                                <p>{concert.venue.howToGetThere.day2}</p>
-                                                            </div>
-                                                            {/* Desktop view - inline */}
-                                                            <div className="hidden md:flex">
-                                                                <p className="font-medium">Day 2: </p>
-                                                                <p>{concert.venue.howToGetThere.day2}</p>
-                                                            </div>
-                                                        </div>
+                                                <div className="space-y-2">
+                                                    {typeof concert.venue.howToGetThere === 'string' ? (
+                                                        <p>{concert.venue.howToGetThere}</p>
+                                                    ) : (
+                                                        <>
+                                                            {concert.venue.howToGetThere.day1 && (
+                                                                <div>
+                                                                    {/* Mobile view - stacked */}
+                                                                    <div className="md:hidden space-y-1">
+                                                                        <p className="font-medium">Day 1:</p>
+                                                                        <p >{concert.venue.howToGetThere.day1}</p>
+                                                                    </div>
+                                                                    {/* Desktop view - inline */}
+                                                                    <div className="hidden md:flex">
+                                                                        <p className="font-medium">Day 1: </p>
+                                                                        <p >{concert.venue.howToGetThere.day1}</p>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            {concert.venue.howToGetThere.day2 && (
+                                                                <div>
+                                                                    {/* Mobile view - stacked */}
+                                                                    <div className="md:hidden space-y-1">
+                                                                        <p className="font-medium">Day 2:</p>
+                                                                        <p>{concert.venue.howToGetThere.day2}</p>
+                                                                    </div>
+                                                                    {/* Desktop view - inline */}
+                                                                    <div className="hidden md:flex">
+                                                                        <p className="font-medium">Day 2: </p>
+                                                                        <p>{concert.venue.howToGetThere.day2}</p>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                        </>
                                                     )}
                                                 </div>
                                             </div>

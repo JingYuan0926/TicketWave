@@ -176,12 +176,9 @@
             "venue": {
                 "name": "Taylor's University Lakeside Campus",
                 "address": "1, Jalan Taylor's, 47500 Subang Jaya, Selangor",
-                "detailedLocation": "Student Life Center (Day 1), E Block Level 6 Classroom 2 (Day 2)",
+                "detailedLocation": "Lecture Theatre 27 (LT27)",
                 "parking": "Free open-air parking available behind the university",
-                "howToGetThere": {
-                    "day1": "Student Life Center is directly below Starbucks. Find Starbucks and go down the big staircase which is the same level as the lake",
-                    "day2": "Block E is at the opposite end from Starbucks. Take the elevator to Level 6"
-                }
+                "howToGetThere": "LT27 is located at Level 1 of Block C. From the parking area, walk to LT1, continue to LT2 and walk straight, and at the first junction turn right to reach LT27."
             },
             "organisers": [
                 "Taylor's IET Club",
