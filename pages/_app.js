@@ -1,6 +1,7 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { ThirdwebProvider } from "thirdweb/react";
 import { IDKitProvider } from "@worldcoin/idkit";
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useRouter } from "next/router";
@@ -13,6 +14,10 @@ export default function App({ Component, pageProps }) {
   return (
     <ThirdwebProvider clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}>
       <NextUIProvider>
+        <Head>
+          <title>TicketWave</title>
+          <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎟️</text></svg>" />
+        </Head>
         <div className="min-h-screen flex flex-col overflow-x-hidden">
           {!isLandingPage && <Navbar />}
           <main className="flex-1">

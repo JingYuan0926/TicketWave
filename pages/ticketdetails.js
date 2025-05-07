@@ -1,6 +1,9 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 export default function TicketDetails() {
+  const router = useRouter();
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Main Content */}
@@ -219,7 +222,10 @@ export default function TicketDetails() {
 
         {/* Browse More Section */}
         <div className="text-center mt-8">
-          <button className="px-6 py-3 bg-blue-500 text-white font-bold rounded">
+          <button 
+            className="px-6 py-3 bg-blue-500 text-white font-bold rounded hover:bg-blue-600 transition-colors"
+            onClick={() => router.push('/eventspage')}
+          >
             Browse More Tickets
           </button>
         </div>

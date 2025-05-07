@@ -173,7 +173,7 @@ const NFTMarketplace = () => {
       floor: 1.8,
       volume: 7080,
       image:
-        "https://images.hellomagazine.com/horizon/landscape/8d5f6dde77b1-gettyimages-1499593702.jpg?tx=c_limit,w_640",
+        "https://www.hollywoodreporter.com/wp-content/uploads/2023/07/Beyonce-Metlife-Renaissance3-Publicity-H-2023.jpg?w=1296&h=730&crop=1",
     },
     {
       id: 3,

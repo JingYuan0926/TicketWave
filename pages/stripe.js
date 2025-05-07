@@ -21,7 +21,7 @@ export default function StripePage() {
           <h2 className="text-2xl font-bold mb-4">
             Coldplay | Music of the Spheres World Tour
           </h2>
-          <p className="text-lg mb-6">299.99 USD</p>
+          <p className="text-lg mb-6">90.00 USD</p>
           {/* Concert image */}
           <img
             src="https://static.euronews.com/articles/stories/08/74/10/24/1200x675_cmsv2_4289ef70-c98e-557d-b566-be58eccef857-8741024.jpg"
