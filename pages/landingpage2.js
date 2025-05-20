@@ -4,6 +4,7 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 import Particles from '../components/ui/particles';
 import FeaturesSection from '../components/FeaturesSection';
 import { motion } from 'framer-motion';
+import { AuroraText } from '../components/magicui/aurora-text';
 
 // Preload the model for better performance
 useGLTF.preload('/models/ticket.glb');
@@ -22,6 +23,22 @@ export default function LandingPage2() {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.8, ease: "easeOut" }
+  };
+
+  const wordVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 20,
+    },
+    visible: (custom) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 1 + custom * 0.5, // 1 second base delay + 0.5 second delay between each word
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    })
   };
 
   const staggerContainer = {
@@ -93,74 +110,98 @@ export default function LandingPage2() {
                 margin: '0 0 30px 0',
                 lineHeight: '1.1',
                 letterSpacing: '-0.02em',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.1em',
               }}>
-              TicketWave
+              <span>Ticket</span>
+              <AuroraText
+                colors={["#FF0080", "#7928CA", "#0070F3", "#38bdf8"]}
+                speed={0.5}
+              >
+                Wave
+              </AuroraText>
             </motion.h1>
-            <motion.div
-              variants={staggerContainer}
-              initial="initial"
-              animate="animate"
+            <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
                 flexWrap: 'nowrap',
               }}>
-              {/* Wrap each span in motion.span */}
-              <motion.span variants={fadeIn} style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                fontWeight: '700',
-                lineHeight: '1.2',
-                background: 'linear-gradient(90deg, #F92C86, #FCEE21, #00FFA3)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-                letterSpacing: '-0.02em',
-                whiteSpace: 'nowrap',
-              }}>
+              {/* Discover */}
+              <motion.span 
+                custom={0}
+                variants={wordVariants}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                  fontWeight: '700',
+                  lineHeight: '1.2',
+                  color: '#FFFFFF',
+                  letterSpacing: '-0.02em',
+                  whiteSpace: 'nowrap',
+                }}>
                 Discover
               </motion.span>
-              <motion.span variants={fadeIn} style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                fontWeight: '700',
-                color: '#666',
-              }}>
+              <motion.span 
+                custom={0.5}
+                variants={wordVariants}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                  fontWeight: '700',
+                  color: '#666',
+                }}>
                 •
               </motion.span>
-              <motion.span variants={fadeIn} style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                fontWeight: '700',
-                lineHeight: '1.2',
-                background: 'linear-gradient(90deg, #FCEE21, #00FFA3, #F92C86)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-                letterSpacing: '-0.02em',
-                whiteSpace: 'nowrap',
-              }}>
+              {/* Book */}
+              <motion.span 
+                custom={1}
+                variants={wordVariants}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                  fontWeight: '700',
+                  lineHeight: '1.2',
+                  color: '#FFFFFF',
+                  letterSpacing: '-0.02em',
+                  whiteSpace: 'nowrap',
+                }}>
                 Book
               </motion.span>
-              <motion.span variants={fadeIn} style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                fontWeight: '700',
-                color: '#666',
-              }}>
+              <motion.span 
+                custom={1.5}
+                variants={wordVariants}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                  fontWeight: '700',
+                  color: '#666',
+                }}>
                 •
               </motion.span>
-              <motion.span variants={fadeIn} style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                fontWeight: '700',
-                lineHeight: '1.2',
-                background: 'linear-gradient(90deg, #00FFA3, #F92C86, #FCEE21)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-                letterSpacing: '-0.02em',
-                whiteSpace: 'nowrap',
-              }}>
+              {/* Experience */}
+              <motion.span 
+                custom={2}
+                variants={wordVariants}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                  fontWeight: '700',
+                  lineHeight: '1.2',
+                  color: '#FFFFFF',
+                  letterSpacing: '-0.02em',
+                  whiteSpace: 'nowrap',
+                }}>
                 Experience
               </motion.span>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Right Section: 3D Model Viewer */}
