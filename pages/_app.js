@@ -6,10 +6,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
+import "../styles/fonts.css";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const isLandingPage = router.pathname === "/landingpage";
+  const isLandingPage = router.pathname === "/landingpage" || router.pathname === "/landingpage2";
 
   return (
     <ThirdwebProvider clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}>
@@ -23,7 +24,7 @@ export default function App({ Component, pageProps }) {
           <main className="flex-1">
             <Component {...pageProps} />
           </main>
-          <Footer />
+          {!isLandingPage && <Footer />}
         </div>
       </NextUIProvider>
     </ThirdwebProvider>

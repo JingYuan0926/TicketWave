@@ -28,14 +28,18 @@ const TicketWaveNavbar = () => {
         className="gap-4 sm:gap-12 h-full items-center"
       >
         <NavbarBrand>
-          <p className="font-serif font-bold text-inherit text-xl sm:text-3xl text-white">
+          <p className="font-bold text-inherit text-xl sm:text-3xl text-white tracking-tight">
             TicketWave
           </p>
         </NavbarBrand>
 
-        <NavbarContent className="font-serif hidden sm:flex gap-10 h-full items-center">
+        <NavbarContent className="hidden sm:flex gap-10 h-full items-center">
           <NavbarItem>
-            <Link href="/" color="foreground" className="text-white text-2xl">
+            <Link 
+              href="/" 
+              color="foreground" 
+              className="text-white text-lg font-medium hover:text-opacity-80 transition-colors"
+            >
               HOME
             </Link>
           </NavbarItem>
@@ -43,17 +47,16 @@ const TicketWaveNavbar = () => {
             <Link
               href="/events"
               color="foreground"
-              className="text-white text-2xl"
+              className="text-white text-lg font-medium hover:text-opacity-80 transition-colors"
             >
               EVENTS
             </Link>
           </NavbarItem>
-          {/* Updated the link to point to /nft-marketplace */}
           <NavbarItem>
             <Link
               href="/nft-marketplace"
               color="foreground"
-              className="text-white text-2xl"
+              className="text-white text-lg font-medium hover:text-opacity-80 transition-colors"
             >
               MARKETPLACE
             </Link>
@@ -62,7 +65,7 @@ const TicketWaveNavbar = () => {
             <Link
               href="/contact"
               color="foreground"
-              className="text-white text-2xl"
+              className="text-white text-lg font-medium hover:text-opacity-80 transition-colors"
             >
               CONTACT US
             </Link>
@@ -97,7 +100,10 @@ const TicketWaveNavbar = () => {
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"
               />
             </DropdownTrigger>
-            <DropdownMenu aria-label="Profile Actions" variant="flat">
+            <DropdownMenu 
+              aria-label="Profile Actions" 
+              variant="flat"
+            >
               <DropdownItem key="settings">My Settings</DropdownItem>
               <DropdownItem
                 key="portfolio"
