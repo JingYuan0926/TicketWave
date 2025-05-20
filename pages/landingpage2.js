@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import Particles from '../components/ui/particles';
 import FeaturesSection from '../components/FeaturesSection';
+import { motion } from 'framer-motion';
 
 // Preload the model for better performance
 useGLTF.preload('/models/ticket.glb');
@@ -17,6 +18,20 @@ function Model(props) {
 }
 
 export default function LandingPage2() {
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, ease: "easeOut" }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
   return (
     <>
       <main style={{
@@ -27,55 +42,72 @@ export default function LandingPage2() {
         overflow: 'hidden',
       }}>
         {/* Particles Background */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}>
           <Particles
             quantity={200}
             color="#ffffff"
             className="pointer-events-none"
           />
-        </div>
+        </motion.div>
 
         {/* Content Container */}
-        <div style={{
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '100%',
-          height: '100%',
-          padding: '0 5%',
-          zIndex: 1,
-        }}>
-          {/* Left Section: Title and Subtitle */}
-          <div style={{
-            flex: '0 1 50%',
-            maxWidth: '600px',
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          style={{
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+            height: '100%',
+            padding: '0 5%',
+            zIndex: 1,
           }}>
-            <h1 style={{
-              fontSize: 'clamp(3rem, 8vw, 6rem)',
-              fontWeight: '900',
-              color: '#FFFFFF',
-              margin: '0 0 30px 0',
-              lineHeight: '1.1',
-              letterSpacing: '-0.02em',
+          {/* Left Section: Title and Subtitle */}
+          <motion.div
+            variants={fadeIn}
+            style={{
+              flex: '0 1 50%',
+              maxWidth: '600px',
             }}>
+            <motion.h1
+              variants={fadeIn}
+              style={{
+                fontSize: 'clamp(3rem, 8vw, 6rem)',
+                fontWeight: '900',
+                color: '#FFFFFF',
+                margin: '0 0 30px 0',
+                lineHeight: '1.1',
+                letterSpacing: '-0.02em',
+              }}>
               TicketWave
-            </h1>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              flexWrap: 'nowrap',
-            }}>
-              <span style={{
+            </motion.h1>
+            <motion.div
+              variants={staggerContainer}
+              initial="initial"
+              animate="animate"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                flexWrap: 'nowrap',
+              }}>
+              {/* Wrap each span in motion.span */}
+              <motion.span variants={fadeIn} style={{
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                 fontWeight: '700',
                 lineHeight: '1.2',
@@ -87,15 +119,15 @@ export default function LandingPage2() {
                 whiteSpace: 'nowrap',
               }}>
                 Discover
-              </span>
-              <span style={{
+              </motion.span>
+              <motion.span variants={fadeIn} style={{
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                 fontWeight: '700',
                 color: '#666',
               }}>
                 •
-              </span>
-              <span style={{
+              </motion.span>
+              <motion.span variants={fadeIn} style={{
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                 fontWeight: '700',
                 lineHeight: '1.2',
@@ -107,15 +139,15 @@ export default function LandingPage2() {
                 whiteSpace: 'nowrap',
               }}>
                 Book
-              </span>
-              <span style={{
+              </motion.span>
+              <motion.span variants={fadeIn} style={{
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                 fontWeight: '700',
                 color: '#666',
               }}>
                 •
-              </span>
-              <span style={{
+              </motion.span>
+              <motion.span variants={fadeIn} style={{
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                 fontWeight: '700',
                 lineHeight: '1.2',
@@ -127,18 +159,20 @@ export default function LandingPage2() {
                 whiteSpace: 'nowrap',
               }}>
                 Experience
-              </span>
-            </div>
-          </div>
+              </motion.span>
+            </motion.div>
+          </motion.div>
 
           {/* Right Section: 3D Model Viewer */}
-          <div style={{
-            flex: '0 1 50%',
-            height: '500px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          <motion.div
+            variants={fadeIn}
+            style={{
+              flex: '0 1 50%',
+              height: '500px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <Canvas 
               camera={{ position: [0, 0, 4], fov: 45 }}
               style={{ 
@@ -171,8 +205,8 @@ export default function LandingPage2() {
                 target={[0, 0, 0]}
               />
             </Canvas>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </main>
       <FeaturesSection />
     </>
