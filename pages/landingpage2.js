@@ -268,7 +268,7 @@ export default function LandingPage2() {
                 <ShinyButton
                   style={{
                     background:
-                      "linear-gradient(135deg, #FF0080, #7928CA, #0070F3)",
+                      "linear-gradient(135deg, #06B6D4, #3B82F6, #0EA5E9)",
                     border: "none",
                     padding: "16px 32px",
                     fontSize: "1.1rem",
@@ -276,7 +276,7 @@ export default function LandingPage2() {
                     borderRadius: "12px",
                     cursor: "pointer",
                     color: "white",
-                    boxShadow: "0 8px 32px rgba(255, 0, 128, 0.3)",
+                    boxShadow: "0 8px 32px rgba(6, 182, 212, 0.3)",
                   }}
                   onClick={() => console.log("Join Beta clicked")}
                 >
@@ -366,7 +366,7 @@ export default function LandingPage2() {
               <pointLight
                 position={[0, 0, 2]}
                 intensity={0.8}
-                color="#FF0080"
+                color="#06B6D4"
               />
               <Suspense fallback={null}>
                 <Model />
@@ -394,7 +394,7 @@ export default function LandingPage2() {
                 width: "300px",
                 height: "300px",
                 background:
-                  "radial-gradient(circle, rgba(255, 0, 128, 0.1) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%)",
                 borderRadius: "50%",
                 zIndex: -1,
                 animation: "pulse 3s ease-in-out infinite",

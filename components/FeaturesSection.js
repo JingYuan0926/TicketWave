@@ -18,19 +18,19 @@ const FeatureCard = ({ icon, title, description, variants, highlight }) => {
       className="relative p-6 rounded-2xl overflow-hidden group"
       style={{
         background: highlight
-          ? "rgba(255, 0, 128, 0.1)"
+          ? "rgba(6, 182, 212, 0.1)"
           : "rgba(255, 255, 255, 0.05)",
         backdropFilter: "blur(10px)",
         border: highlight
-          ? "1px solid rgba(255, 0, 128, 0.3)"
+          ? "1px solid rgba(6, 182, 212, 0.3)"
           : "1px solid rgba(255, 255, 255, 0.1)",
         boxShadow: highlight
-          ? "0 8px 32px 0 rgba(255, 0, 128, 0.2)"
+          ? "0 8px 32px 0 rgba(6, 182, 212, 0.2)"
           : "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
       }}
     >
-      <div className="relative z-10">
-        <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+      <div className="relative z-10 text-center">
+        <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
           {icon}
         </div>
         <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
@@ -40,8 +40,8 @@ const FeatureCard = ({ icon, title, description, variants, highlight }) => {
         className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
         style={{
           background: highlight
-            ? "linear-gradient(45deg, #FF0080, #7928CA)"
-            : "linear-gradient(45deg, #F92C86, #00FFA3)",
+            ? "linear-gradient(45deg, #06B6D4, #3B82F6)"
+            : "linear-gradient(45deg, #06B6D4, #00FFA3)",
           filter: "blur(20px)",
         }}
       />
@@ -100,20 +100,20 @@ export default function FeaturesSection() {
       icon: <Shield className="w-8 h-8 text-white" />,
       title: "Smart Contracts",
       description:
-        "Automated, transparent ticket sales with built-in anti-scalping protection. Every transaction is recorded on blockchain for complete transparency.",
+        "Automated, transparent ticket sales with anti-scalping protection.",
       highlight: true,
     },
     {
       icon: <Ticket className="w-8 h-8 text-white" />,
       title: "NFT Ticket Resale",
       description:
-        "Safe, verified resale marketplace with price regulation. Organizers earn royalties on every resale, fans get authentic tickets.",
+        "Safe resale marketplace with price regulation and organizer royalties.",
     },
     {
       icon: <Users className="w-8 h-8 text-white" />,
       title: "World ID Verification",
       description:
-        "Bot-free ticket drops using Worldcoin's proof-of-personhood. Real humans get fair access, no more bot armies.",
+        "Bot-free ticket drops using proof-of-personhood technology.",
     },
   ];
 
@@ -121,29 +121,26 @@ export default function FeaturesSection() {
     {
       step: "1",
       title: "Connect & Verify",
-      description:
-        "Link your wallet or sign up with Google. Verify your identity with World ID for bot-free access.",
+      description: "Link your wallet and verify identity with World ID.",
       icon: <Link className="w-8 h-8 text-white" />,
     },
     {
       step: "2",
       title: "Discover Events",
-      description:
-        "Browse upcoming events with transparent pricing. See real-time availability and fair drop schedules.",
+      description: "Browse events with transparent pricing and availability.",
       icon: <Search className="w-8 h-8 text-white" />,
     },
     {
       step: "3",
       title: "Secure Your Ticket",
       description:
-        "Purchase NFT tickets through smart contracts. Your ticket is unique, verifiable, and tamper-proof.",
+        "Purchase unique, verifiable NFT tickets through smart contracts.",
       icon: <ShoppingCart className="w-8 h-8 text-white" />,
     },
     {
       step: "4",
       title: "Experience & Collect",
-      description:
-        "Attend your event and mint exclusive memories. Trade or keep your NFT ticket as a digital collectible.",
+      description: "Attend events and mint memories as digital collectibles.",
       icon: <Sparkles className="w-8 h-8 text-white" />,
     },
   ];
@@ -186,26 +183,16 @@ export default function FeaturesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl font-bold text-center mb-4 text-white"
+            className="text-4xl font-bold text-center mb-16 text-white"
           >
             Why TicketWave?
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-center mb-16 text-gray-400 max-w-3xl mx-auto"
-          >
-            The first blockchain-powered ticketing platform that puts fans first
-            and eliminates the middlemen
-          </motion.p>
           <motion.div
             variants={containerVariants}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
           >
             {features.map((feature, index) => (
               <FeatureCard key={index} {...feature} variants={itemVariants} />
@@ -231,19 +218,10 @@ export default function FeaturesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl font-bold text-center mb-4 text-white"
+            className="text-4xl font-bold text-center mb-16 text-white"
           >
             How It Works
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-center mb-16 text-gray-400 max-w-2xl mx-auto"
-          >
-            Simple steps to secure, fair, and transparent ticketing
-          </motion.p>
 
           <motion.div
             variants={containerVariants}
@@ -260,13 +238,13 @@ export default function FeaturesSection() {
                 className="relative text-center"
               >
                 <div className="relative mb-6">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
                     {step.icon}
                   </div>
                   <div
                     className="absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
                     style={{
-                      background: "linear-gradient(135deg, #FF0080, #7928CA)",
+                      background: "linear-gradient(135deg, #06B6D4, #3B82F6)",
                       color: "white",
                     }}
                   >
@@ -300,19 +278,10 @@ export default function FeaturesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl font-bold text-center mb-4 text-white"
+            className="text-4xl font-bold text-center mb-16 text-white"
           >
             What People Are Saying
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-center mb-16 text-gray-400"
-          >
-            Join thousands who are already experiencing the future of ticketing
-          </motion.p>
 
           <motion.div
             variants={containerVariants}
@@ -354,7 +323,7 @@ export default function FeaturesSection() {
             width: "100%",
             height: "100%",
             background:
-              "radial-gradient(ellipse at center, rgba(255, 0, 128, 0.05) 0%, transparent 70%)",
+              "radial-gradient(ellipse at center, rgba(6, 182, 212, 0.05) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
@@ -365,20 +334,10 @@ export default function FeaturesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl font-bold mb-6 text-white"
+            className="text-5xl font-bold mb-12 text-white"
           >
             Ready to Join the Revolution?
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl mb-12 text-gray-300 max-w-2xl mx-auto"
-          >
-            Be among the first to experience fair, secure, and transparent
-            ticketing. Join our beta and help shape the future of live events.
-          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -392,7 +351,7 @@ export default function FeaturesSection() {
               whileTap={{ scale: 0.95 }}
               style={{
                 background:
-                  "linear-gradient(135deg, #FF0080, #7928CA, #0070F3)",
+                  "linear-gradient(135deg, #06B6D4, #3B82F6, #0EA5E9)",
                 border: "none",
                 padding: "18px 36px",
                 fontSize: "1.2rem",
@@ -400,7 +359,7 @@ export default function FeaturesSection() {
                 borderRadius: "12px",
                 cursor: "pointer",
                 color: "white",
-                boxShadow: "0 8px 32px rgba(255, 0, 128, 0.4)",
+                boxShadow: "0 8px 32px rgba(6, 182, 212, 0.4)",
               }}
             >
               🚀 Get Early Access
