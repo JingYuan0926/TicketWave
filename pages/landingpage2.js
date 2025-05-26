@@ -29,6 +29,7 @@ function Model(props) {
 
 export default function LandingPage2() {
   const [isInteracting, setIsInteracting] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
@@ -88,7 +89,10 @@ export default function LandingPage2() {
         }}
       >
         <Particles
-          quantity={300}
+          quantity={80}
+          size={0.2}
+          staticity={0}
+          ease={80}
           color="#ffffff"
           className="pointer-events-none"
           refresh={true}
@@ -281,7 +285,7 @@ export default function LandingPage2() {
                   }}
                   onClick={() => console.log("Join Beta clicked")}
                 >
-                  🚀 Join the Beta
+                  Get Started
                 </ShinyButton>
               </motion.div>
 
@@ -301,7 +305,7 @@ export default function LandingPage2() {
                 }}
                 onClick={() => console.log("Watch Demo clicked")}
               >
-                📺 Watch Demo
+                Past Events
               </motion.button>
             </motion.div>
           </motion.div>
@@ -317,31 +321,9 @@ export default function LandingPage2() {
               alignItems: "center",
               position: "relative",
             }}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
           >
-            {/* Interaction Hint - Positioned below the model */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: isInteracting ? 0 : 0.6,
-              }}
-              transition={{
-                opacity: { duration: 0.5 },
-              }}
-              style={{
-                position: "absolute",
-                bottom: "10px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                fontSize: "0.8rem",
-                color: "#888",
-                zIndex: 10,
-                pointerEvents: "none",
-                textAlign: "center",
-              }}
-            >
-              Click and drag to explore
-            </motion.div>
-
             {/* 3D Canvas with Enhanced Lighting */}
             <Canvas
               camera={{ position: [0, 0, 4], fov: 45 }}
@@ -350,8 +332,6 @@ export default function LandingPage2() {
                 width: "100%",
                 height: "100%",
               }}
-              onPointerDown={() => setIsInteracting(true)}
-              onPointerUp={() => setIsInteracting(false)}
             >
               <ambientLight intensity={2.2} />
               <directionalLight
@@ -384,6 +364,26 @@ export default function LandingPage2() {
                 onEnd={() => setIsInteracting(false)}
               />
             </Canvas>
+
+            {/* Interaction Hint - Shows on hover using React state */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "16px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                backgroundColor: "rgba(0, 0, 0, 0.8)",
+                color: "white",
+                padding: "6px 12px",
+                borderRadius: "9999px",
+                fontSize: "0.875rem",
+                opacity: isHovering ? 1 : 0,
+                transition: "opacity 0.3s ease",
+                pointerEvents: "none",
+              }}
+            >
+              Click and drag to rotate
+            </div>
 
             {/* Glow Effect Behind Model */}
             <div
@@ -421,9 +421,6 @@ export default function LandingPage2() {
             gap: "8px",
           }}
         >
-          <span style={{ color: "#888", fontSize: "0.9rem" }}>
-            Scroll to explore
-          </span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}

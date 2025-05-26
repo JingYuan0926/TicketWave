@@ -8,6 +8,7 @@ import {
   Search,
   ShoppingCart,
   Sparkles,
+  Camera,
 } from "lucide-react";
 
 const FeatureCard = ({ icon, title, description, variants, highlight }) => {
@@ -99,29 +100,26 @@ export default function FeaturesSection() {
     {
       icon: <Shield className="w-8 h-8 text-white" />,
       title: "Smart Contracts",
-      description:
-        "Automated, transparent ticket sales with anti-scalping protection.",
+      description: "Transparent ticket sales to prevent scalping.",
       highlight: true,
     },
     {
       icon: <Ticket className="w-8 h-8 text-white" />,
       title: "NFT Ticket Resale",
-      description:
-        "Safe resale marketplace with price regulation and organizer royalties.",
+      description: "Safe & secure resale marketplace.",
     },
     {
       icon: <Users className="w-8 h-8 text-white" />,
-      title: "World ID Verification",
-      description:
-        "Bot-free ticket drops using proof-of-personhood technology.",
+      title: "Memory Minting",
+      description: "Turn moments into ownable digital keepsakes forever.",
     },
   ];
 
   const howItWorks = [
     {
       step: "1",
-      title: "Connect & Verify",
-      description: "Link your wallet and verify identity with World ID.",
+      title: "Connect Account",
+      description: "Log In to your account using social login methods.",
       icon: <Link className="w-8 h-8 text-white" />,
     },
     {
@@ -134,7 +132,7 @@ export default function FeaturesSection() {
       step: "3",
       title: "Secure Your Ticket",
       description:
-        "Purchase unique, verifiable NFT tickets through smart contracts.",
+        "Purchase verifiable NFT tickets using payment of your choice.",
       icon: <ShoppingCart className="w-8 h-8 text-white" />,
     },
     {
@@ -148,21 +146,21 @@ export default function FeaturesSection() {
   const testimonials = [
     {
       quote:
-        "Finally, a ticketing platform that actually works for fans. No more getting scammed by fake tickets!",
-      author: "Sarah Chen",
-      role: "Concert Enthusiast",
+        "Finally, a ticketing platform for fans! No more getting scammed by fake tickets!",
+      author: "Vincent Kok",
+      role: "Founder @ChiefEater.com",
     },
     {
       quote:
-        "As an event organizer, TicketWave gives us complete control over pricing and helps us earn from resales.",
-      author: "Marcus Rodriguez",
-      role: "Festival Director",
+        "Smooth and responsive process, in a matter of seconds I already have my ticket!",
+      author: "Ho Shao Mun",
+      role: "Vice President @TARUMT Blockchain Club",
     },
     {
       quote:
-        "The World ID integration is genius. No more bots buying all the tickets in seconds.",
-      author: "Alex Kim",
-      role: "APU Blockchain Club",
+        "Truly seamless ticketing process, I didn't even realize this was on the blockchain!",
+      author: "Derek Liew",
+      role: "President @TARUMT Blockchain Club",
     },
   ];
 
@@ -266,7 +264,7 @@ export default function FeaturesSection() {
                     {step.icon}
                   </div>
                   <div
-                    className="absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+                    className="absolute -top-2 -left-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
                     style={{
                       background: "linear-gradient(135deg, #06B6D4, #3B82F6)",
                       color: "white",
@@ -371,7 +369,7 @@ export default function FeaturesSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl font-bold mb-12 text-white"
           >
-            Ready to Join the Revolution?
+            Experience Something Amazing.
           </motion.h2>
 
           <motion.div
@@ -397,7 +395,7 @@ export default function FeaturesSection() {
                 boxShadow: "0 8px 32px rgba(6, 182, 212, 0.4)",
               }}
             >
-              🚀 Get Early Access
+              Get Started Now!
             </motion.button>
 
             <motion.button
@@ -415,19 +413,9 @@ export default function FeaturesSection() {
                 backdropFilter: "blur(10px)",
               }}
             >
-              📖 Learn More
+              Learn More
             </motion.button>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-sm text-gray-500 mt-8"
-          >
-            No spam, just updates on our progress. Unsubscribe anytime.
-          </motion.p>
         </div>
       </motion.section>
     </>
