@@ -174,10 +174,22 @@ export default function FeaturesSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="py-20 w-full"
-        style={{ background: "#121212" }}
+        className="py-20 w-full relative z-10"
+        style={{ background: "transparent" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Subtle dark overlay for better readability */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(18, 18, 18, 0.3)",
+            pointerEvents: "none",
+          }}
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -207,12 +219,24 @@ export default function FeaturesSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="py-20 w-full"
+        className="py-20 w-full relative z-10"
         style={{
-          background: "linear-gradient(180deg, #121212 0%, #1a1a1a 100%)",
+          background: "transparent",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Subtle dark overlay for better readability */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(18, 18, 18, 0.3)",
+            pointerEvents: "none",
+          }}
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -269,10 +293,22 @@ export default function FeaturesSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="py-20 w-full"
-        style={{ background: "#121212" }}
+        className="py-20 w-full relative z-10"
+        style={{ background: "transparent" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Subtle dark overlay for better readability */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(18, 18, 18, 0.3)",
+            pointerEvents: "none",
+          }}
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -307,14 +343,13 @@ export default function FeaturesSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="py-20 w-full text-center"
+        className="py-20 w-full text-center relative z-10"
         style={{
-          background:
-            "linear-gradient(135deg, #121212 0%, #1a1a1a 50%, #121212 100%)",
+          background: "transparent",
           position: "relative",
         }}
       >
-        {/* Background particles for final section */}
+        {/* Subtle overlay for better readability */}
         <div
           style={{
             position: "absolute",

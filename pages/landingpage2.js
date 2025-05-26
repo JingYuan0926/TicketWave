@@ -71,38 +71,39 @@ export default function LandingPage2() {
 
   return (
     <>
+      {/* Global particles background for entire page */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+          zIndex: 0,
+          backgroundColor: "#121212",
+        }}
+      >
+        <Particles
+          quantity={300}
+          color="#ffffff"
+          className="pointer-events-none"
+          refresh={true}
+        />
+      </motion.div>
+
       <main
         style={{
           width: "100%",
           height: "100vh",
-          backgroundColor: "#121212",
+          backgroundColor: "transparent",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        {/* Enhanced Particles Background with Animation */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        >
-          <Particles
-            quantity={300}
-            color="#ffffff"
-            className="pointer-events-none"
-            refresh={true}
-          />
-        </motion.div>
-
         {/* Gradient Overlay for Depth */}
         <div
           style={{
@@ -131,7 +132,7 @@ export default function LandingPage2() {
             width: "100%",
             height: "100%",
             padding: "0 5%",
-            zIndex: 2,
+            zIndex: 10,
           }}
         >
           {/* Left Section: Enhanced Title, Value Prop, and CTA */}
@@ -413,7 +414,7 @@ export default function LandingPage2() {
             bottom: "30px",
             left: "50%",
             transform: "translateX(-50%)",
-            zIndex: 10,
+            zIndex: 20,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
