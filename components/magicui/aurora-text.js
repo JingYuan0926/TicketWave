@@ -14,23 +14,26 @@ export const AuroraText = ({
     <motion.span
       className={cn("relative inline-block", className)}
       style={{
-        background: `linear-gradient(to right, ${colors.join(", ")})`,
-        backgroundSize: "200% 100%",
+        background: `linear-gradient(90deg, ${colors.join(", ")}, ${
+          colors[0]
+        })`,
+        backgroundSize: "400% 100%",
         backgroundClip: "text",
         WebkitBackgroundClip: "text",
         color: "transparent",
         WebkitTextFillColor: "transparent",
       }}
       animate={{
-        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+        backgroundPosition: ["300% 0%", "-100% 0%"],
       }}
       transition={{
-        duration: 5 / speed,
+        duration: 8 / speed,
         ease: "linear",
         repeat: Infinity,
+        repeatType: "loop",
       }}
     >
       {children}
     </motion.span>
   );
-}; 
+};

@@ -109,7 +109,7 @@ export default function FeaturesSection() {
       description: "Safe & secure resale marketplace.",
     },
     {
-      icon: <Users className="w-8 h-8 text-white" />,
+      icon: <Camera className="w-8 h-8 text-white" />,
       title: "Memory Minting",
       description: "Turn moments into ownable digital keepsakes forever.",
     },

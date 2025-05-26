@@ -164,8 +164,8 @@ export default function LandingPage2() {
             >
               <span>Ticket</span>
               <AuroraText
-                colors={["#FF0080", "#7928CA", "#0070F3", "#38bdf8"]}
-                speed={0.5}
+                colors={["#0EA5E9", "#06B6D4", "#3B82F6", "#60A5FA"]}
+                speed={2}
               >
                 Wave
               </AuroraText>
