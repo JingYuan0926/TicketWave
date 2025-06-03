@@ -3,7 +3,7 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenuToggl
 import Link from 'next/link';
 import { ConnectButton } from 'thirdweb/react';
 import { client } from '../utils/client';
-import { inAppWallet } from 'thirdweb/wallets';
+import { inAppWallet, createWallet } from 'thirdweb/wallets';
 import { defineChain } from "thirdweb/chains";
 import { useRouter } from 'next/router';
 
@@ -18,7 +18,6 @@ const TicketWaveNavbar = () => {
     };
 
     const menuItems = [
-        { name: "HOME", path: "/" },
         { name: "EVENTS", path: "/events" },
         { name: "PROFILE", path: "/profile" },
         { name: "CONTACT US", path: "/contact" },
@@ -38,7 +37,9 @@ const TicketWaveNavbar = () => {
                     className="lg:hidden text-white"
                 />
                 <NavbarBrand>
-                    <p className="font-serif font-bold text-inherit text-xl sm:text-3xl text-white">TicketWave</p>
+                    <Link href="/" onClick={(e) => handleNavigation(e, '/')}>
+                        <p className="font-serif font-bold text-inherit text-xl sm:text-3xl text-white cursor-pointer">TicketWave</p>
+                    </Link>
                 </NavbarBrand>
 
                 {/* Desktop Navigation */}
@@ -67,7 +68,10 @@ const TicketWaveNavbar = () => {
                                     options: ["email", "google", "facebook","phone","apple"]
                                 },
                                 hidePrivateKeyExport: true,
-                            })
+                            }),
+                            createWallet("io.metamask"),
+                            createWallet("com.coinbase.wallet"),
+                            createWallet("me.rainbow"),
                         ]}
                         connectButton={{ label: "Sign in" }}
                         connectModal={{

@@ -74,9 +74,10 @@ const DetailsPage = () => {
 
                     if (docSnap.exists()) {
                         const data = docSnap.data();
-                        // Check if user has ticket for this specific event
-                        if (data.event.id === Number(id)) {
-                            setHasTicket(true);
+                        // Check if user has tickets array and if this event exists in it
+                        if (data.tickets && Array.isArray(data.tickets)) {
+                            const hasTicketForEvent = data.tickets.some(ticket => ticket.event.id === Number(id));
+                            setHasTicket(false); // We're allowing multiple tickets now
                         }
                     }
                 } catch (error) {
@@ -149,7 +150,13 @@ const DetailsPage = () => {
                 onSuccess: async (result) => {
                     // After blockchain transaction succeeds, store in Firebase
                     try {
-                        await setDoc(doc(db, "purchases", wallet.address), {
+                        const docRef = doc(db, "purchases", wallet.address);
+                        const docSnap = await getDoc(docRef);
+                        
+                        let existingData = docSnap.exists() ? docSnap.data() : { tickets: [] };
+                        
+                        // Add new ticket to the tickets array
+                        const newTicket = {
                             timestamp: new Date(),
                             user: {
                                 email: userInfo.email,
@@ -168,9 +175,14 @@ const DetailsPage = () => {
                             },
                             status: 'completed',
                             transactionHash: transactionHash
-                        });
+                        };
+                        
+                        // Update the document with the new ticket
+                        await setDoc(doc(db, "purchases", wallet.address), {
+                            tickets: [...(existingData.tickets || []), newTicket]
+                        }, { merge: true });
 
-                        console.log("Purchase document stored with wallet address as ID");
+                        console.log("Purchase document updated with new ticket");
                         setTransactionStatus('success');
                         setIsConfirming(false);
                         setShouldRefresh(prev => !prev);
@@ -580,23 +592,17 @@ const DetailsPage = () => {
                                 <Button
                                     color="primary"
                                     size="lg"
-                                    className={`w-full ${(!selectedTicketType || !wallet?.address || hasTicket || ticketsRemaining <= 0) ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    disabled={!selectedTicketType || !wallet?.address || hasTicket || ticketsRemaining <= 0}
+                                    className={`w-full ${(!selectedTicketType || !wallet?.address || ticketsRemaining <= 0) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={!selectedTicketType || !wallet?.address || ticketsRemaining <= 0}
                                     onClick={handleBuyTickets}
                                 >
                                     {ticketsRemaining <= 0
                                         ? 'Sold Out'
                                         : !wallet?.address
                                             ? 'Sign in first before buying tickets'
-                                            : hasTicket
-                                                ? <>
-                                                    You Already Have a Ticket
-                                                    <br />
-                                                    See Ticket in Your Profile
-                                                </>
-                                                : selectedTicketType
-                                                    ? 'Buy Ticket'
-                                                    : 'Select a Ticket Type'
+                                            : selectedTicketType
+                                                ? 'Buy Ticket'
+                                                : 'Select a Ticket Type'
                                     }
                                 </Button>
 
