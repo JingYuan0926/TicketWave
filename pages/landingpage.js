@@ -550,8 +550,7 @@ export const FeatureShowcase = () => {
             Powerful Features Built for Fans
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Discover the cutting-edge technology that makes TicketWave the
-            future of event ticketing
+            Discover the future of event ticketing
           </p>
         </motion.div>
 
