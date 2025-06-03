@@ -27,6 +27,7 @@ import {
   useInView,
 } from "framer-motion";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { NumberTicker } from "../components/NumberTicker";
 import { BentoCard, BentoGrid } from "../components/BentoGrid";
 import { BorderBeam } from "../components/BorderBeam";
@@ -48,7 +49,7 @@ const Stars = dynamic(
 );
 
 // Array of colors for the animated gradient background
-const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
+const COLORS_TOP = ["#3B82F6", "#1E40AF", "#0EA5E9", "#0284C7"];
 
 export const AuroraHero = () => {
   // State to track if component is mounted (client-side)
@@ -76,7 +77,7 @@ export const AuroraHero = () => {
     // Animate through all colors in an infinite loop
     animate(color, COLORS_TOP, {
       ease: "easeInOut",
-      duration: 10,
+      duration: 7,
       repeat: Infinity,
       repeatType: "mirror",
     });
@@ -91,15 +92,6 @@ export const AuroraHero = () => {
       {/* Main content container */}
       <div className="relative z-10 flex flex-col items-center">
         {/* Beta badge */}
-        <motion.span
-          ref={badgeRef}
-          className="mb-1.5 inline-block rounded-full bg-gray-600/50 px-3 py-1.5 text-sm"
-          initial={{ opacity: 0, y: 20 }}
-          animate={badgeInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-        >
-          Now Live!
-        </motion.span>
 
         {/* Main heading with gradient text */}
         <motion.h1
@@ -141,8 +133,10 @@ export const AuroraHero = () => {
           animate={buttonInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          Get Started Now!
-          <FiArrowRight className="transition-transform group-hover:-rotate-45 group-active:-rotate-12" />
+          <Link href="/" className="flex items-center gap-1.5">
+            Get Started
+            <FiArrowRight className="transition-transform group-hover:-rotate-45 group-active:-rotate-12" />
+          </Link>
         </motion.button>
       </div>
     </section>
@@ -172,7 +166,7 @@ export const ProblemStatsSection = () => {
   const stat3InView = useInView(stat3Ref, { once: true });
 
   return (
-    <section className="relative py-24 px-4 text-gray-200">
+    <section className="relative py-40 px-4 text-gray-200">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Problem Section */}
         <div className="text-center mb-16">
@@ -486,7 +480,7 @@ export const SolutionSection = () => {
   ];
 
   return (
-    <section className="relative py-24 px-4 text-gray-200">
+    <section className="relative py-40 px-4 text-gray-200">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Solution Title */}
         <motion.div
@@ -563,7 +557,7 @@ export const FeatureShowcase = () => {
   Circle.displayName = "Circle";
 
   return (
-    <section className="relative py-24 px-4 text-gray-200">
+    <section className="relative py-40 px-4 text-gray-200">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Feature Showcase Title */}
         <motion.div
@@ -752,7 +746,7 @@ export const HowItWorksSection = () => {
   ];
 
   return (
-    <section className="relative py-24 px-4 text-gray-200">
+    <section className="relative py-40 px-4 text-gray-200">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Title */}
         <motion.div
@@ -844,7 +838,7 @@ export default function LandingPage() {
     // Animate through all colors in an infinite loop
     animate(color, COLORS_TOP, {
       ease: "easeInOut",
-      duration: 10,
+      duration: 7,
       repeat: Infinity,
       repeatType: "mirror",
     });
