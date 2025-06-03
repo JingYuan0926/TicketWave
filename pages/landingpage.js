@@ -1,17 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   FiArrowRight,
   FiAlertTriangle,
   FiDollarSign,
   FiTrendingUp,
+  FiShield,
+  FiUsers,
+  FiRefreshCw,
+  FiLock,
+  FiImage,
+  FiUser,
+  FiZap,
+  FiCreditCard,
 } from "react-icons/fi";
 import {
   useMotionTemplate,
   useMotionValue,
   motion,
   animate,
+  useSpring,
 } from "framer-motion";
 import dynamic from "next/dynamic";
+import { NumberTicker } from "../components/NumberTicker";
+import { BentoCard, BentoGrid } from "../components/BentoGrid";
 
 // Dynamically import Canvas to avoid SSR issues
 const Canvas = dynamic(
@@ -144,7 +155,9 @@ export const ProblemStatsSection = () => {
               <h3 className="text-lg font-semibold text-white mb-2">
                 Massive Scams
               </h3>
-              <p className="text-gray-300">Fans lose $35K+ in scams</p>
+              <p className="text-gray-300">
+                Huge amounts of money lost in scams
+              </p>
             </motion.div>
 
             <motion.div
@@ -172,13 +185,13 @@ export const ProblemStatsSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-lg text-blue-400 font-medium mb-8"
+            className="text-lg text-gray-300 font-medium mb-12"
           >
-            BUILD TRUST WITH YOUR FANS WITH A TRANSPARENT PLATFORM
+            Scalping, scams, and bots make ticketing unfair for real fans.
           </motion.p>
 
           <div className="grid md:grid-cols-3 gap-12">
-            {/* Stat 1 */}
+            {/* Stat 1 - 88% */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -186,29 +199,40 @@ export const ProblemStatsSection = () => {
               className="text-center"
             >
               <div className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent mb-4">
-                88%
+                <NumberTicker
+                  value={88}
+                  delay={0.2}
+                  className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent"
+                />
+                %
               </div>
               <p className="text-gray-300 text-lg">
                 of fans want a transparent and secure platform
               </p>
             </motion.div>
 
-            {/* Stat 2 */}
+            {/* Stat 2 - $35K+ with dividers */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center"
+              className="text-center relative md:border-l md:border-r border-gray-600/30 md:px-12"
             >
               <div className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent mb-4">
-                $35K+
+                $
+                <NumberTicker
+                  value={35}
+                  delay={0.4}
+                  className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent"
+                />
+                K+
               </div>
               <p className="text-gray-300 text-lg">
                 average losses from ticket scams per victim
               </p>
             </motion.div>
 
-            {/* Stat 3 */}
+            {/* Stat 3 - 90% */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -216,7 +240,12 @@ export const ProblemStatsSection = () => {
               className="text-center"
             >
               <div className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent mb-4">
-                90%
+                <NumberTicker
+                  value={90}
+                  delay={0.6}
+                  className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent"
+                />
+                %
               </div>
               <p className="text-gray-300 text-lg">
                 of tickets are grabbed by bots within seconds
@@ -224,6 +253,320 @@ export const ProblemStatsSection = () => {
             </motion.div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+};
+
+// Constants for tilt animation
+const ROTATION_RANGE = 32.5;
+const HALF_ROTATION_RANGE = 32.5 / 2;
+
+// 3D Tilt Card Component
+const TiltCard = ({ icon: Icon, title, description }) => {
+  const ref = useRef(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const xSpring = useSpring(x);
+  const ySpring = useSpring(y);
+
+  const transform = useMotionTemplate`rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return [0, 0];
+
+    const rect = ref.current.getBoundingClientRect();
+
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseX = (e.clientX - rect.left) * ROTATION_RANGE;
+    const mouseY = (e.clientY - rect.top) * ROTATION_RANGE;
+
+    const rX = (mouseY / height - HALF_ROTATION_RANGE) * -1;
+    const rY = mouseX / width - HALF_ROTATION_RANGE;
+
+    x.set(rX);
+    y.set(rY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transformStyle: "preserve-3d",
+        transform,
+      }}
+      className="relative h-80 w-64 rounded-xl bg-gradient-to-br from-blue-400/20 to-purple-400/20 backdrop-blur-sm border border-white/10 group cursor-pointer"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <div
+        style={{
+          transform: "translateZ(75px)",
+          transformStyle: "preserve-3d",
+        }}
+        className="absolute inset-4 grid place-content-center rounded-xl bg-gray-900/80 backdrop-blur-sm shadow-lg border border-white/10"
+      >
+        {/* Icon and Title - Always visible */}
+        <div className="text-center">
+          <Icon
+            style={{
+              transform: "translateZ(75px)",
+            }}
+            className="mx-auto text-4xl text-blue-400 mb-4 transition-all duration-300 group-hover:text-blue-300"
+          />
+          <h3
+            style={{
+              transform: "translateZ(50px)",
+            }}
+            className="text-center text-xl font-bold text-white mb-2"
+          >
+            {title}
+          </h3>
+        </div>
+
+        {/* Description - Shows on hover */}
+        <motion.div
+          style={{
+            transform: "translateZ(25px)",
+          }}
+          className="absolute inset-0 flex items-center justify-center p-4 rounded-xl bg-gray-900/95 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <p className="text-center text-sm text-gray-300 leading-relaxed">
+            {description}
+          </p>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Solution Section Component
+export const SolutionSection = () => {
+  const solutions = [
+    {
+      icon: FiShield,
+      title: "NFT-Based Tickets",
+      description:
+        "Every ticket is a unique NFT — secure, verifiable, and impossible to fake.",
+    },
+    {
+      icon: FiUsers,
+      title: "World ID Verification",
+      description:
+        "Only real humans can buy tickets, thanks to Sybil-resistant verification.",
+    },
+    {
+      icon: FiRefreshCw,
+      title: "NFT Marketplace",
+      description:
+        "Fans can resell safely, and organizers stay in control with fair pricing rules.",
+    },
+    {
+      icon: FiLock,
+      title: "Smart Contracts",
+      description:
+        "No hidden fees or shady algorithms — everything runs on audited code.",
+    },
+  ];
+
+  return (
+    <section className="relative py-24 px-4 text-gray-200">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Solution Title */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            How TicketWave Fixes This
+          </h2>
+        </motion.div>
+
+        {/* Solution Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+          {solutions.map((solution, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <TiltCard
+                icon={solution.icon}
+                title={solution.title}
+                description={solution.description}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Feature Showcase Section Component
+export const FeatureShowcase = () => {
+  const features = [
+    {
+      Icon: FiShield,
+      name: "NFT-Based Tickets",
+      description:
+        "Every ticket is a tamper-proof NFT — verifiable, secure, and impossible to duplicate.",
+      href: "#",
+      cta: "Learn more",
+      className: "col-span-3 lg:col-span-2",
+      background: (
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10">
+          <div className="absolute top-2 right-2 h-16 w-16 rounded-lg bg-blue-500/15 backdrop-blur-sm flex items-center justify-center opacity-40">
+            <FiShield className="h-8 w-8 text-blue-400" />
+          </div>
+          {/* Additional decorative elements */}
+          <div className="absolute bottom-1/4 left-1/4 h-4 w-4 rounded-lg bg-purple-400/10 opacity-20"></div>
+        </div>
+      ),
+    },
+    {
+      Icon: FiZap,
+      name: "Memory Minting",
+      description:
+        "Fans can mint personalized NFT mementos from their event experience.",
+      href: "#",
+      cta: "Learn more",
+      className: "col-span-3 lg:col-span-1",
+      background: (
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10">
+          <div className="absolute bottom-2 right-2 h-12 w-12 rounded-full bg-purple-500/15 backdrop-blur-sm flex items-center justify-center opacity-40">
+            <FiZap className="h-6 w-6 text-purple-400" />
+          </div>
+          {/* Additional sparkle effect */}
+          <div className="absolute top-1/3 left-1/3 h-3 w-3 rounded-full bg-pink-400/15 opacity-25"></div>
+          <div className="absolute top-2/3 left-2/3 h-2 w-2 rounded-full bg-purple-400/20 opacity-30"></div>
+        </div>
+      ),
+    },
+    {
+      Icon: FiUsers,
+      name: "World ID Verification",
+      description:
+        "Bots and fake accounts are blocked with Worldcoin's Sybil-resistant proof-of-personhood.",
+      href: "#",
+      cta: "Learn more",
+      className: "col-span-3 lg:col-span-1",
+      background: (
+        <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/10">
+          <div className="absolute top-2 right-2 h-14 w-14 rounded-full bg-green-500/10 backdrop-blur-sm flex items-center justify-center opacity-30">
+            <FiUsers className="h-7 w-7 text-green-400" />
+          </div>
+        </div>
+      ),
+    },
+    {
+      Icon: FiRefreshCw,
+      name: "Fair Resale Marketplace",
+      description:
+        "Tickets can be resold safely, with price caps enforced via smart contracts.",
+      href: "#",
+      cta: "Learn more",
+      className: "col-span-3 lg:col-span-2",
+      background: (
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10">
+          <div className="absolute top-2 right-2 h-12 w-12 rounded-xl bg-cyan-500/15 backdrop-blur-sm flex items-center justify-center opacity-40">
+            <FiRefreshCw className="h-6 w-6 text-cyan-400" />
+          </div>
+          <div className="absolute bottom-2 left-2 h-8 w-8 rounded-lg bg-blue-500/15 backdrop-blur-sm flex items-center justify-center opacity-30">
+            <FiCreditCard className="h-4 w-4 text-blue-400" />
+          </div>
+          {/* Additional decorative elements */}
+          <div className="absolute top-1/2 left-1/4 h-6 w-6 rounded-full bg-cyan-400/10 opacity-20"></div>
+          <div className="absolute bottom-1/4 right-1/4 h-4 w-4 rounded-full bg-blue-400/10 opacity-15"></div>
+        </div>
+      ),
+    },
+    {
+      Icon: FiImage,
+      name: "NFT Collectibles",
+      description:
+        "Organizers can issue limited-edition NFT collectibles tied to events for added engagement.",
+      href: "#",
+      cta: "Learn more",
+      className: "col-span-3 lg:col-span-2",
+      background: (
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-cyan-500/10">
+          <div className="absolute top-2 right-2 h-12 w-12 rounded-lg bg-indigo-500/10 backdrop-blur-sm flex items-center justify-center opacity-30">
+            <FiImage className="h-6 w-6 text-indigo-400" />
+          </div>
+          <div className="absolute bottom-2 left-2 h-8 w-8 rounded-full bg-cyan-500/10 backdrop-blur-sm flex items-center justify-center opacity-20">
+            <FiImage className="h-4 w-4 text-cyan-400" />
+          </div>
+        </div>
+      ),
+    },
+    {
+      Icon: FiUser,
+      name: "ENS Profile Integration",
+      description:
+        "Fans can personalize their identity on-chain with ENS, building community and credibility.",
+      href: "#",
+      cta: "Learn more",
+      className: "col-span-3 lg:col-span-1",
+      background: (
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-emerald-500/10">
+          <div className="absolute bottom-2 right-2 h-12 w-12 rounded-full bg-teal-500/10 backdrop-blur-sm flex items-center justify-center opacity-30">
+            <FiUser className="h-6 w-6 text-teal-400" />
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <section className="relative py-24 px-4 text-gray-200">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Feature Showcase Title */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Powerful Features Built for Fans
+          </h2>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            Discover the cutting-edge technology that makes TicketWave the
+            future of event ticketing
+          </p>
+        </motion.div>
+
+        {/* Bento Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <BentoGrid>
+            {features.map((feature, idx) => (
+              <BentoCard key={idx} {...feature} />
+            ))}
+          </BentoGrid>
+        </motion.div>
       </div>
     </section>
   );
@@ -276,6 +619,8 @@ export default function LandingPage() {
       <div className="relative z-20">
         <AuroraHero />
         <ProblemStatsSection />
+        <SolutionSection />
+        <FeatureShowcase />
       </div>
     </div>
   );
