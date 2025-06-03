@@ -12,6 +12,11 @@ import {
   FiUser,
   FiZap,
   FiCreditCard,
+  FiSearch,
+  FiCalendar,
+  FiHeart,
+  FiChevronLeft,
+  FiChevronRight,
 } from "react-icons/fi";
 import {
   useMotionTemplate,
@@ -151,12 +156,12 @@ export const ProblemStatsSection = () => {
               className="flex flex-col items-center text-center"
             >
               <div className="bg-red-500/20 backdrop-blur-sm p-4 rounded-full mb-4 border border-red-500/30">
-                <FiAlertTriangle className="text-red-400 text-2xl" />
+                <FiTrendingUp className="text-red-400 text-2xl" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Bots</h3>
-              <p className="text-gray-300">
-                Scalpers and bots scoop tickets in seconds
-              </p>
+              <h3 className="text-lg font-semibold text-white mb-2">
+                Scalpers
+              </h3>
+              <p className="text-gray-300">Resellers drive up prices</p>
             </motion.div>
 
             <motion.div
@@ -168,12 +173,8 @@ export const ProblemStatsSection = () => {
               <div className="bg-red-500/20 backdrop-blur-sm p-4 rounded-full mb-4 border border-red-500/30">
                 <FiDollarSign className="text-red-400 text-2xl" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Massive Scams
-              </h3>
-              <p className="text-gray-300">
-                Huge amounts of money lost in scams
-              </p>
+              <h3 className="text-lg font-semibold text-white mb-2">Scams</h3>
+              <p className="text-gray-300">Fans lose huge amounts of money</p>
             </motion.div>
 
             <motion.div
@@ -183,14 +184,10 @@ export const ProblemStatsSection = () => {
               className="flex flex-col items-center text-center"
             >
               <div className="bg-red-500/20 backdrop-blur-sm p-4 rounded-full mb-4 border border-red-500/30">
-                <FiTrendingUp className="text-red-400 text-2xl" />
+                <FiAlertTriangle className="text-red-400 text-2xl" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Price Inflation
-              </h3>
-              <p className="text-gray-300">
-                Over-inflated prices on secondary sites
-              </p>
+              <h3 className="text-lg font-semibold text-white mb-2">Bots</h3>
+              <p className="text-gray-300">Tickets gone in seconds</p>
             </motion.div>
           </div>
         </div>
@@ -587,6 +584,108 @@ export const FeatureShowcase = () => {
   );
 };
 
+// How it Works Section Component
+export const HowItWorksSection = () => {
+  const steps = [
+    {
+      step: "Step 1",
+      title: "Connect Account",
+      description:
+        "Link your wallet and verify your identity with World ID for secure, bot-free access.",
+      icon: FiUser,
+    },
+    {
+      step: "Step 2",
+      title: "Discover Events",
+      description:
+        "Browse upcoming events and find tickets at fair, transparent prices with no hidden fees.",
+      icon: FiSearch,
+    },
+    {
+      step: "Step 3",
+      title: "Secure Your Ticket",
+      description:
+        "Purchase your NFT ticket with smart contract protection and guaranteed authenticity.",
+      icon: FiShield,
+    },
+    {
+      step: "Step 4",
+      title: "Experience & Collect",
+      description:
+        "Attend your event and mint exclusive NFT memories to commemorate your experience.",
+      icon: FiHeart,
+    },
+  ];
+
+  return (
+    <section className="relative py-24 px-4 text-gray-200">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Title */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            How TicketWave Works
+          </h2>
+        </motion.div>
+
+        {/* Steps Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              className="relative group cursor-pointer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <div className="bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 h-full hover:border-white/20 transition-all duration-300 hover:scale-[1.02]">
+                {/* Default State - Icon, Step, and Title */}
+                <div className="transition-all duration-300">
+                  <div className="mb-6">
+                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-400 transition-colors duration-300">
+                      <step.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-sm text-blue-400 font-medium">
+                      {step.step}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors duration-300">
+                    {step.title}
+                  </h3>
+                </div>
+
+                {/* Hover State - Description Overlay */}
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center p-6 bg-gray-900/95 backdrop-blur-sm rounded-xl"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <p className="text-center text-gray-300 leading-relaxed">
+                    {step.description}
+                  </p>
+                </motion.div>
+
+                {/* Connection Line (except for last step) */}
+                {index < steps.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-blue-500/50 to-transparent transform -translate-y-1/2 z-10">
+                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-blue-500/50 rounded-full"></div>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Main Landing Page Container with Fixed Background
 export default function LandingPage() {
   // State to track if component is mounted (client-side)
@@ -636,6 +735,7 @@ export default function LandingPage() {
         <ProblemStatsSection />
         <SolutionSection />
         <FeatureShowcase />
+        <HowItWorksSection />
       </div>
     </div>
   );
