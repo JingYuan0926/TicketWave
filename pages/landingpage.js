@@ -119,8 +119,7 @@ export const AuroraHero = () => {
           animate={descInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          TicketWave is the blockchain-powered ticketing platform that
-          guarantees fair access to events.
+          TicketWave is the ticketing platform for fair access to events.
         </motion.p>
 
         {/* Animated CTA button with hover and tap effects */}
@@ -141,7 +140,7 @@ export const AuroraHero = () => {
           animate={buttonInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          Try TicketWave for Free
+          Get Started Now!
           <FiArrowRight className="transition-transform group-hover:-rotate-45 group-active:-rotate-12" />
         </motion.button>
       </div>
