@@ -71,20 +71,35 @@ export const AuroraHero = () => {
       {/* Main content container */}
       <div className="relative z-10 flex flex-col items-center">
         {/* Beta badge */}
-        <span className="mb-1.5 inline-block rounded-full bg-gray-600/50 px-3 py-1.5 text-sm">
+        <motion.span
+          className="mb-1.5 inline-block rounded-full bg-gray-600/50 px-3 py-1.5 text-sm"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           Now Live!
-        </span>
+        </motion.span>
 
         {/* Main heading with gradient text */}
-        <h1 className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-clip-text text-center text-3xl font-medium leading-tight text-transparent sm:text-5xl sm:leading-tight md:text-7xl md:leading-tight">
+        <motion.h1
+          className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-clip-text text-center text-3xl font-medium leading-tight text-transparent sm:text-5xl sm:leading-tight md:text-7xl md:leading-tight"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           Say Goodbye to Ticket Scams & Scalpers
-        </h1>
+        </motion.h1>
 
         {/* Description text */}
-        <p className="my-6 max-w-xl text-center text-base leading-relaxed md:text-lg md:leading-relaxed">
+        <motion.p
+          className="my-6 max-w-xl text-center text-base leading-relaxed md:text-lg md:leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           TicketWave is the blockchain-powered ticketing platform that
           guarantees fair access to events.
-        </p>
+        </motion.p>
 
         {/* Animated CTA button with hover and tap effects */}
         <motion.button
@@ -99,6 +114,9 @@ export const AuroraHero = () => {
             scale: 0.985,
           }}
           className="group relative flex w-fit items-center gap-1.5 rounded-full bg-gray-950/10 px-4 py-2 text-gray-50 transition-colors hover:bg-gray-950/50"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           Try TicketWave for Free
           <FiArrowRight className="transition-transform group-hover:-rotate-45 group-active:-rotate-12" />
@@ -121,7 +139,7 @@ export const ProblemStatsSection = () => {
             transition={{ duration: 0.6 }}
             className="text-4xl md:text-5xl font-bold text-white mb-12"
           >
-            Why Ticketing Sucks Today
+            The Current Ticketing Situation
           </motion.h2>
 
           {/* Problem Bullet Points */}
@@ -135,9 +153,7 @@ export const ProblemStatsSection = () => {
               <div className="bg-red-500/20 backdrop-blur-sm p-4 rounded-full mb-4 border border-red-500/30">
                 <FiAlertTriangle className="text-red-400 text-2xl" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Bot Attacks
-              </h3>
+              <h3 className="text-lg font-semibold text-white mb-2">Bots</h3>
               <p className="text-gray-300">
                 Scalpers and bots scoop tickets in seconds
               </p>
