@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import {
   Shield,
   Ticket,
@@ -73,6 +74,8 @@ const TestimonialCard = ({ quote, author, role, variants }) => {
 };
 
 export default function FeaturesSection() {
+  const router = useRouter();
+  
   const containerVariants = {
     initial: { opacity: 0 },
     animate: {
@@ -394,6 +397,7 @@ export default function FeaturesSection() {
                 color: "white",
                 boxShadow: "0 8px 32px rgba(6, 182, 212, 0.4)",
               }}
+              onClick={() => router.push("/")}
             >
               Get Started Now!
             </motion.button>
@@ -412,6 +416,7 @@ export default function FeaturesSection() {
                 color: "white",
                 backdropFilter: "blur(10px)",
               }}
+              onClick={() => router.push("/landingpage")}
             >
               Learn More
             </motion.button>

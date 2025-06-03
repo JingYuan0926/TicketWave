@@ -285,7 +285,7 @@ export default function LandingPage2() {
                     color: "white",
                     boxShadow: "0 8px 32px rgba(6, 182, 212, 0.3)",
                   }}
-                  onClick={() => console.log("Join Beta clicked")}
+                  onClick={() => router.push("/")}
                 >
                   Get Started
                 </ShinyButton>
