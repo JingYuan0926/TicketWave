@@ -10,7 +10,7 @@ const BentoGrid = ({ children, className, ...props }) => {
   return (
     <div
       className={cn(
-        "grid w-full auto-rows-[22rem] grid-cols-3 gap-4",
+        "grid w-full auto-rows-[22rem] grid-cols-3 gap-0.5",
         className
       )}
       {...props}
@@ -52,26 +52,16 @@ const BentoCard = ({
         </h3>
       </div>
 
-      {/* Hover state - Description overlay */}
+      {/* Hover state - Description only */}
       <motion.div
-        className="absolute inset-0 flex flex-col justify-center items-center p-6 bg-gray-900/95 backdrop-blur-sm rounded-xl"
+        className="absolute inset-0 flex items-center justify-center p-6 bg-gray-900/95 backdrop-blur-sm rounded-xl"
         initial={{ opacity: 0 }}
         whileHover={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <Icon className="h-8 w-8 text-blue-400 mb-4" />
-        <h3 className="text-lg font-semibold text-white mb-3 text-center">
-          {name}
-        </h3>
-        <p className="text-sm text-gray-300 text-center leading-relaxed mb-4">
+        <p className="text-center text-gray-300 leading-relaxed text-sm md:text-base">
           {description}
         </p>
-
-        {/* CTA Button */}
-        <button className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors">
-          {cta}
-          <FiArrowRight className="h-4 w-4" />
-        </button>
       </motion.div>
     </MagicCard>
   </div>

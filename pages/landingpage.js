@@ -30,6 +30,7 @@ import dynamic from "next/dynamic";
 import { NumberTicker } from "../components/NumberTicker";
 import { BentoCard, BentoGrid } from "../components/BentoGrid";
 import { BorderBeam } from "../components/BorderBeam";
+import { AnimatedBeam } from "../components/AnimatedBeam";
 
 // Dynamically import Canvas to avoid SSR issues
 const Canvas = dynamic(
@@ -186,7 +187,7 @@ export const ProblemStatsSection = () => {
           </motion.h2>
 
           {/* Problem Bullet Points */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-3 gap-8 mb-24">
             <motion.div
               ref={problem1Ref}
               initial={{ opacity: 0, y: 20 }}
@@ -523,126 +524,43 @@ export const SolutionSection = () => {
   );
 };
 
-// Feature Showcase Section Component
+// Feature Showcase Section Component with Animated Beams
 export const FeatureShowcase = () => {
   const titleRef = useRef(null);
-  const gridRef = useRef(null);
-
   const titleInView = useInView(titleRef, { once: true });
-  const gridInView = useInView(gridRef, { once: true });
 
-  const features = [
-    {
-      Icon: FiShield,
-      name: "NFT-Based Tickets",
-      description:
-        "Every ticket is a tamper-proof NFT — verifiable, secure, and impossible to duplicate.",
-      href: "#",
-      cta: "Learn more",
-      className: "col-span-3 lg:col-span-2",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10">
-          <div className="absolute top-2 right-2 h-16 w-16 rounded-lg bg-blue-500/15 backdrop-blur-sm flex items-center justify-center opacity-40">
-            <FiShield className="h-8 w-8 text-blue-400" />
-          </div>
-          {/* Additional decorative elements */}
-          <div className="absolute bottom-1/4 left-1/4 h-4 w-4 rounded-lg bg-purple-400/10 opacity-20"></div>
+  // Refs for the animated beam layout
+  const containerRef = useRef(null);
+  const centerRef = useRef(null);
+
+  // Left side refs
+  const leftTop = useRef(null);
+  const leftMiddle = useRef(null);
+  const leftBottom = useRef(null);
+
+  // Right side refs
+  const rightTop = useRef(null);
+  const rightMiddle = useRef(null);
+  const rightBottom = useRef(null);
+
+  // Circle component for the layout
+  const Circle = React.forwardRef(({ className, children, label }, ref) => {
+    return (
+      <div className="flex flex-col items-center">
+        <div
+          ref={ref}
+          className={`z-10 flex size-16 items-center justify-center rounded-full border-2 bg-white/10 backdrop-blur-sm border-white/20 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)] transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:scale-110 ${className}`}
+        >
+          {children}
         </div>
-      ),
-    },
-    {
-      Icon: FiZap,
-      name: "Memory Minting",
-      description:
-        "Fans can mint personalized NFT mementos from their event experience.",
-      href: "#",
-      cta: "Learn more",
-      className: "col-span-3 lg:col-span-1",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10">
-          <div className="absolute bottom-2 right-2 h-12 w-12 rounded-full bg-purple-500/15 backdrop-blur-sm flex items-center justify-center opacity-40">
-            <FiZap className="h-6 w-6 text-purple-400" />
-          </div>
-          {/* Additional sparkle effect */}
-          <div className="absolute top-1/3 left-1/3 h-3 w-3 rounded-full bg-pink-400/15 opacity-25"></div>
-          <div className="absolute top-2/3 left-2/3 h-2 w-2 rounded-full bg-purple-400/20 opacity-30"></div>
-        </div>
-      ),
-    },
-    {
-      Icon: FiUsers,
-      name: "World ID Verification",
-      description:
-        "Bots and fake accounts are blocked with Worldcoin's Sybil-resistant proof-of-personhood.",
-      href: "#",
-      cta: "Learn more",
-      className: "col-span-3 lg:col-span-1",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/10">
-          <div className="absolute top-2 right-2 h-14 w-14 rounded-full bg-green-500/10 backdrop-blur-sm flex items-center justify-center opacity-30">
-            <FiUsers className="h-7 w-7 text-green-400" />
-          </div>
-        </div>
-      ),
-    },
-    {
-      Icon: FiRefreshCw,
-      name: "Fair Resale Marketplace",
-      description:
-        "Tickets can be resold safely, with price caps enforced via smart contracts.",
-      href: "#",
-      cta: "Learn more",
-      className: "col-span-3 lg:col-span-2",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10">
-          <div className="absolute top-2 right-2 h-12 w-12 rounded-xl bg-cyan-500/15 backdrop-blur-sm flex items-center justify-center opacity-40">
-            <FiRefreshCw className="h-6 w-6 text-cyan-400" />
-          </div>
-          <div className="absolute bottom-2 left-2 h-8 w-8 rounded-lg bg-blue-500/15 backdrop-blur-sm flex items-center justify-center opacity-30">
-            <FiCreditCard className="h-4 w-4 text-blue-400" />
-          </div>
-          {/* Additional decorative elements */}
-          <div className="absolute top-1/2 left-1/4 h-6 w-6 rounded-full bg-cyan-400/10 opacity-20"></div>
-          <div className="absolute bottom-1/4 right-1/4 h-4 w-4 rounded-full bg-blue-400/10 opacity-15"></div>
-        </div>
-      ),
-    },
-    {
-      Icon: FiImage,
-      name: "NFT Collectibles",
-      description:
-        "Organizers can issue limited-edition NFT collectibles tied to events for added engagement.",
-      href: "#",
-      cta: "Learn more",
-      className: "col-span-3 lg:col-span-2",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-cyan-500/10">
-          <div className="absolute top-2 right-2 h-12 w-12 rounded-lg bg-indigo-500/10 backdrop-blur-sm flex items-center justify-center opacity-30">
-            <FiImage className="h-6 w-6 text-indigo-400" />
-          </div>
-          <div className="absolute bottom-2 left-2 h-8 w-8 rounded-full bg-cyan-500/10 backdrop-blur-sm flex items-center justify-center opacity-20">
-            <FiImage className="h-4 w-4 text-cyan-400" />
-          </div>
-        </div>
-      ),
-    },
-    {
-      Icon: FiUser,
-      name: "ENS Profile Integration",
-      description:
-        "Fans can personalize their identity on-chain with ENS, building community and credibility.",
-      href: "#",
-      cta: "Learn more",
-      className: "col-span-3 lg:col-span-1",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-emerald-500/10">
-          <div className="absolute bottom-2 right-2 h-12 w-12 rounded-full bg-teal-500/10 backdrop-blur-sm flex items-center justify-center opacity-30">
-            <FiUser className="h-6 w-6 text-teal-400" />
-          </div>
-        </div>
-      ),
-    },
-  ];
+        <span className="text-sm text-gray-300 mt-2 text-center font-medium">
+          {label}
+        </span>
+      </div>
+    );
+  });
+
+  Circle.displayName = "Circle";
 
   return (
     <section className="relative py-24 px-4 text-gray-200">
@@ -656,26 +574,142 @@ export const FeatureShowcase = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Powerful Features Built for Fans
+            Features
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Discover the future of event ticketing
-          </p>
         </motion.div>
 
-        {/* Bento Grid */}
-        <motion.div
-          ref={gridRef}
-          initial={{ opacity: 0, y: 20 }}
-          animate={gridInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        {/* Animated Beam Layout */}
+        <div
+          className="relative flex h-[500px] w-full items-center justify-center overflow-hidden"
+          ref={containerRef}
         >
-          <BentoGrid>
-            {features.map((feature, idx) => (
-              <BentoCard key={idx} {...feature} />
-            ))}
-          </BentoGrid>
-        </motion.div>
+          <div className="flex size-full max-h-[400px] max-w-5xl flex-col items-stretch justify-between gap-12">
+            {/* Top Row */}
+            <div className="flex flex-row items-center justify-between">
+              <Circle ref={leftTop} label="NFT Tickets">
+                <FiShield className="h-8 w-8 text-blue-400" />
+              </Circle>
+
+              <Circle ref={rightTop} label="World ID">
+                <FiUsers className="h-8 w-8 text-green-400" />
+              </Circle>
+            </div>
+
+            {/* Middle Row */}
+            <div className="flex flex-row items-center justify-between">
+              <Circle ref={leftMiddle} label="Smart Contracts">
+                <FiLock className="h-8 w-8 text-purple-400" />
+              </Circle>
+
+              {/* Center TicketWave Circle */}
+              <Circle
+                ref={centerRef}
+                className="size-20 border-blue-500/50 bg-blue-500/20"
+                label="TicketWave"
+              >
+                <div className="text-2xl font-bold text-blue-300">TW</div>
+              </Circle>
+
+              <Circle ref={rightMiddle} label="NFT Marketplace">
+                <FiRefreshCw className="h-8 w-8 text-cyan-400" />
+              </Circle>
+            </div>
+
+            {/* Bottom Row */}
+            <div className="flex flex-row items-center justify-between">
+              <Circle ref={leftBottom} label="Memory Minting">
+                <FiZap className="h-8 w-8 text-yellow-400" />
+              </Circle>
+
+              <Circle ref={rightBottom} label="ENS Integration">
+                <FiUser className="h-8 w-8 text-teal-400" />
+              </Circle>
+            </div>
+          </div>
+
+          {/* Animated Beams - Left to Center */}
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={leftTop}
+            toRef={centerRef}
+            curvature={-40}
+            gradientStartColor="#3b82f6"
+            gradientStopColor="#8b5cf6"
+            delay={0}
+            duration={3}
+            pathColor="#3b82f6"
+            pathOpacity={0.3}
+            pathWidth={3}
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={leftMiddle}
+            toRef={centerRef}
+            gradientStartColor="#a855f7"
+            gradientStopColor="#3b82f6"
+            delay={0.5}
+            duration={3}
+            pathColor="#a855f7"
+            pathOpacity={0.3}
+            pathWidth={3}
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={leftBottom}
+            toRef={centerRef}
+            curvature={40}
+            gradientStartColor="#eab308"
+            gradientStopColor="#a855f7"
+            delay={1}
+            duration={3}
+            pathColor="#eab308"
+            pathOpacity={0.3}
+            pathWidth={3}
+          />
+
+          {/* Animated Beams - Center to Right */}
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={centerRef}
+            toRef={rightTop}
+            curvature={40}
+            gradientStartColor="#3b82f6"
+            gradientStopColor="#8b5cf6"
+            reverse
+            delay={1.5}
+            duration={3}
+            pathColor="#3b82f6"
+            pathOpacity={0.3}
+            pathWidth={3}
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={centerRef}
+            toRef={rightMiddle}
+            gradientStartColor="#a855f7"
+            gradientStopColor="#3b82f6"
+            reverse
+            delay={2}
+            duration={3}
+            pathColor="#a855f7"
+            pathOpacity={0.3}
+            pathWidth={3}
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={centerRef}
+            toRef={rightBottom}
+            curvature={-40}
+            gradientStartColor="#eab308"
+            gradientStopColor="#a855f7"
+            reverse
+            delay={2.5}
+            duration={3}
+            pathColor="#eab308"
+            pathOpacity={0.3}
+            pathWidth={3}
+          />
+        </div>
       </div>
     </section>
   );
