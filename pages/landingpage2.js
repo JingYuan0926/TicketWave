@@ -1,6 +1,7 @@
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
+import { useRouter } from "next/router";
 import Particles from "../components/ui/particles";
 import FeaturesSection from "../components/FeaturesSection";
 import ShinyButton from "../components/ui/shiny-button";
@@ -30,6 +31,7 @@ function Model(props) {
 export default function LandingPage2() {
   const [isInteracting, setIsInteracting] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const router = useRouter();
 
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
@@ -303,7 +305,7 @@ export default function LandingPage2() {
                   color: "white",
                   backdropFilter: "blur(10px)",
                 }}
-                onClick={() => console.log("Watch Demo clicked")}
+                onClick={() => router.push("/landingpage")}
               >
                 Past Events
               </motion.button>
