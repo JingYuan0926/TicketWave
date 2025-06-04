@@ -1037,7 +1037,7 @@ export const FinalCTASection = () => {
   const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;
 
   return (
-    <section className="relative py-40 px-4 text-gray-200">
+    <section className="relative pt-40 pb-60 px-4 text-gray-200">
       <div className="max-w-4xl mx-auto relative z-10 text-center">
         {/* Main CTA Title */}
         <motion.h2
