@@ -269,15 +269,16 @@ export const ProblemStatsSection = () => {
               className="text-center"
             >
               <div className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent mb-4">
+                ~
                 <NumberTicker
-                  value={88}
+                  value={40}
                   delay={0.2}
                   className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent"
                 />
                 %
               </div>
               <p className="text-gray-300 text-lg">
-                of fans want a transparent and secure platform
+                of tickets bought are scalpers
               </p>
             </motion.div>
 
@@ -294,14 +295,14 @@ export const ProblemStatsSection = () => {
               <div className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent mb-4">
                 $
                 <NumberTicker
-                  value={35}
-                  delay={0.4}
+                  value={1}
+                  delay={0.1}
                   className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent"
                 />
-                K+
+                B+
               </div>
               <p className="text-gray-300 text-lg">
-                average losses from ticket scams per victim
+                total lost from ticket scams
               </p>
             </motion.div>
 
@@ -317,14 +318,14 @@ export const ProblemStatsSection = () => {
             >
               <div className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent mb-4">
                 <NumberTicker
-                  value={90}
+                  value={78}
                   delay={0.6}
                   className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent"
                 />
                 %
               </div>
               <p className="text-gray-300 text-lg">
-                of tickets are grabbed by bots within seconds
+                of tickets are grabbed by bots
               </p>
             </motion.div>
           </div>
