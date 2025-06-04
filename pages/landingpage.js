@@ -726,44 +726,44 @@ export const TestimonialsSection = () => {
   // Real testimonials for TicketWave
   const testimonials = [
     {
-      name: "Sarah Chen",
-      username: "@sarahc_music",
-      body: "Finally, a platform where I know my tickets are real! No more worrying about scams or overpriced scalpers.",
+      name: "Vincent Kok",
+      username: "@vincentkok",
+      body: "Finally, a ticketing platform for fans! No more getting scammed by fake tickets!",
       img: "https://avatar.vercel.sh/sarah",
       rating: 5,
-      event: "Taylor Swift Concert"
+      event: "Bizpod Assessment"
     },
     {
-      name: "Marcus Rivera",
-      username: "@marcus_sports",
-      body: "The World ID verification is genius. Only real fans get tickets, not bots. Fair access for everyone!",
+      name: "Derek Liew",
+      username: "@derekk2403",
+      body: "Truly seamless ticketing process, I didn't even realize this was on the blockchain!",
       img: "https://avatar.vercel.sh/marcus",
       rating: 5,
-      event: "NBA Finals"
+      event: "Blockchain 101"
     },
     {
-      name: "Emily Johnson",
-      username: "@emilyjfan",
-      body: "I love the NFT memories feature! Got to mint my concert experience as a permanent keepsake.",
+      name: "Ho Shao Mun",
+      username: "@shaomun",
+      body: "Smooth and responsive process, in a matter of seconds I already have my certificate minted!",
       img: "https://avatar.vercel.sh/emily",
       rating: 5,
-      event: "Coldplay World Tour"
+      event: "superteamMY MEGA"
     },
     {
-      name: "David Kim",
-      username: "@davidk_tech",
-      body: "Smart contracts ensure transparent pricing. No hidden fees, no surprises. Just honest ticketing.",
+      name: "Tan Zhi Wei",
+      username: "@avosavo",
+      body: "Got my ticket! Everything is so smooth and easy to use!",
       img: "https://avatar.vercel.sh/david",
       rating: 5,
-      event: "Tech Conference 2024"
+      event: "Trading Workshop 2025"
     },
     {
-      name: "Lisa Thompson",
-      username: "@lisa_broadway",
-      body: "Resold my tickets safely through the marketplace when I couldn't attend. Platform kept everything fair!",
+      name: "Edwina Ho",
+      username: "@edwedw",
+      body: "So glad to have a secure and transparent ticketing platform, no more worries about ticket availabilty!",
       img: "https://avatar.vercel.sh/lisa",
       rating: 5,
-      event: "Hamilton Musical"
+      event: "MBW 2025"
     },
     {
       name: "Alex Rodriguez",
@@ -774,20 +774,20 @@ export const TestimonialsSection = () => {
       event: "Coachella 2024"
     },
     {
-      name: "Jamie Park",
-      username: "@jamie_indie",
-      body: "As an artist, I love that my fans get fair access to tickets. No more scalpers ruining my shows!",
+      name: "Lim Zi Jian",
+      username: "@lzj03",
+      body: "It's great to see a platform that helps ensure my event's ticketing process is seamless",
       img: "https://avatar.vercel.sh/jamie",
       rating: 5,
-      event: "Indie Music Festival"
+      event: "Taylor's Blockchain Club"
     },
     {
-      name: "Rachel Green",
-      username: "@rachel_classical",
+      name: "Lim Hong Bing",
+      username: "@lhb04",
       body: "The verification process is so smooth. Feels secure knowing everyone in line is a real person.",
       img: "https://avatar.vercel.sh/rachel",
       rating: 5,
-      event: "Symphony Orchestra"
+      event: "Polytera.dev"
     }
   ];
 
@@ -948,7 +948,7 @@ export const HowItWorksSection = () => {
         </motion.div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">  
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">  
           {steps.map((step, index) => {
             const stepRef = useRef(null);
             const stepInView = useInView(stepRef, { once: true });
@@ -964,7 +964,7 @@ export const HowItWorksSection = () => {
                 }
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 h-full hover:border-white/20 transition-all duration-300 hover:scale-[1.02]">
+                <div className="bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 h-full hover:border-white/20 transition-all duration-300 hover:scale-[1.02] relative z-10">
                   {/* Default State - Icon, Step, and Title */}
                   <div className="transition-all duration-300">
                     <div className="mb-6">
@@ -992,14 +992,20 @@ export const HowItWorksSection = () => {
                       {step.description}
                     </p>
                   </motion.div>
-
-                  {/* Connection Line (except for last step) */}
-                  {index < steps.length - 1 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-blue-500/50 to-transparent transform -translate-y-1/2 z-10">
-                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-blue-500/50 rounded-full"></div>
-                    </div>
-                  )}
                 </div>
+
+                {/* Connection Line to Next Card (except for last step) */}
+                {index < steps.length - 1 && (
+                  <motion.div 
+                    className="hidden lg:block absolute top-1/2 left-full w-6 h-0.5 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 transform -translate-y-1/2 z-20"
+                    initial={{ scaleX: 0 }}
+                    animate={stepInView ? { scaleX: 1 } : { scaleX: 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 + (index * 0.2) }}
+                  >
+                    {/* Arrow head */}
+                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-4 border-l-blue-400 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+                  </motion.div>
+                )}
               </motion.div>
             );
           })}
