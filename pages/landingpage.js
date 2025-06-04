@@ -17,6 +17,13 @@ import {
   FiHeart,
   FiChevronLeft,
   FiChevronRight,
+  FiStar,
+  FiTwitter,
+  FiLinkedin,
+  FiMessageSquare,
+  FiMail,
+  FiBook,
+  FiFileText,
 } from "react-icons/fi";
 import {
   useMotionTemplate,
@@ -32,6 +39,8 @@ import { NumberTicker } from "../components/NumberTicker";
 import { BentoCard, BentoGrid } from "../components/BentoGrid";
 import { BorderBeam } from "../components/BorderBeam";
 import { AnimatedBeam } from "../components/AnimatedBeam";
+import { Marquee } from "../components/Marquee";
+import { cn } from "../lib/utils";
 
 // Dynamically import Canvas to avoid SSR issues
 const Canvas = dynamic(
@@ -709,6 +718,183 @@ export const FeatureShowcase = () => {
   );
 };
 
+// Testimonials Section Component
+export const TestimonialsSection = () => {
+  const titleRef = useRef(null);
+  const titleInView = useInView(titleRef, { once: true });
+
+  // Real testimonials for TicketWave
+  const testimonials = [
+    {
+      name: "Sarah Chen",
+      username: "@sarahc_music",
+      body: "Finally, a platform where I know my tickets are real! No more worrying about scams or overpriced scalpers.",
+      img: "https://avatar.vercel.sh/sarah",
+      rating: 5,
+      event: "Taylor Swift Concert"
+    },
+    {
+      name: "Marcus Rivera",
+      username: "@marcus_sports",
+      body: "The World ID verification is genius. Only real fans get tickets, not bots. Fair access for everyone!",
+      img: "https://avatar.vercel.sh/marcus",
+      rating: 5,
+      event: "NBA Finals"
+    },
+    {
+      name: "Emily Johnson",
+      username: "@emilyjfan",
+      body: "I love the NFT memories feature! Got to mint my concert experience as a permanent keepsake.",
+      img: "https://avatar.vercel.sh/emily",
+      rating: 5,
+      event: "Coldplay World Tour"
+    },
+    {
+      name: "David Kim",
+      username: "@davidk_tech",
+      body: "Smart contracts ensure transparent pricing. No hidden fees, no surprises. Just honest ticketing.",
+      img: "https://avatar.vercel.sh/david",
+      rating: 5,
+      event: "Tech Conference 2024"
+    },
+    {
+      name: "Lisa Thompson",
+      username: "@lisa_broadway",
+      body: "Resold my tickets safely through the marketplace when I couldn't attend. Platform kept everything fair!",
+      img: "https://avatar.vercel.sh/lisa",
+      rating: 5,
+      event: "Hamilton Musical"
+    },
+    {
+      name: "Alex Rodriguez",
+      username: "@alexr_fest",
+      body: "No more refreshing pages for hours. TicketWave's fair queue system actually works for real fans.",
+      img: "https://avatar.vercel.sh/alex",
+      rating: 5,
+      event: "Coachella 2024"
+    },
+    {
+      name: "Jamie Park",
+      username: "@jamie_indie",
+      body: "As an artist, I love that my fans get fair access to tickets. No more scalpers ruining my shows!",
+      img: "https://avatar.vercel.sh/jamie",
+      rating: 5,
+      event: "Indie Music Festival"
+    },
+    {
+      name: "Rachel Green",
+      username: "@rachel_classical",
+      body: "The verification process is so smooth. Feels secure knowing everyone in line is a real person.",
+      img: "https://avatar.vercel.sh/rachel",
+      rating: 5,
+      event: "Symphony Orchestra"
+    }
+  ];
+
+  // Split testimonials into two rows for the marquee effect
+  const firstRow = testimonials.slice(0, testimonials.length / 2);
+  const secondRow = testimonials.slice(testimonials.length / 2);
+
+  // Testimonial Card Component
+  const TestimonialCard = ({ img, name, username, body, rating, event, index = 0 }) => {
+    const cardRef = useRef(null);
+    const cardInView = useInView(cardRef, { once: true });
+
+    return (
+      <motion.figure 
+        ref={cardRef}
+        className={cn(
+          "relative h-full w-80 cursor-pointer overflow-hidden rounded-xl p-6 transition-all duration-500",
+          "bg-transparent"
+        )}
+        initial={{ opacity: 0, y: 20 }}
+        animate={cardInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ 
+          duration: 0.6, 
+          delay: index * 0.1,
+          ease: "easeOut"
+        }}
+        whileHover={{
+          scale: 1.02,
+          transition: { duration: 0.2 }
+        }}
+      >
+        {/* Header with avatar and user info */}
+        <div className="flex flex-row items-center gap-3 mb-4">
+          <img 
+            className="rounded-full" 
+            width="40" 
+            height="40" 
+            alt={`${name}'s avatar`} 
+            src={img} 
+          />
+          <div className="flex flex-col">
+            <figcaption className="text-sm font-semibold text-white">
+              {name}
+            </figcaption>
+            <p className="text-xs font-medium text-gray-400">{username}</p>
+          </div>
+          {/* Star rating */}
+          <div className="flex ml-auto">
+            {[...Array(rating)].map((_, i) => (
+              <FiStar key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+            ))}
+          </div>
+        </div>
+
+        {/* Testimonial text */}
+        <blockquote className="text-sm text-gray-300 leading-relaxed mb-3">
+          "{body}"
+        </blockquote>
+
+        {/* Event tag */}
+        <div className="inline-block px-2 py-1 bg-blue-500/15 text-blue-300 text-xs rounded-full">
+          {event}
+        </div>
+      </motion.figure>
+    );
+  };
+
+  return (
+    <section className="relative py-40 text-gray-200">
+      {/* Section Title - Centered with max-width */}
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <motion.div
+          ref={titleRef}
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            What Fans Are Saying
+          </h2>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            Real testimonials from users
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Marquee Testimonials - Full width */}
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+        {/* First row - left to right */}
+        <Marquee pauseOnHover className="[--duration:25s] mb-4" repeat={4}>
+          {firstRow.map((testimonial, index) => (
+            <TestimonialCard key={testimonial.username} {...testimonial} index={index} />
+          ))}
+        </Marquee>
+        
+        {/* Second row - right to left */}
+        <Marquee reverse pauseOnHover className="[--duration:25s]" repeat={4}>
+          {secondRow.map((testimonial, index) => (
+            <TestimonialCard key={testimonial.username} {...testimonial} index={index} />
+          ))}
+        </Marquee>
+      </div>
+    </section>
+  );
+};
+
 // How it Works Section Component
 export const HowItWorksSection = () => {
   const titleRef = useRef(null);
@@ -757,12 +943,12 @@ export const HowItWorksSection = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            
+          <p>How it Works</p>
           </h2>
         </motion.div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">  
           {steps.map((step, index) => {
             const stepRef = useRef(null);
             const stepInView = useInView(stepRef, { once: true });
@@ -823,6 +1009,244 @@ export const HowItWorksSection = () => {
   );
 };
 
+// Final CTA Section Component
+export const FinalCTASection = () => {
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const buttonsRef = useRef(null);
+
+  const titleInView = useInView(titleRef, { once: true });
+  const subtitleInView = useInView(subtitleRef, { once: true });
+  const buttonsInView = useInView(buttonsRef, { once: true });
+
+  // Motion value for animating the gradient color
+  const color = useMotionValue(COLORS_TOP[0]);
+
+  useEffect(() => {
+    // Animate through all colors in an infinite loop
+    animate(color, COLORS_TOP, {
+      ease: "easeInOut",
+      duration: 7,
+      repeat: Infinity,
+      repeatType: "mirror",
+    });
+  }, []);
+
+  // Create dynamic CSS properties using motion templates
+  const border = useMotionTemplate`1px solid ${color}`;
+  const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;
+
+  return (
+    <section className="relative py-40 px-4 text-gray-200">
+      <div className="max-w-4xl mx-auto relative z-10 text-center">
+        {/* Main CTA Title */}
+        <motion.h2
+          ref={titleRef}
+          className="text-4xl md:text-6xl font-bold text-white mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+        >
+          Ready to Experience Fair Ticketing?
+        </motion.h2>
+
+        {/* Subtitle */}
+        <motion.p
+          ref={subtitleRef}
+          className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={subtitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          
+          No more bots, no more scams, no more scalpers.
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          ref={buttonsRef}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={buttonsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {/* Primary CTA Button */}
+          <motion.button
+            style={{
+              border,
+              boxShadow,
+            }}
+            whileHover={{
+              scale: 1.05,
+            }}
+            whileTap={{
+              scale: 0.95,
+            }}
+            className="group relative flex w-fit items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-8 py-4 text-white font-semibold transition-all duration-300 shadow-lg"
+          >
+            <Link href="/" className="flex items-center gap-2">
+              Try it now
+              <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </motion.button>
+
+          {/* Secondary CTA Button */}
+          <motion.button
+            whileHover={{
+              scale: 1.05,
+            }}
+            whileTap={{
+              scale: 0.95,
+            }}
+            className="group relative flex w-fit items-center gap-2 rounded-full border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 px-8 py-4 text-white font-semibold transition-all duration-300 backdrop-blur-sm"
+          >
+            <Link href="/" className="flex items-center gap-2">
+              <FiCalendar className="transition-transform group-hover:scale-110" />
+              View Events
+            </Link>
+          </motion.button>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+};
+
+// Footer Component
+export const Footer = () => {
+  const footerRef = useRef(null);
+  const footerInView = useInView(footerRef, { once: true });
+
+  // Footer links data
+  const footerLinks = [
+    { name: "About", href: "/about", icon: FiUsers },
+    { name: "Contact", href: "/contact", icon: FiMail },
+    { name: "Privacy", href: "/privacy", icon: FiShield },
+    { name: "Docs", href: "/docs", icon: FiBook },
+  ];
+
+  // Social media links
+  const socialLinks = [
+    { 
+      name: "Twitter", 
+      href: "https://twitter.com/ticketwave", 
+      icon: FiTwitter,
+      color: "hover:text-blue-400"
+    },
+    { 
+      name: "Discord", 
+      href: "https://discord.gg/ticketwave", 
+      icon: FiMessageSquare,
+      color: "hover:text-purple-400"
+    },
+    { 
+      name: "LinkedIn", 
+      href: "https://linkedin.com/company/ticketwave", 
+      icon: FiLinkedin,
+      color: "hover:text-blue-500"
+    },
+  ];
+
+  return (
+    <footer className="relative border-t border-white/10 bg-gray-950/50 backdrop-blur-sm">
+      <motion.div
+        ref={footerRef}
+        className="max-w-7xl mx-auto px-4 py-12"
+        initial={{ opacity: 0, y: 20 }}
+        animate={footerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+          {/* Logo and Branding */}
+          <div className="text-center md:text-left">
+            <Link href="/" className="inline-flex items-center gap-2 group">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">
+                <span className="text-white font-bold text-lg">TW</span>
+              </div>
+              <span className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
+                TicketWave
+              </span>
+            </Link>
+            <p className="text-gray-400 mt-2 text-sm">
+              Fair ticketing for real fans
+            </p>
+          </div>
+
+          {/* Footer Links */}
+          <div className="flex justify-center">
+            <nav className="grid grid-cols-2 gap-4">
+              {footerLinks.map((link, index) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={footerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <Link 
+                    href={link.href}
+                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 text-sm group"
+                  >
+                    <link.icon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex justify-center md:justify-end">
+            <div className="flex items-center gap-4">
+              {socialLinks.map((social, index) => (
+                <motion.div
+                  key={social.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={footerInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.4, delay: 0.2 + (index * 0.1) }}
+                >
+                  <Link
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 ${social.color} transition-all duration-300 hover:scale-110 group border border-white/10 hover:border-white/20`}
+                    aria-label={social.name}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <motion.div
+          className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={footerInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <p className="text-gray-400 text-sm text-center md:text-left">
+            © 2024 TicketWave. All rights reserved. Built with love for real fans.
+          </p>
+          
+          {/* Additional Trust Badges */}
+          <div className="flex items-center gap-4 text-xs text-gray-500">
+            <div className="flex items-center gap-1">
+              <FiShield className="w-3 h-3 text-green-400" />
+              <span>Blockchain Secured</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <FiUsers className="w-3 h-3 text-blue-400" />
+              <span>WorldCoin Verified</span>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </footer>
+  );
+};
+
 // Main Landing Page Container with Fixed Background
 export default function LandingPage() {
   // State to track if component is mounted (client-side)
@@ -873,6 +1297,9 @@ export default function LandingPage() {
         <SolutionSection />
         <FeatureShowcase />
         <HowItWorksSection />
+        <TestimonialsSection />
+        <FinalCTASection />
+        <Footer />
       </div>
     </div>
   );
