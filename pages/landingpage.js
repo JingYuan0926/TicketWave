@@ -719,6 +719,66 @@ export const FeatureShowcase = () => {
   );
 };
 
+// Testimonial Card Component (moved outside to avoid hooks in callbacks)
+const TestimonialCard = ({ img, name, username, body, rating, event, index = 0 }) => {
+  const cardRef = useRef(null);
+  const cardInView = useInView(cardRef, { once: true });
+
+  return (
+    <motion.figure 
+      ref={cardRef}
+      className={cn(
+        "relative h-full w-80 cursor-pointer overflow-hidden rounded-xl p-6 transition-all duration-500",
+        "bg-transparent"
+      )}
+      initial={{ opacity: 0, y: 20 }}
+      animate={cardInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ 
+        duration: 0.6, 
+        delay: index * 0.1,
+        ease: "easeOut"
+      }}
+      whileHover={{
+        scale: 1.02,
+        transition: { duration: 0.2 }
+      }}
+    >
+      {/* Header with avatar and user info */}
+      <div className="flex flex-row items-center gap-3 mb-4">
+        <img 
+          className="rounded-full" 
+          width="40" 
+          height="40" 
+          alt={`${name}'s avatar`} 
+          src={img} 
+        />
+        <div className="flex flex-col">
+          <figcaption className="text-sm font-semibold text-white">
+            {name}
+          </figcaption>
+          <p className="text-xs font-medium text-gray-400">{username}</p>
+        </div>
+        {/* Star rating */}
+        <div className="flex ml-auto">
+          {[...Array(rating)].map((_, i) => (
+            <FiStar key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+          ))}
+        </div>
+      </div>
+
+      {/* Testimonial text */}
+      <blockquote className="text-sm text-gray-300 leading-relaxed mb-3">
+      &quot;{body}&quot;
+      </blockquote>
+
+      {/* Event tag */}
+      <div className="inline-block px-2 py-1 bg-blue-500/15 text-blue-300 text-xs rounded-full">
+        {event}
+      </div>
+    </motion.figure>
+  );
+};
+
 // Testimonials Section Component
 export const TestimonialsSection = () => {
   const titleRef = useRef(null);
@@ -796,66 +856,6 @@ export const TestimonialsSection = () => {
   const firstRow = testimonials.slice(0, testimonials.length / 2);
   const secondRow = testimonials.slice(testimonials.length / 2);
 
-  // Testimonial Card Component
-  const TestimonialCard = ({ img, name, username, body, rating, event, index = 0 }) => {
-    const cardRef = useRef(null);
-    const cardInView = useInView(cardRef, { once: true });
-
-    return (
-      <motion.figure 
-        ref={cardRef}
-        className={cn(
-          "relative h-full w-80 cursor-pointer overflow-hidden rounded-xl p-6 transition-all duration-500",
-          "bg-transparent"
-        )}
-        initial={{ opacity: 0, y: 20 }}
-        animate={cardInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ 
-          duration: 0.6, 
-          delay: index * 0.1,
-          ease: "easeOut"
-        }}
-        whileHover={{
-          scale: 1.02,
-          transition: { duration: 0.2 }
-        }}
-      >
-        {/* Header with avatar and user info */}
-        <div className="flex flex-row items-center gap-3 mb-4">
-          <img 
-            className="rounded-full" 
-            width="40" 
-            height="40" 
-            alt={`${name}'s avatar`} 
-            src={img} 
-          />
-          <div className="flex flex-col">
-            <figcaption className="text-sm font-semibold text-white">
-              {name}
-            </figcaption>
-            <p className="text-xs font-medium text-gray-400">{username}</p>
-          </div>
-          {/* Star rating */}
-          <div className="flex ml-auto">
-            {[...Array(rating)].map((_, i) => (
-              <FiStar key={i} className="w-3 h-3 text-yellow-400 fill-current" />
-            ))}
-          </div>
-        </div>
-
-        {/* Testimonial text */}
-        <blockquote className="text-sm text-gray-300 leading-relaxed mb-3">
-          "{body}"
-        </blockquote>
-
-        {/* Event tag */}
-        <div className="inline-block px-2 py-1 bg-blue-500/15 text-blue-300 text-xs rounded-full">
-          {event}
-        </div>
-      </motion.figure>
-    );
-  };
-
   return (
     <section className="relative py-40 text-gray-200">
       {/* Section Title - Centered with max-width */}
@@ -932,6 +932,18 @@ export const HowItWorksSection = () => {
     },
   ];
 
+  // Create refs for all steps at once
+  const stepRefs = useRef([]);
+  stepRefs.current = steps.map((_, index) => stepRefs.current[index] ?? React.createRef());
+  
+  // Create inView tracking for all steps - individual calls instead of map
+  const step0InView = useInView(stepRefs.current[0], { once: true });
+  const step1InView = useInView(stepRefs.current[1], { once: true });
+  const step2InView = useInView(stepRefs.current[2], { once: true });
+  const step3InView = useInView(stepRefs.current[3], { once: true });
+  
+  const stepInViews = [step0InView, step1InView, step2InView, step3InView];
+
   return (
     <section className="relative py-40 px-4 text-gray-200">
       <div className="max-w-7xl mx-auto relative z-10">
@@ -951,8 +963,8 @@ export const HowItWorksSection = () => {
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">  
           {steps.map((step, index) => {
-            const stepRef = useRef(null);
-            const stepInView = useInView(stepRef, { once: true });
+            const stepRef = stepRefs.current[index];
+            const stepInView = stepInViews[index];
 
             return (
               <motion.div
