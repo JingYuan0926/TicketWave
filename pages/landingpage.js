@@ -491,7 +491,7 @@ export const SolutionSection = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            How TicketWave Fixes This
+            Our Solution
           </h2>
         </motion.div>
 
@@ -757,7 +757,7 @@ export const HowItWorksSection = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            How TicketWave Works
+            
           </h2>
         </motion.div>
 
