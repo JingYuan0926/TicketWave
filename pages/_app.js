@@ -7,6 +7,7 @@ import { ThirdwebProvider } from "thirdweb/react";
 import Head from "next/head";
 import InstallPWA from "../components/InstallPWA";
 import { useRouter } from "next/router";
+import { Analytics } from '@vercel/analytics/react';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -45,6 +46,9 @@ function MyApp({ Component, pageProps }) {
           <InstallPWA />
         </div>
       </NextUIProvider>
+      
+      {/* Vercel Analytics - tracks page views and user interactions */}
+      <Analytics />
     </ThirdwebProvider>
   );
 }
