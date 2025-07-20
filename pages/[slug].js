@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { Card, CardBody, Image, Button, Chip, Divider, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import { IoCalendarOutline, IoLocationOutline, IoTimeOutline, IoPeopleOutline } from "react-icons/io5";
 import concertData from '../data/data.json';
+import studentsData from '../data/students.json';
 import { prepareContractCall } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
 import { contract } from "../utils/client";
@@ -95,13 +96,124 @@ const DetailsPage = () => {
         }
 
         if (!selectedTicketType || !id || !concert) return;
-        onPurchaseOpen();
+        
+        // For events 8, 9, and 12, skip the modal and go directly to purchase
+        if ([8, 9, 12].includes(Number(id))) {
+            await directPurchase();
+        } else {
+            onPurchaseOpen();
+        }
+    };
+
+    // Direct purchase function for events that don't require user details
+    const directPurchase = async () => {
+        try {
+            setIsConfirming(true);
+            setTransactionStatus('loading');
+            const seatTypeFormatted = selectedTicketType.charAt(0).toUpperCase() + selectedTicketType.slice(1);
+
+            // Handle blockchain transaction
+            const transaction = prepareContractCall({
+                contract,
+                method: "function purchaseTicket(uint256 concertId, string imageURI, string seatType)",
+                params: [
+                    Number(id),
+                    concert.imgCard,
+                    seatTypeFormatted
+                ]
+            });
+
+            let transactionHash = null;
+
+            await sendTransaction(transaction, {
+                onSubmitted: (hash) => {
+                    setTransactionStatus('loading');
+                    transactionHash = hash;
+                },
+                onSuccess: async (result) => {
+                    // Store in Firebase without user details for these events
+                    try {
+                        const docRef = doc(db, "purchases", wallet.address);
+                        const docSnap = await getDoc(docRef);
+                        
+                        let existingData = docSnap.exists() ? docSnap.data() : { tickets: [] };
+                        
+                        const newTicket = {
+                            timestamp: new Date(),
+                            user: {
+                                email: "N/A",
+                                name: "N/A", 
+                                university: "N/A",
+                                walletAddress: wallet.address
+                            },
+                            event: {
+                                id: Number(id),
+                                name: concert.title,
+                                ticketType: seatTypeFormatted,
+                                price: concert.price[selectedTicketType],
+                                venue: concert.venue.name,
+                                date: concert.date,
+                                time: concert.time
+                            },
+                            status: 'completed',
+                            transactionHash: transactionHash
+                        };
+                        
+                        await setDoc(doc(db, "purchases", wallet.address), {
+                            tickets: [...(existingData.tickets || []), newTicket]
+                        }, { merge: true });
+
+                        console.log("Purchase document updated with new ticket");
+                        setTransactionStatus('success');
+                        setIsConfirming(false);
+                        setShouldRefresh(prev => !prev);
+                        onPurchaseOpen(); // Show success modal
+
+                    } catch (firebaseError) {
+                        console.error("Failed to store purchase data:", firebaseError);
+                        setTransactionStatus('success');
+                        setIsConfirming(false);
+                        onPurchaseOpen(); // Show success modal even if Firebase fails
+                    }
+                },
+                onError: (error) => {
+                    console.error("Blockchain transaction failed:", error);
+                    setTransactionStatus('error');
+                    setIsConfirming(false);
+                    onPurchaseOpen(); // Show error modal
+                }
+            });
+
+        } catch (error) {
+            console.error("Transaction failed:", error);
+            setTransactionStatus('error');
+            setIsConfirming(false);
+            onPurchaseOpen(); // Show error modal
+        }
     };
 
     // Add email validation function
     const isValidEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
+    };
+
+    // Add student validation function
+    const isValidStudent = (email, name, university) => {
+        // For events 8, 9, and 12, skip name checking
+        const skipNameCheck = [8, 9, 12].includes(Number(id));
+        
+        return studentsData.students.some(student => {
+            const emailMatch = student.email.toLowerCase() === email.toLowerCase();
+            const universityMatch = student.university.toLowerCase() === university.toLowerCase();
+            const nameMatch = student.name.toLowerCase() === name.toLowerCase();
+            
+            if (skipNameCheck) {
+                return emailMatch && universityMatch;
+            } else {
+                return emailMatch && nameMatch && universityMatch;
+            }
+        });
     };
 
     const confirmPurchase = async () => {
@@ -114,6 +226,12 @@ const DetailsPage = () => {
         // Validate email format
         if (!isValidEmail(userInfo.email)) {
             alert("Please enter a valid email address");
+            return;
+        }
+
+        // Validate student details against database
+        if (!isValidStudent(userInfo.email, userInfo.name, userInfo.university)) {
+            alert("Your details do not match our student database. Please ensure your email, name, and university are correct and that you are registered as a student.");
             return;
         }
 
@@ -593,16 +711,19 @@ const DetailsPage = () => {
                                     color="primary"
                                     size="lg"
                                     className={`w-full ${(!selectedTicketType || !wallet?.address || ticketsRemaining <= 0) ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    disabled={!selectedTicketType || !wallet?.address || ticketsRemaining <= 0}
+                                    disabled={!selectedTicketType || !wallet?.address || ticketsRemaining <= 0 || isConfirming}
+                                    isLoading={isConfirming && [8, 9, 12].includes(Number(id))}
                                     onClick={handleBuyTickets}
                                 >
                                     {ticketsRemaining <= 0
                                         ? 'Sold Out'
                                         : !wallet?.address
                                             ? 'Sign in first before buying tickets'
-                                            : selectedTicketType
-                                                ? 'Buy Ticket'
-                                                : 'Select a Ticket Type'
+                                            : isConfirming && [8, 9, 12].includes(Number(id))
+                                                ? 'Processing Transaction...'
+                                                : selectedTicketType
+                                                    ? 'Buy Ticket'
+                                                    : 'Select a Ticket Type'
                                     }
                                 </Button>
 
@@ -638,32 +759,59 @@ const DetailsPage = () => {
                                             <p>Ticket Type: {selectedTicketType?.charAt(0).toUpperCase() + selectedTicketType?.slice(1)}</p>
                                             <p>Price: {concert.price[selectedTicketType] === 0 ? 'Free' : `$${concert.price[selectedTicketType].toFixed(2)}`}</p>
                                         </div>
-                                        <div className="space-y-4">
-                                            <input
-                                                type="email"
-                                                placeholder="Email"
-                                                className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-primary ${userInfo.email && !isValidEmail(userInfo.email)
-                                                    ? 'border-danger text-danger'
-                                                    : 'border-default-200'
-                                                    }`}
-                                                value={userInfo.email}
-                                                onChange={(e) => setUserInfo(prev => ({ ...prev, email: e.target.value }))}
-                                            />
-                                            <input
-                                                type="text"
-                                                placeholder="Full Name"
-                                                className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
-                                                value={userInfo.name}
-                                                onChange={(e) => setUserInfo(prev => ({ ...prev, name: e.target.value }))}
-                                            />
-                                            <input
-                                                type="text"
-                                                placeholder="University/Workspace"
-                                                className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
-                                                value={userInfo.university}
-                                                onChange={(e) => setUserInfo(prev => ({ ...prev, university: e.target.value }))}
-                                            />
-                                        </div>
+                                        
+                                        {/* Only show user input form for events that are NOT 8, 9, or 12 */}
+                                        {![8, 9, 12].includes(Number(id)) && (
+                                            <>
+                                                <div className="space-y-4">
+                                                    <input
+                                                        type="email"
+                                                        placeholder="Email"
+                                                        className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-primary ${userInfo.email && !isValidEmail(userInfo.email)
+                                                            ? 'border-danger text-danger'
+                                                            : 'border-default-200'
+                                                            }`}
+                                                        value={userInfo.email}
+                                                        onChange={(e) => setUserInfo(prev => ({ ...prev, email: e.target.value }))}
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Full Name"
+                                                        className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
+                                                        value={userInfo.name}
+                                                        onChange={(e) => setUserInfo(prev => ({ ...prev, name: e.target.value }))}
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        placeholder="University/Workspace"
+                                                        className="w-full px-4 py-2 rounded-lg border border-default-200 focus:outline-none focus:border-primary"
+                                                        value={userInfo.university}
+                                                        onChange={(e) => setUserInfo(prev => ({ ...prev, university: e.target.value }))}
+                                                    />
+                                                    
+                                                    {/* Validation Status */}
+                                                    {userInfo.email && userInfo.name && userInfo.university && (
+                                                        <div className={`p-3 rounded-lg text-sm ${
+                                                            isValidStudent(userInfo.email, userInfo.name, userInfo.university)
+                                                                ? 'bg-success/10 text-success border border-success/20'
+                                                                : 'bg-warning/10 text-warning border border-warning/20'
+                                                        }`}>
+                                                            {isValidStudent(userInfo.email, userInfo.name, userInfo.university)
+                                                                ? '✅ Student details verified'
+                                                                : '⚠️ Student details not found in database'}
+                                                        </div>
+                                                    )}
+                                                    
+                                                    {/* Helper Text */}
+                                                    <div className="bg-default-50 p-3 rounded-lg text-sm text-default-600">
+                                                        <p className="font-medium mb-1">📝 Student Verification Required</p>
+                                                        <p>
+                                                            Your email{[8, 9, 12].includes(Number(id)) ? '' : ', name,'} and university must match our student database to purchase tickets. Please ensure all details are entered exactly as registered.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
                                     </>
                                 )}
                                 {transactionStatus === 'success' && (
@@ -711,7 +859,7 @@ const DetailsPage = () => {
                                 )}
                             </ModalBody>
                             <ModalFooter>
-                                {transactionStatus === 'pending' && (
+                                {transactionStatus === 'pending' && ![8, 9, 12].includes(Number(id)) && (
                                     <Button
                                         color="primary"
                                         onPress={confirmPurchase}

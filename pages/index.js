@@ -12,13 +12,13 @@ export default function Home() {
   // Separate configurations for each component
   const config = {
     slider: {
-      concertIds: [9,10,11] // IDs for slider
+      concertIds: [8,9,10,11,12] // IDs for slider
     },
     concertCard: {
-      concertIds: [9,10,11] // IDs for concert cards
+      concertIds: [8,9,10,11,12] // IDs for concert cards
     },
     events: {
-      concertIds: [9,10,11] // IDs for events page
+      concertIds: [8,9,10,11,12] // IDs for events page
     }
   };
 

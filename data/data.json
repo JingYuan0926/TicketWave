@@ -420,6 +420,29 @@
             "telegramGroup": "https://t.me/superteammy",
             "certificateType": "participation",
             "additionalInfo": "**Certificate Minting for Top 30 Hackathon Finalists**\n\nThis exclusive certificate is available only for participants who:\n✅ Made it to the top 30 submissions\n✅ Pitched at MegaHack Demo Day on May 24th at Taylor's University\n✅ Successfully completed all submission requirements\n\n**About SuperteamMY Mega Hackathon:**\nA comprehensive hackathon designed to onboard new developers and groom aspiring founders in the Solana ecosystem. This open-topic, open-to-all hackathon encouraged building across multiple cutting-edge tracks.\n\n**🏆 Total Prize Pool: $15,000 USDC**\nWith prizes ranging from $500 to $5,000 USDC for the top 10 teams.\n\n**🛠️ Building Tracks:**\n- DePIN (Decentralized Physical Infrastructure)\n- Stablecoins\n- DeFi (Decentralized Finance)  \n- AI (Artificial Intelligence)\n- Gaming\n- Infrastructure\n- Consumer Applications\n\n**📋 Judging Focus:**\n- Technical implementation and code quality (40%)\n- Real-world impact and practicality (30%)\n- Presentation clarity and demo effectiveness (20%)\n- User experience and design quality (10%)\n\n**🔗 Resources Provided:**\n- Month-long workshop series for skill development\n- Comprehensive hacker pack with tools and documentation\n- Networking opportunities with industry professionals\n- Access to Solana ecosystem primitives and integrations\n\n**🎯 Certificate Benefits:**\n- Proof of top 30 finalist achievement in Solana hackathon\n- NFT certificate on Solana blockchain\n- Recognition in the Superteam Malaysia ecosystem\n- Portfolio credibility for future web3 opportunities\n- Access to exclusive Superteam events and networking\n\n**⚡ Powered by Solana:**\nThis hackathon emphasized leveraging Solana's high performance and low costs to create exceptional user experiences and innovative solutions.\n\n**Eligibility Verification Required:**\nOnly verified top 30 finalists who pitched at Demo Day can mint this certificate. Verification includes submission proof and Demo Day attendance confirmation.\n\n🚀 Celebrate your achievement in the Solana ecosystem with this exclusive blockchain-verified certificate!"
+        },
+        {
+            "id": 12,
+            "title": "SCS Presentation",
+            "imgCard": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7LSSKeOYwgUTZfoBqRjbw3KUXIWQohJyxAg&s",
+            "imgCover": "https://www.edmates.com/wp-content/uploads/2022/09/Taylors_Lakeside_Campus.jpg",
+            "date": "23/7/2025",
+            "time": "10:00",
+            "location": "Taylor's University Bizpod",
+            "description": "SCS Presentation for Ticketwave to show the prototype",
+            "price": {
+                "Free": 0.00
+            },
+            "contractAddress": "0x1234567890abcdef1234567890abcdef12345678",
+            "venue": {
+                "name": "Bizpod",
+                "address": "Taylor's University Lakeside Campus",
+                "capacity": 20
+            },
+            "artists": [
+                "Bizpod"
+            ],
+            "additionalInfo": "Please buy tickets and scan on entry. Entry is free."
         }
     ]
 }
