@@ -42,20 +42,7 @@ import { AnimatedBeam } from "../components/AnimatedBeam";
 import { Marquee } from "../components/Marquee";
 import { cn } from "../lib/utils";
 
-// Dynamically import Canvas to avoid SSR issues
-const Canvas = dynamic(
-  () => import("@react-three/fiber").then((mod) => ({ default: mod.Canvas })),
-  {
-    ssr: false,
-  }
-);
-
-const Stars = dynamic(
-  () => import("@react-three/drei").then((mod) => ({ default: mod.Stars })),
-  {
-    ssr: false,
-  }
-);
+// Removed Canvas and Stars imports - no longer needed
 
 // Array of colors for the animated gradient background
 const COLORS_TOP = ["#3B82F6", "#1E40AF", "#0EA5E9", "#0284C7"];
@@ -787,12 +774,12 @@ export const TestimonialsSection = () => {
   // Real testimonials for TicketWave
   const testimonials = [
     {
-      name: "Vincent Kok",
-      username: "@vincentkok",
+      name: "Jessica Ho",
+      username: "@jessicaaaa",
       body: "Finally, a ticketing platform for fans! No more getting scammed by fake tickets!",
       img: "https://avatar.vercel.sh/sarah",
       rating: 5,
-      event: "Bizpod Assessment"
+      event: "TARUMT Blockchain Club"
     },
     {
       name: "Derek Liew",
@@ -1268,16 +1255,10 @@ export const Footer = () => {
 
 // Main Landing Page Container with Fixed Background
 export default function LandingPage() {
-  // State to track if component is mounted (client-side)
-  const [isMounted, setIsMounted] = useState(false);
-
   // Motion value for animating the gradient color
   const color = useMotionValue(COLORS_TOP[0]);
 
   useEffect(() => {
-    // Set mounted to true after component mounts
-    setIsMounted(true);
-
     // Animate through all colors in an infinite loop
     animate(color, COLORS_TOP, {
       ease: "easeInOut",
@@ -1299,15 +1280,6 @@ export default function LandingPage() {
         }}
         className="fixed inset-0 bg-gray-950 z-0"
       />
-
-      {/* Fixed 3D Stars background animation - covers entire viewport */}
-      {isMounted && (
-        <div className="fixed inset-0 z-10">
-          <Canvas>
-            <Stars radius={50} count={2500} factor={4} fade speed={2} />
-          </Canvas>
-        </div>
-      )}
 
       {/* Scrollable Content Layer */}
       <div className="relative z-20">
